@@ -6,11 +6,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-public class AsignaturaControlador {
+public class LoginControlador {
 	
     @GetMapping("/")
-    public String getMethodName() {
-        return "hola"; // Este nombre puede indicar una plantilla Thymeleaf o similar.
+    public String getLandingPage() {
+        return "LandingPage";
+    }
+    
+    @GetMapping("/login")
+    public String getLogin() {
+    	return "Login";
+    }
+    
+    @GetMapping("/registro")
+    public String getRegistro() {
+    	return "Registrarse";
     }
 }
 
