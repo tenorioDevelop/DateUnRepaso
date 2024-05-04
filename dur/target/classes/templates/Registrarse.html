@@ -12,21 +12,16 @@
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
 
-			<form>
-				<input type="text" name="nombreReg" placeholder="Nombre y apellidos">
-				<input type="text" name="dniReg" placeholder="DNI"> <input
-					type="date" name="fechaNacReg" placeholder="Fecha de nacimiento">
-				<input type="text" name="correoReg" placeholder="Correo electrónico">
-				<input type="password" name="contrasenaReg" placeholder="Contraseña">
-				<input type="password" name="contrasenaRepReg"
-					placeholder="Repetir contraseña">
+			<form method="post" th:action="@{/registrarse}">
+				<input type="text" name="nombreReg" placeholder="Nombre y apellidos" required>
+				<input type="text" name="dniReg" placeholder="DNI" required> 
+				<input type="date" name="fechaNacReg" placeholder="Fecha de nacimiento" required>
+				<input type="text" name="correoReg" placeholder="Correo electrónico" required>
+				<input type="password" name="contrasenaReg" placeholder="Contraseña" required>
+				<input type="password" name="contrasenaRepReg" placeholder="Repetir contraseña" required>
 				<div>
-					<div>
-						<a><i></i>Profesor</a>
-					</div>
-					<div>
-						<a><i></i>Alumno</a>
-					</div>
+					<input type="checkbox" value="esProfesor" name="perfilSel">Profesor
+					<input type="checkbox" value="esAlumno" name="perfilSel">Alumno
 				</div>
 				<input type="checkbox" name="recordarReg">Recuerdame <input
 					type="submit" name="botonReg" value="Registro">

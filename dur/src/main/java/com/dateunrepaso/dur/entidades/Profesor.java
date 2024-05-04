@@ -27,7 +27,7 @@ public class Profesor {
 
 	private String contrasena;
 
-	private Date fechaNac;
+	private String fechaNac;
 
 	@ManyToOne
 	@JoinColumn(name = "idAsignatura", foreignKey = @ForeignKey(name = "idAsignaturaFK"))
@@ -38,7 +38,7 @@ public class Profesor {
 	}
 
 	public Profesor(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
-			Date fechaNac, Asignatura asignatura) {
+			String fechaNac, Asignatura asignatura) {
 		this.id = id;
 		this.dni = dni;
 		this.nomCompleto = nomCompleto;
@@ -91,11 +91,11 @@ public class Profesor {
 		this.contrasena = contrasena;
 	}
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 

@@ -23,14 +23,14 @@ public class Alumno {
 
 	private String contrasena;
 
-	private Date fechaNac;
+	private String fechaNac;
 
 	public Alumno() {
 		super();
 	}
 
 	public Alumno(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
-			Date fechaNac) {
+			String fechaNac) {
 		super();
 		this.id = id;
 		this.dni = dni;
@@ -89,11 +89,11 @@ public class Alumno {
 		this.contrasena = contrasena;
 	}
 
-	public Date getFechaNac() {
+	public String getFechaNac() {
 		return fechaNac;
 	}
 
-	public void setFechaNac(Date fechaNac) {
+	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 	
