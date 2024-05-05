@@ -2,6 +2,8 @@ package com.dateunrepaso.dur.entidades;
 
 import java.sql.Date;
 
+import com.dateunrepaso.dur.enums.Roles;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,8 @@ public class Profesor {
 	private String contrasena;
 
 	private String fechaNac;
+	
+	private Roles rol;
 
 	@ManyToOne
 	@JoinColumn(name = "idAsignatura", foreignKey = @ForeignKey(name = "idAsignaturaFK"))
@@ -109,6 +113,14 @@ public class Profesor {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Roles getRol() {
+		return rol;
+	}
+
+	public void setRol(Roles rol) {
+		this.rol = rol;
 	}
 
 }

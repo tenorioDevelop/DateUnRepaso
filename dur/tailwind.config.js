@@ -10,6 +10,9 @@ module.exports = {
 				'segundo': '#a594f9',
 				'tercero': '#cdc1ff',
 				'cuarto': '#f5efff'
+			},
+			fontFamily: {
+				principal: ['"Source Sans 3"']
 			}
 		}
 	},

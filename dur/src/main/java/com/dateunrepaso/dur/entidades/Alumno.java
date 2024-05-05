@@ -2,6 +2,8 @@ package com.dateunrepaso.dur.entidades;
 
 import java.sql.Date;
 
+import com.dateunrepaso.dur.enums.Roles;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,8 @@ public class Alumno {
 	private String contrasena;
 
 	private String fechaNac;
+	
+	private Roles rol;
 
 	public Alumno() {
 		super();
@@ -95,6 +99,14 @@ public class Alumno {
 
 	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
+	}
+
+	public Roles getRol() {
+		return rol;
+	}
+
+	public void setRol(Roles rol) {
+		this.rol = rol;
 	}
 	
 	
