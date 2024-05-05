@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Registrarse</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{styles.css}">
+	<title>Registrarse</title>
 </head>
+
 <body>
 	<section>
 		<div>
@@ -12,9 +15,9 @@
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
 
-			<form method="post" th:action="@{/registrarse}">
+			<form method="post" th:action="@{/registro}">
 				<input type="text" name="nombreReg" placeholder="Nombre y apellidos" required>
-				<input type="text" name="dniReg" placeholder="DNI" required> 
+				<input type="text" name="dniReg" placeholder="DNI" required>
 				<input type="date" name="fechaNacReg" placeholder="Fecha de nacimiento" required>
 				<input type="text" name="correoReg" placeholder="Correo electrónico" required>
 				<input type="password" name="contrasenaReg" placeholder="Contraseña" required>
@@ -23,10 +26,10 @@
 					<input type="checkbox" value="esProfesor" name="perfilSel">Profesor
 					<input type="checkbox" value="esAlumno" name="perfilSel">Alumno
 				</div>
-				<input type="checkbox" name="recordarReg">Recuerdame <input
-					type="submit" name="botonReg" value="Registro">
+				<input type="submit" name="botonReg" value="Registro">
 			</form>
 		</div>
 	</section>
 </body>
+
 </html>

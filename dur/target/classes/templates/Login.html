@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Login</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{styles.css}">
+	<title>Login</title>
 </head>
+
 <body>
 	<section>
 		<div>
@@ -12,7 +15,7 @@
 				¿No tienes cuenta? <a th:href="@{/registro}">Registrate aquí.</a>
 			</p>
 
-			<form>
+			<form method="post" th:action="@{/login}">
 				<input type="text" name="correoLogin" placeholder="Correo electrónico">
 				<input type="password" name="contrasenaLogin" placeholder="Contraseña">
 				<input type="checkbox" name="recordarLogin">Recuerdame
@@ -21,4 +24,5 @@
 		</div>
 	</section>
 </body>
+
 </html>

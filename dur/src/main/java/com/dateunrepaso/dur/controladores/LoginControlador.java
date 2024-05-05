@@ -1,28 +1,27 @@
 package com.dateunrepaso.dur.controladores;
 
-import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class LoginControlador {
-	
+
 	@Autowired
-	private ProfesorRepo repoProfesor;
-	
+	private ProfesorRepo profesorRepo;
+
 	@Autowired
-	private AlumnoRepo repoAlumno;
+	private AlumnoRepo alumnoRepo;
 
 	@GetMapping("/")
 	public String getLandingPage() {
@@ -34,28 +33,64 @@ public class LoginControlador {
 		return "Login";
 	}
 
+	@PostMapping("/login")
+	public String getInicioSesion(@RequestParam(name = "correoLogin") String correoLogin,
+			@RequestParam(name = "contrasenaLogin") String contrasenaLogin) {
+
+		Optional<Alumno> alumnoOpt = alumnoRepo.findByCorreo(correoLogin);
+		Optional<Profesor> profesorOpt = profesorRepo.findByCorreo(correoLogin);
+
+		if (!alumnoOpt.isEmpty()) {
+			Alumno alumno = alumnoOpt.get();
+			if (alumno.getContrasena().equals(contrasenaLogin)) {
+				return "redirect:/app";
+			} else {
+				return "redirect:/login";
+			}
+		} else if (!profesorOpt.isEmpty()){
+			Profesor profesor = profesorOpt.get();
+			if (profesor.getContrasena().equals(contrasenaLogin)) {
+				return "redirect:/app";
+			} else {
+				return "redirect:/login";
+			}
+		}
+
+		return "redirect:/login";
+		
+	}
+
 	@GetMapping("/registro")
 	public String getRegistro() {
 		return "Registrarse";
 	}
 
-	@PostMapping("/registrarse")
-	public void getNewUsuario(@RequestParam(name = "nombreReg") String nombre,
+	@PostMapping("/registro")
+	public String getNewUsuario(@RequestParam(name = "nombreReg") String nombre,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
-			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, @RequestParam(name = "perfilSel") String perfil) {
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			@RequestParam(name = "perfilSel") String perfil) {
+
 		if (contrasena.equals(contrasenaRep)) {
+
 			if (perfil.equals("esProfesor")) {
-				
+
 				Profesor profesor = new Profesor(null, dni, nombre, null, correo, contrasena, fechaNac, null);
-				
-				repoProfesor.save(profesor);
-				
+
+				profesorRepo.save(profesor);
+
 			} else if (perfil.equals("esAlumno")) {
+
 				Alumno alumno = new Alumno(null, dni, nombre, null, correo, contrasena, fechaNac);
-				
-				repoAlumno.save(alumno);
+
+				alumnoRepo.save(alumno);
+
 			}
+
 		}
+
+		return "redirect:/app";
+
 	}
 }

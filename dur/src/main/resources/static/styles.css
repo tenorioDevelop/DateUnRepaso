@@ -553,3 +553,17 @@ video {
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-primero {
+  --tw-text-opacity: 1;
+  color: rgb(100 62 123 / var(--tw-text-opacity));
+}

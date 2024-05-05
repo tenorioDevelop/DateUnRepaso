@@ -34,7 +34,7 @@ public class Profesor {
 	private Asignatura asignatura;
 	// Constructores
 
-	public void Profesores() {
+	public Profesor() {
 	}
 
 	public Profesor(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
