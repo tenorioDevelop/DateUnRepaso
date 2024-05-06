@@ -564,3 +564,8 @@ video {
 .font-bold{
   font-weight: 700;
 }
+
+.text-eminence{
+  --tw-text-opacity: 1;
+  color: rgb(100 62 123 / var(--tw-text-opacity));
+}

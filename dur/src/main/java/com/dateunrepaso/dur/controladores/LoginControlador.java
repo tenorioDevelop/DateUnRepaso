@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.dateunrepaso.dur.utilidades.UtilidadesString;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
@@ -76,13 +77,13 @@ public class LoginControlador {
 
 			if (perfil.equals("esProfesor")) {
 
-				Profesor profesor = new Profesor(null, dni, nombre, null, correo, contrasena, fechaNac, null);
+				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac, null);
 
 				profesorRepo.save(profesor);
 
 			} else if (perfil.equals("esAlumno")) {
 
-				Alumno alumno = new Alumno(null, dni, nombre, null, correo, contrasena, fechaNac);
+				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac);
 
 				alumnoRepo.save(alumno);
 
