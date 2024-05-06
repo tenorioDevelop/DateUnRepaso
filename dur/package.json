@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "twcomp": "tailwindcss -i ./src/main/resources/static/input.css -o ./src/main/resources/static/styles.css"
+    "compilar": "sass --watch src/main/resources/static:src/main/resources/static"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "tailwindcss": "^3.4.3"
+  "dependencies": {
+    "bootstrap": "^5.3.3"
   }
 }
