@@ -72,26 +72,32 @@ public class LoginControlador {
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
 			@RequestParam(name = "perfilSel") String perfil) {
+		
+		Optional<Alumno> alumnoOpt = alumnoRepo.findByCorreo(correo);
+		Optional<Profesor> profesorOpt = profesorRepo.findByCorreo(correo);
 
-		if (contrasena.equals(contrasenaRep)) {
+		if (alumnoOpt.isEmpty() && profesorOpt.isEmpty()) {
+			if (contrasena.equals(contrasenaRep)) {
 
-			if (perfil.equals("esProfesor")) {
+				if (perfil.equals("esProfesor")) {
 
-				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac, null);
+					Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac, null);
 
-				profesorRepo.save(profesor);
+					profesorRepo.save(profesor);
 
-			} else if (perfil.equals("esAlumno")) {
+				} else if (perfil.equals("esAlumno")) {
 
-				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac);
+					Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac);
 
-				alumnoRepo.save(alumno);
+					alumnoRepo.save(alumno);
 
+				}
+
+				return "redirect:/app";
 			}
-
 		}
-
-		return "redirect:/app";
+		
+		return "Registrarse";
 
 	}
 }

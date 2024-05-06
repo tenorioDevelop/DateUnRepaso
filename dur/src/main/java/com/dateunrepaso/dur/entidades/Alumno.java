@@ -4,10 +4,12 @@ import java.sql.Date;
 
 import com.dateunrepaso.dur.enums.Roles;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 @Entity
 public class Alumno {
 //	Atributos
@@ -15,18 +17,25 @@ public class Alumno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "dni", unique = true, nullable = false)
 	private String dni;
 
+	@Column(name = "nom_completo", nullable = false)
 	private String nomCompleto;
 
+	@Column(name = "nom_usuario", unique = true, nullable = false)
 	private String nomUsuario;
 
+	@Column(name = "correo", unique = true, nullable = false)
 	private String correo;
 
+	@Column(name = "contrasena", unique = false, nullable = false)
 	private String contrasena;
 
+	@Column(name = "fecha_nac", unique = false, nullable = false)
 	private String fechaNac;
-	
+
+	@Column(name = "rol", nullable = true)
 	private Roles rol;
 
 	public Alumno() {
@@ -108,7 +117,5 @@ public class Alumno {
 	public void setRol(Roles rol) {
 		this.rol = rol;
 	}
-	
-	
 
 }

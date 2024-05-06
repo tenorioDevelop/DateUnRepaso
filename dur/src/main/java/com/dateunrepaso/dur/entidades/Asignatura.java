@@ -2,6 +2,7 @@ package com.dateunrepaso.dur.entidades;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,27 +15,32 @@ public class Asignatura {
 //	Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idAsignatura;
 
+	@Column(name = "nombre", nullable = false, unique = true)
 	private String nombre;
+
+	@OneToMany(mappedBy = "asignatura")
+	private List<Profesor> profesores;
 
 	// Constructor
 
 	public void Asignatura() {
 	}
 
-	public Asignatura(Long id, String nombre) {
-		this.id = id;
+	public Asignatura(Long idAsignatura, String nombre, List<Profesor> profesores) {
+		this.idAsignatura = idAsignatura;
 		this.nombre = nombre;
+		this.profesores = profesores;
 	}
 
 	// Getters and setters
-	public Long getId() {
-		return id;
+	public Long getIdAsignatura() {
+		return idAsignatura;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdAsignatura(Long idAsignatura) {
+		this.idAsignatura = idAsignatura;
 	}
 
 	public String getNombre() {
@@ -43,6 +49,14 @@ public class Asignatura {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Profesor> getProfesores() {
+		return profesores;
+	}
+
+	public void setProfesores(List<Profesor> profesores) {
+		this.profesores = profesores;
 	}
 
 }
