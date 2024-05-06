@@ -4,16 +4,19 @@ module.exports = {
 		"./src/main/resources/templates/**/*.html"
 	],
 	theme: {
+		fontFamily: {
+			"sans": ['"Source Sans 3"']
+		},
 		extend: {
 			colors: {
-				'primero': '#643e7b',
-				'segundo': '#a594f9',
-				'tercero': '#cdc1ff',
-				'cuarto': '#f5efff'
+				'eminence': '#643e7b',
+				'tropical': '#a594f9',
+				'periwinkle': '#cdc1ff',
+				'magnolia': '#f5efff'
 			},
-			fontFamily: {
-				principal: ['"Source Sans 3"']
-			}
+			// fontFamily: {
+				
+			// }
 		}
 	},
 	plugins: [],
