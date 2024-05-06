@@ -2,13 +2,17 @@ package com.dateunrepaso.dur.entidades;
 
 import java.sql.Date;
 
+
 import com.dateunrepaso.dur.enums.Roles;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Alumno {

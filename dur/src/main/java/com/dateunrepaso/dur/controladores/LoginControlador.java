@@ -2,12 +2,17 @@ package com.dateunrepaso.dur.controladores;
 
 import java.util.Optional;
 
+import javax.naming.Binding;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.dateunrepaso.dur.utilidades.UtilidadesString;
+
+import jakarta.servlet.http.HttpSession;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
@@ -36,7 +41,7 @@ public class LoginControlador {
 
 	@PostMapping("/login")
 	public String getInicioSesion(@RequestParam(name = "correoLogin") String correoLogin,
-			@RequestParam(name = "contrasenaLogin") String contrasenaLogin) {
+			@RequestParam(name = "contrasenaLogin") String contrasenaLogin, HttpSession sesion) {
 
 		Optional<Alumno> alumnoOpt = alumnoRepo.findByCorreo(correoLogin);
 		Optional<Profesor> profesorOpt = profesorRepo.findByCorreo(correoLogin);
@@ -44,13 +49,15 @@ public class LoginControlador {
 		if (!alumnoOpt.isEmpty()) {
 			Alumno alumno = alumnoOpt.get();
 			if (alumno.getContrasena().equals(contrasenaLogin)) {
+				sesion.setAttribute("usuarioLogeado", correoLogin);
 				return "redirect:/app";
 			} else {
 				return "redirect:/login";
 			}
-		} else if (!profesorOpt.isEmpty()){
+		} else if (!profesorOpt.isEmpty()) {
 			Profesor profesor = profesorOpt.get();
 			if (profesor.getContrasena().equals(contrasenaLogin)) {
+				sesion.setAttribute("usuarioLogeado", correoLogin);
 				return "redirect:/app";
 			} else {
 				return "redirect:/login";
@@ -58,7 +65,7 @@ public class LoginControlador {
 		}
 
 		return "redirect:/login";
-		
+
 	}
 
 	@GetMapping("/registro")
@@ -71,32 +78,37 @@ public class LoginControlador {
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "perfilSel") String perfil) {
-		
+			@RequestParam(name = "perfilSel") String perfil, HttpSession sesion) {
+
 		Optional<Alumno> alumnoOpt = alumnoRepo.findByCorreo(correo);
 		Optional<Profesor> profesorOpt = profesorRepo.findByCorreo(correo);
+
 
 		if (alumnoOpt.isEmpty() && profesorOpt.isEmpty()) {
 			if (contrasena.equals(contrasenaRep)) {
 
 				if (perfil.equals("esProfesor")) {
 
-					Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac, null);
+					Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre),
+							correo, contrasena, fechaNac, null);
 
 					profesorRepo.save(profesor);
 
 				} else if (perfil.equals("esAlumno")) {
 
-					Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo, contrasena, fechaNac);
+					Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+							contrasena, fechaNac);
 
 					alumnoRepo.save(alumno);
 
 				}
 
+				sesion.setAttribute("usuarioLogeado", correo);
+
 				return "redirect:/app";
 			}
 		}
-		
+
 		return "Registrarse";
 
 	}
