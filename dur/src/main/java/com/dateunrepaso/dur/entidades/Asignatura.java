@@ -1,5 +1,6 @@
 package com.dateunrepaso.dur.entidades;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -10,12 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Asignatura {
+public class Asignatura implements Serializable{
 
-//	Atributos
+private static final long serialVersionUID = 2L;
+
+	//	Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idAsignatura;
+	private Long id;
 
 	@Column(name = "nombre", nullable = false, unique = true)
 	private String nombre;
@@ -25,22 +28,22 @@ public class Asignatura {
 
 	// Constructor
 
-	public void Asignatura() {
+	public Asignatura() {
 	}
 
 	public Asignatura(Long idAsignatura, String nombre, List<Profesor> profesores) {
-		this.idAsignatura = idAsignatura;
+		this.id = idAsignatura;
 		this.nombre = nombre;
 		this.profesores = profesores;
 	}
 
 	// Getters and setters
 	public Long getIdAsignatura() {
-		return idAsignatura;
+		return id;
 	}
 
 	public void setIdAsignatura(Long idAsignatura) {
-		this.idAsignatura = idAsignatura;
+		this.id = idAsignatura;
 	}
 
 	public String getNombre() {
