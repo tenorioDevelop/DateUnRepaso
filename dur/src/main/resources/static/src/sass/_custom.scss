@@ -1,0 +1,34 @@
+// Colores
+$color_principal: #643e7b;
+$color_secundario: #a594f9;
+$color_tercero: #cdc1ff;
+$color_claro: #f5efff;
+
+// // Grosor Fuentes
+// $mainFont_Extra: 200;
+// $linkFont_Regular: 400;
+// $cardFont_Medium: 500;
+
+// Tamaños de media-queries
+$small: 480px;
+$medium: 768px;
+$big: 1280px;
+
+// asignar variables
+$primero: $color_principal;
+$segundo: $color_secundario;
+$tercero: $color_tercero;
+$claro: $color_claro;
+
+
+// $font-weight-lighter: $mainFont_Extra;
+// $font-weight-light: $linkFont_Regular;
+// $font-weight-medium: $cardFont_Medium;
+
+$container-max-widths: (
+    sm: $small,
+    md: $medium,
+    xl: $big
+);
+
+@import "../../../../../../node_modules/bootstrap/scss/bootstrap.scss";

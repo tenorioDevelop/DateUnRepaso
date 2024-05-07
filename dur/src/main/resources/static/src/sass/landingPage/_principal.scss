@@ -1,0 +1,45 @@
+@use '../custom' as c;
+
+.contenido {
+    height: 100vh;
+    background: url(../../../build/img/Landing/Background.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    .contPrincipal {
+        height: 70%;
+        color: c.$primero;
+        padding: 4rem;
+    
+        .contPrincipal_titulo1 {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 60px;
+        }
+    
+        .contPrincipal_titulo2 {
+            margin-bottom: 3rem;
+            width: 40%;
+        }
+    }
+    
+    .contSecundario {
+        height: 30%;
+        color: white;
+        font-size: 30px;
+        
+        p {
+            font-weight: bold;
+            // margin: 1rem;
+            padding-right: 5rem;
+        }
+
+        i {
+            margin-right: 1rem; 
+        }
+
+        .contSecundario_caja1 {
+            margin-right: 6rem;
+        }
+    }
+}

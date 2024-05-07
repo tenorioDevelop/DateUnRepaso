@@ -1,0 +1,33 @@
+@use 'variables' as v;
+
+/* Mixins */
+// Box Sizing
+@mixin box-sizing($box_model) {
+    box-sizing: $box_model;
+}
+
+// // Grid
+// @mixin grid($columns, $gap) {
+//     display: grid;
+//     grid-template-columns: repeat($columns, 1fr);
+//     gap: $gap;
+// }
+
+//Media queries 
+@mixin mobile {
+    @media screen and (min-width: v.$small) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (min-width: #{v.$medium}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: v.$big) {
+        @content;
+    }
+}

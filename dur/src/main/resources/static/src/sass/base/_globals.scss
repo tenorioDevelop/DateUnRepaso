@@ -1,0 +1,55 @@
+@use '../custom' as c;
+@use 'variables' as v;
+@use 'mixins' as m;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+html {
+    font-size: 62.5%;
+    @include m.box-sizing(border-box);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Source Sans 3';
+    width: 100%;
+    font-size: 1.8rem;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    object-position: center center;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.boton-principal {
+    width: 16rem;
+    font-weight: bold;
+    background-color: c.$primero;
+    color: white;
+    padding: 1.2rem;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 26px;
+}
+
+// h2 {
+//     font-size: 2.6rem;
+// }
+
+// h3 {
+//     font-size: 2.4rem;
+// }

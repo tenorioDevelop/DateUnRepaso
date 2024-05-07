@@ -3,34 +3,35 @@
 
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" th:href="@{styles.css}">
+	<link rel="stylesheet" th:href="@{/build/css/styles.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 	<!-- npxs -->
 	<title>Landing Page</title>
 </head>
 
 <body>
 
-	<section>
-		<div>
-			<h1 class="">DateUnRepaso</h1>
-			<h1 class="">El camino más rápido hacia el dominio.</h1>
-			<a class="" th:href="@{/login}">EMPEZAR</a>
+	<section class="contenido d-flex flex-column ">
+		<div class="contPrincipal align-content-center ">
+			<h1 class="contPrincipal_titulo1">DateUnRepaso</h1>
+			<h1 class="contPrincipal_titulo2">El camino más rápido hacia el dominio.</h1>
+			<a class="boton-principal" th:href="@{/login}">EMPEZAR</a>
 		</div>
-		<div>
-			<div>
-				<p>
-					<i></i>Progreso y organización
+		<div class="contSecundario align-content-center">
+			<div class="contSecundario_caja1 d-flex flex-row justify-content-end  ">
+				<p class="">
+					<i class="bi bi-box"></i>Progreso y organización
 				</p>
-				<p>
-					<i></i>Gestión eficiente de horario
+				<p class="">
+					<i class="bi bi-box"></i>Gestión eficiente de horario
 				</p>
 			</div>
-			<div>
+			<div class="contSecundario_caja2 d-flex flex-row justify-content-end ">
 				<p>
-					<i></i>Accesibilidad y comodidad
+					<i class="bi bi-box"></i>Accesibilidad y comodidad
 				</p>
 				<p>
-					<i></i>Personalizacón y adaptabilidad
+					<i class="bi bi-box"></i>Personalizacón y adaptabilidad
 				</p>
 			</div>
 		</div>
