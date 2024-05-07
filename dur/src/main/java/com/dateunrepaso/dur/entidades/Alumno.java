@@ -1,21 +1,18 @@
 package com.dateunrepaso.dur.entidades;
 
-import java.sql.Date;
-
-
+import java.io.Serializable;
 import com.dateunrepaso.dur.enums.Roles;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Entity
-public class Alumno {
+public class Alumno implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 //	Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

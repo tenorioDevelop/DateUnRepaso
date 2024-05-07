@@ -2,11 +2,9 @@ package com.dateunrepaso.dur.controladores;
 
 import java.util.Optional;
 
-import javax.naming.Binding;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +16,6 @@ import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class LoginControlador {
@@ -49,7 +46,7 @@ public class LoginControlador {
 		if (!alumnoOpt.isEmpty()) {
 			Alumno alumno = alumnoOpt.get();
 			if (alumno.getContrasena().equals(contrasenaLogin)) {
-				sesion.setAttribute("usuarioLogeado", correoLogin);
+				sesion.setAttribute("usuarioLogeado", alumno);
 				return "redirect:/app";
 			} else {
 				return "redirect:/login";
@@ -57,7 +54,7 @@ public class LoginControlador {
 		} else if (!profesorOpt.isEmpty()) {
 			Profesor profesor = profesorOpt.get();
 			if (profesor.getContrasena().equals(contrasenaLogin)) {
-				sesion.setAttribute("usuarioLogeado", correoLogin);
+				sesion.setAttribute("usuarioLogeado", profesor);
 				return "redirect:/app";
 			} else {
 				return "redirect:/login";
@@ -78,11 +75,10 @@ public class LoginControlador {
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "perfilSel") String perfil, HttpSession sesion) {
+			@RequestParam(name = "perfilSel") String perfil, HttpSession sesion, Model model) {
 
 		Optional<Alumno> alumnoOpt = alumnoRepo.findByCorreo(correo);
 		Optional<Profesor> profesorOpt = profesorRepo.findByCorreo(correo);
-
 
 		if (alumnoOpt.isEmpty() && profesorOpt.isEmpty()) {
 			if (contrasena.equals(contrasenaRep)) {
@@ -94,20 +90,23 @@ public class LoginControlador {
 
 					profesorRepo.save(profesor);
 
+					sesion.setAttribute("usuarioLogeado", profesor);
+
 				} else if (perfil.equals("esAlumno")) {
 
 					Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
 							contrasena, fechaNac);
 
 					alumnoRepo.save(alumno);
+					sesion.setAttribute("usuarioLogeado", alumno);
 
 				}
-
-				sesion.setAttribute("usuarioLogeado", correo);
 
 				return "redirect:/app";
 			}
 		}
+
+		model.addAttribute("mensajeError", "Ya existe un usuario con ese correo indicado");
 
 		return "Registrarse";
 
