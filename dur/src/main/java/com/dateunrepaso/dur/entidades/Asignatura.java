@@ -2,6 +2,7 @@ package com.dateunrepaso.dur.entidades;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,11 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Asignatura implements Serializable{
+public class Asignatura implements Serializable {
 
-private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 2L;
 
-	//	Atributos
+	// Atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -60,6 +61,24 @@ private static final long serialVersionUID = 2L;
 
 	public void setProfesores(List<Profesor> profesores) {
 		this.profesores = profesores;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nombre, profesores);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Asignatura other = (Asignatura) obj;
+		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(profesores, other.profesores);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.dateunrepaso.dur.entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -59,5 +60,25 @@ public class Mensaje implements Serializable {
 	public void setAlumno(Alumno alumno) {
 		this.alumno = alumno;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(alumno, id, profesor);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mensaje other = (Mensaje) obj;
+		return Objects.equals(alumno, other.alumno) && Objects.equals(id, other.id)
+				&& Objects.equals(profesor, other.profesor);
+	}
+	
+	
 
 }

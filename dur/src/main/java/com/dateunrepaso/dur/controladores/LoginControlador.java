@@ -95,7 +95,7 @@ public class LoginControlador {
 				} else if (perfil.equals("esAlumno")) {
 
 					Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-							contrasena, fechaNac);
+							contrasena, fechaNac, null, null);
 
 					alumnoRepo.save(alumno);
 					sesion.setAttribute("usuarioLogeado", alumno);
