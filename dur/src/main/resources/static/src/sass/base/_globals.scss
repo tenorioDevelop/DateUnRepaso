@@ -46,6 +46,23 @@ h1 {
     font-size: 26px;
 }
 
+.boton-secundario {
+    width: 12rem;
+    height: 4rem;
+    background-color: c.$tercero;
+    color: c.$primero;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+i {
+    font-size: 28px;
+}
+
 // h2 {
 //     font-size: 2.6rem;
 // }

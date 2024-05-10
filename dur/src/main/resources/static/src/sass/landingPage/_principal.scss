@@ -1,45 +1,105 @@
 @use '../custom' as c;
+@use '../base/mixins' as m;
 
 .contenido {
     height: 100vh;
     background: url(../../../build/img/Landing/Background.svg);
     background-repeat: no-repeat;
     background-size: cover;
-    
+
     .contPrincipal {
         height: 70%;
         color: c.$primero;
-        padding: 4rem;
-    
-        .contPrincipal_titulo1 {
+        padding: 2rem;
+
+        &_titulo1 {
             font-weight: bold;
             margin-bottom: 0.5rem;
-            font-size: 60px;
+            font-size: 40px;
         }
-    
-        .contPrincipal_titulo2 {
+
+        &_titulo2 {
             margin-bottom: 3rem;
-            width: 40%;
+            width: 100%;
+            font-size: 40px;
         }
     }
-    
+
     .contSecundario {
-        height: 30%;
+        height: auto;
         color: white;
-        font-size: 30px;
-        
+        font-size: 18px;
+        padding: 2rem;
+
         p {
             font-weight: bold;
-            // margin: 1rem;
             padding-right: 5rem;
         }
 
         i {
-            margin-right: 1rem; 
+            margin-right: 1rem;
+            font-size: 16px;
         }
 
-        .contSecundario_caja1 {
-            margin-right: 6rem;
+        &_caja1 {
+            border: none;
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            height: auto;
+        }
+
+        &_caja2 {
+            display: flex;
+            flex-direction: column;
+            width: auto;
+        }
+    }
+
+    @include m.tablet {
+        .contPrincipal {
+            padding: 4rem;
+
+            &_titulo1 {
+                font-size: 45px;
+            }
+
+            &_titulo2 {
+                font-size: 45px;
+                width: 80%;
+            }
+        }
+
+        .contSecundario {
+            height: 30%;
+            font-size: 25px;
+
+            i {
+                font-size: 23px;
+            }
+        }
+    }
+
+    @include m.desktop {
+
+        .contPrincipal {
+
+            &_titulo1 {
+                font-size: 60px;
+            }
+
+            &_titulo2 {
+                font-size: 60px;
+                width: 40%;
+            }
+        }
+
+        .contSecundario {
+            font-size: 30px;
+
+            i {
+                font-size: 28px;
+            }
         }
     }
 }

@@ -1,0 +1,91 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.login {
+    height: 100vh;
+    background-color: c.$primero;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    &_contenido {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        height: auto;
+        align-self: center;
+        width: 100%;
+        margin: 1rem;
+
+        &--titulo {
+            color: white;
+            font-weight: 600;
+        }
+
+        &--registrarse {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+
+            a {
+                color: white;
+            }
+        }
+
+        &--formLogin {
+
+            .formLogin_datos {
+                padding: 1rem;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                color: black;
+                font-size: 14px;
+            }
+
+            .formLogin_recuerdameDatos {
+                margin-bottom: 2rem;
+            }
+
+            .formLogin_recuerdameLabel {
+                margin-bottom: 2rem;
+                color: white;
+            }
+        }
+    }
+
+    &_imagen {
+        &--svg {
+            display: none;
+        }
+    }
+
+    @include m.tablet {
+        margin: 0rem;
+    
+        &_contenido {
+            width: 40%;
+        }
+    
+        &_imagen {
+            &--svg {
+                position: relative;
+                top: 16.1%;
+                display: block;
+            }
+        }
+    }
+
+    @include m.desktop {
+    
+        &_contenido {
+            width: 30%;
+    
+        }
+    
+        &_imagen {
+            &--svg {
+                top: 36.2%;
+            }
+        }
+    }
+}
