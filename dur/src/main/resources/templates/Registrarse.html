@@ -8,25 +8,33 @@
 </head>
 
 <body>
-	<section>
-		<div>
-			<h1>Registro</h1>
-			<p>
+	<section class="registro">
+		<div class="registro_contenido">
+			<h1 class="registro_contenido--titulo">Registro</h1>
+			<p class="registro_contenido--logearse">
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
 
-			<form method="post" th:action="@{/registro}">
-				<input type="text" name="nombreReg" placeholder="Nombre y apellidos" required>
-				<input type="text" name="dniReg" placeholder="DNI" required>
-				<input type="date" name="fechaNacReg" placeholder="Fecha de nacimiento" required>
-				<input type="text" name="correoReg" placeholder="Correo electrónico" required>
-				<input type="password" name="contrasenaReg" placeholder="Contraseña" required>
-				<input type="password" name="contrasenaRepReg" placeholder="Repetir contraseña" required>
-				<div>
-					<input type="checkbox" value="esProfesor" name="perfilSel">Profesor
-					<input type="checkbox" value="esAlumno" name="perfilSel">Alumno
+			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
+				<input class="formRegistro_datos" type="text" name="nombreReg" placeholder="Nombre y apellidos"
+					required>
+				<input class="formRegistro_datos" type="text" name="dniReg" placeholder="DNI" required>
+				<input class="formRegistro_datos" type="date" name="fechaNacReg" placeholder="Fecha de nacimiento"
+					required>
+				<input class="formRegistro_datos" type="text" name="correoReg" placeholder="Correo electrónico"
+					required>
+				<input class="formRegistro_datos" type="password" name="contrasenaReg" placeholder="Contraseña"
+					required>
+				<input class="formRegistro_datos" type="password" name="contrasenaRepReg"
+					placeholder="Repetir contraseña" required>
+				<div class="formRegistro_perfiles">
+					<input class="formRegistro_perfiles--perfil" id="checkbox" type="checkbox" value="esProfesor"
+						name="perfilSel">Profesor
+					<label for="checkbox"><i></i></label>
+					<input class="formRegistro_perfiles--perfil" type="checkbox" value="esAlumno"
+						name="perfilSel">Alumno
 				</div>
-				<input type="submit" name="botonReg" value="Registro">
+				<input class="boton-secundario formRegistro_boton" type="submit" name="botonReg" value="Registro">
 			</form>
 		</div>
 	</section>
