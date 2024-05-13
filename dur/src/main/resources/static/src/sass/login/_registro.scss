@@ -1,2 +1,126 @@
 @use '../custom' as c;
 @use '../base/mixins' as m;
+
+.registro {
+    height: 100vh;
+    background-color: c.$primero;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    &_contenido {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        height: auto;
+        align-self: center;
+        width: 100%;
+        margin: 1rem;
+
+        &--titulo {
+            color: white;
+            font-weight: 600;
+        }
+
+        &--logearse {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+
+            a {
+                color: white;
+            }
+        }
+
+        &--formRegistro {
+
+            .formRegistro_datos {
+                padding: 1rem;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                color: black;
+                font-size: 14px;
+            }
+
+            .formRegistro_perfiles {
+                display: inline-flex;
+                
+                &--input {
+                    -webkit-appearance: none;
+                    margin: 1rem;
+                }
+
+                &--label {
+                    height: 60px;
+                    width: 200px;
+                    background-color: white;
+                    border-radius: 10px;
+                    position: relative;
+                    transition: 0.5s;
+                    
+
+                    .formRegistro_perfiles--icono {
+                        position: absolute;
+                        top: 70%;
+                        left: 50%;
+                        transform: translate(-50%, -80%);
+                    }
+                    
+                    .formRegistro_perfiles--iconoImagen {
+                        width: 4rem;
+                    }
+                }
+
+            }
+
+            .formRegistro_perfiles--input:checked + .formRegistro_perfiles--label{
+                background-color: c.$tercero;
+            }
+            
+            .formRegistro_recuerdameDatos {
+                margin-bottom: 2rem;
+            }
+
+            .formRegistro_recuerdameLabel {
+                margin-bottom: 2rem;
+                color: white;
+            }
+        }
+    }
+
+    &_imagen {
+        &--svg {
+            display: none;
+        }
+    }
+
+    @include m.tablet {
+        margin: 0rem;
+
+        &_contenido {
+            width: 40%;
+        }
+
+        &_imagen {
+            &--svg {
+                position: relative;
+                top: 16.1%;
+                display: block;
+            }
+        }
+    }
+
+    @include m.desktop {
+
+        &_contenido {
+            width: 30%;
+
+        }
+
+        &_imagen {
+            &--svg {
+                top: 36.2%;
+            }
+        }
+    }
+}

@@ -12160,4 +12160,98 @@ i {
   .login_imagen--svg {
     top: 36.2%;
   }
+}
+
+.registro {
+  height: 100vh;
+  background-color: #643e7b;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.registro_contenido {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  height: auto;
+  align-self: center;
+  width: 100%;
+  margin: 1rem;
+}
+.registro_contenido--titulo {
+  color: white;
+  font-weight: 600;
+}
+.registro_contenido--logearse {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+.registro_contenido--logearse a {
+  color: white;
+}
+.registro_contenido--formRegistro .formRegistro_datos {
+  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: black;
+  font-size: 14px;
+}
+.registro_contenido--formRegistro .formRegistro_perfiles {
+  display: inline-flex;
+}
+.registro_contenido--formRegistro .formRegistro_perfiles--input {
+  -webkit-appearance: none;
+  margin: 1rem;
+}
+.registro_contenido--formRegistro .formRegistro_perfiles--label {
+  height: 60px;
+  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  transition: 0.5s;
+}
+.registro_contenido--formRegistro .formRegistro_perfiles--label .formRegistro_perfiles--icono {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+}
+.registro_contenido--formRegistro .formRegistro_perfiles--label .formRegistro_perfiles--iconoImagen {
+  width: 4rem;
+}
+.registro_contenido--formRegistro .formRegistro_perfiles--input:checked + .formRegistro_perfiles--label {
+  background-color: #cdc1ff;
+}
+.registro_contenido--formRegistro .formRegistro_recuerdameDatos {
+  margin-bottom: 2rem;
+}
+.registro_contenido--formRegistro .formRegistro_recuerdameLabel {
+  margin-bottom: 2rem;
+  color: white;
+}
+.registro_imagen--svg {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .registro {
+    margin: 0rem;
+  }
+  .registro_contenido {
+    width: 40%;
+  }
+  .registro_imagen--svg {
+    position: relative;
+    top: 16.1%;
+    display: block;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .registro_contenido {
+    width: 30%;
+  }
+  .registro_imagen--svg {
+    top: 36.2%;
+  }
 }/*# sourceMappingURL=sass.css.map */
