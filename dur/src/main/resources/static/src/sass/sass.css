@@ -12124,18 +12124,25 @@ i {
   color: white;
 }
 .login_contenido--formLogin .formLogin_datos {
-  padding: 1rem;
+  padding: 0.8rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
   color: black;
   font-size: 14px;
+  border-radius: 8px;
 }
 .login_contenido--formLogin .formLogin_recuerdameDatos {
-  margin-bottom: 2rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 2px;
 }
 .login_contenido--formLogin .formLogin_recuerdameLabel {
   margin-bottom: 2rem;
   color: white;
+  font-size: 16px;
+}
+.login_imagen {
+  height: 100vh;
 }
 .login_imagen--svg {
   display: none;
@@ -12147,27 +12154,28 @@ i {
   .login_contenido {
     width: 40%;
   }
+  .login_imagen {
+    display: flex;
+    align-items: end;
+  }
   .login_imagen--svg {
-    position: relative;
-    top: 16.1%;
     display: block;
+    height: 80%;
   }
 }
 @media screen and (min-width: 1280px) {
   .login_contenido {
     width: 30%;
   }
-  .login_imagen--svg {
-    top: 36.2%;
-  }
 }
 
 .registro {
-  height: 100vh;
+  height: auto;
   background-color: #643e7b;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  padding: 0.5rem;
 }
 .registro_contenido {
   display: flex;
@@ -12186,27 +12194,31 @@ i {
   color: white;
   font-size: 14px;
   font-weight: 600;
+  margin-bottom: 0.2rem;
 }
 .registro_contenido--logearse a {
   color: white;
 }
 .registro_contenido--formRegistro .formRegistro_datos {
-  padding: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   color: black;
   font-size: 14px;
+  border-radius: 8px;
 }
 .registro_contenido--formRegistro .formRegistro_perfiles {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .registro_contenido--formRegistro .formRegistro_perfiles--input {
   -webkit-appearance: none;
-  margin: 1rem;
+  display: none;
 }
 .registro_contenido--formRegistro .formRegistro_perfiles--label {
   height: 60px;
-  width: 200px;
+  width: 48%;
   background-color: white;
   border-radius: 10px;
   position: relative;
@@ -12225,33 +12237,46 @@ i {
   background-color: #cdc1ff;
 }
 .registro_contenido--formRegistro .formRegistro_recuerdameDatos {
-  margin-bottom: 2rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 2px;
+  margin-top: 1rem;
 }
 .registro_contenido--formRegistro .formRegistro_recuerdameLabel {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: white;
+  font-size: 16px;
+  margin-top: 0.6rem;
+}
+.registro_imagen {
+  height: 100vh;
 }
 .registro_imagen--svg {
   display: none;
 }
 @media screen and (min-width: 768px) {
   .registro {
+    height: 100vh;
     margin: 0rem;
+    padding: 0rem;
   }
   .registro_contenido {
     width: 40%;
   }
+  .registro_contenido--formRegistro .formRegistro_perfiles {
+    gap: 1rem;
+  }
+  .registro_imagen {
+    display: flex;
+    align-items: flex-end;
+  }
   .registro_imagen--svg {
-    position: relative;
-    top: 16.1%;
     display: block;
+    height: 80%;
   }
 }
 @media screen and (min-width: 1280px) {
   .registro_contenido {
     width: 30%;
-  }
-  .registro_imagen--svg {
-    top: 36.2%;
   }
 }/*# sourceMappingURL=sass.css.map */
