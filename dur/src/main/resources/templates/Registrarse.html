@@ -17,27 +17,51 @@
 			</p>
 
 			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
-				<input class="formRegistro_datos form-control" type="text" name="nombreReg" placeholder="Nombre y apellidos"
-					required>
+				<input class="formRegistro_datos form-control" type="text" name="nombreReg"
+					placeholder="Nombre y apellidos" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
 				<input class="formRegistro_datos form-control" type="text" name="dniReg" placeholder="DNI" required>
-				<input class="formRegistro_datos form-control" type="date" name="fechaNacReg" placeholder="Fecha de nacimiento"
-					required>
-				<input class="formRegistro_datos form-control" type="text" name="correoReg" placeholder="Correo electrónico"
-					required>
-				<input class="formRegistro_datos form-control" type="password" name="contrasenaReg" placeholder="Contraseña"
-					required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
+				<input class="formRegistro_datos form-control" type="date" name="fechaNacReg"
+					placeholder="Fecha de nacimiento" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
+				<input class="formRegistro_datos form-control" type="text" name="correoReg"
+					placeholder="Correo electrónico" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
+				<input class="formRegistro_datos form-control" type="password" name="contrasenaReg"
+					placeholder="Contraseña" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
 				<input class="formRegistro_datos form-control" type="password" name="contrasenaRepReg"
 					placeholder="Repetir contraseña" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
 				<div class="formRegistro_perfiles">
 
 					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfilSel">
-					<label for="radioProf" class="formRegistro_perfiles--label"><i class="formRegistro_perfiles--icono" aria-hidden="true"><img class="formRegistro_perfiles--iconoImagen" th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt=""></i></label>
+					<label for="radioProf" class="formRegistro_perfiles--label"><i class="formRegistro_perfiles--icono"
+							aria-hidden="true"><img class="formRegistro_perfiles--iconoImagen"
+								th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt=""></i></label>
 
 					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfilSel">
-					<label for="radioAlumno" class="formRegistro_perfiles--label"><i class="formRegistro_perfiles--icono" aria-hidden="true"><img class="formRegistro_perfiles--iconoImagen" th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt=""></i></label>
+					<label for="radioAlumno" class="formRegistro_perfiles--label"><i
+							class="formRegistro_perfiles--icono" aria-hidden="true"><img
+								class="formRegistro_perfiles--iconoImagen"
+								th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt=""></i></label>
 				</div>
 
-				<input class="formRegistro_recuerdameDatos form-check-input" id="recuerdame" type="checkbox" name="recordarRegistro">
+				<input class="formRegistro_recuerdameDatos form-check-input" id="recuerdame" type="checkbox"
+					name="recordarRegistro">
 				<label class="formRegistro_recuerdameLabel form-check-label" for="recuerdame">Recuerdame</label><br>
 
 				<input class="boton-secundario formRegistro_boton" type="submit" name="botonReg" value="Registro">
@@ -47,6 +71,7 @@
 			<img class="registro_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Registro">
 		</figure>
 	</section>
+	<script src="../static/js/validacion.js"></script>
 </body>
 
 </html>

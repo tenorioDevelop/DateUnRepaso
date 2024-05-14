@@ -15,11 +15,19 @@
 			<p class="login_contenido--registrarse">
 				¿No tienes cuenta? <a th:href="@{/registro}">Registrate aquí.</a>
 			</p>
-
-			<form class="login_contenido--formLogin" method="post" th:action="@{/login}">
-				<input class="formLogin_datos form-control" type="text" name="correoLogin" placeholder="Correo electrónico">
-				<input class="formLogin_datos form-control" type="password" name="contrasenaLogin" placeholder="Contraseña">
-				<input class="formLogin_recuerdameDatos form-check-input" id="recuerdame" type="checkbox" name="recordarLogin">
+			<form class="login_contenido--formLogin needs-validation" method="post" th:action="@{/login}" novalidate>
+				<input class="formLogin_datos form-control" type="text" name="correoLogin"
+					placeholder="Correo electrónico" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
+				<input class="formLogin_datos form-control" type="password" name="contrasenaLogin"
+					placeholder="Contraseña" required>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
+				<input class="formLogin_recuerdameDatos form-check-input" id="recuerdame" type="checkbox"
+					name="recordarLogin">
 				<label class="formLogin_recuerdameLabel form-check-label" for="recuerdame">Recuerdame</label><br>
 				<input class="boton-secundario formLogin_boton" type="submit" name="botonLogin" value="Iniciar sesión">
 			</form>
@@ -28,6 +36,29 @@
 			<img class="login_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Login">
 		</figure>
 	</section>
+	
+	<script>
+		(() => {
+		    'use strict'
+		  
+		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		    const forms = document.querySelectorAll('.needs-validation')
+		  
+		    // Loop over them and prevent submission
+		    Array.from(forms).forEach(form => {
+		      form.addEventListener('submit', event => {
+		        if (!form.checkValidity()) {
+		          event.preventDefault()
+		          event.stopPropagation()
+		        }
+		  
+		        form.classList.add('was-validated')
+		      }, false)
+		    })
+		  })()
+	</script>
+
+<!--	<script src="../static/js/validacion.js"></script>-->
 </body>
 
 </html>
