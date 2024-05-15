@@ -1,5 +1,6 @@
 package com.dateunrepaso.dur.controladores;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,7 +46,7 @@ public class ReservaProfesorControlador {
 	}
 	
 	@PostMapping("/reserva-profesor")
-	public String postReservar(@RequestParam(name = "resProfAula") Long idAula, @RequestParam(name = "resProfFecha") LocalDateTime fecha,
+	public String postReservar(@RequestParam(name = "resProfAula") Long idAula, @RequestParam(name = "resProfFecha") LocalDate fecha,
 			@RequestParam(name = "resProfHoraI") int horaI, @RequestParam(name = "resProfHoraF") int horaF, HttpSession sesion) {
 		
 		Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");

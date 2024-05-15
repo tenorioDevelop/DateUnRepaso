@@ -1,5 +1,6 @@
 package com.dateunrepaso.dur;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -105,40 +106,40 @@ public class DataLoader {
 
 			mensajeRepository.saveAll(Arrays.asList(mensaje1, mensaje2));
 
-			// Crear Reservas de Alumnos
-			ReservaAlumno reservaAlumno1 = new ReservaAlumno();
-			reservaAlumno1.setAlumno(juan);
-			reservaAlumno1.setProfesor(carlos);
-			reservaAlumno1.setAula(aula101);
-			reservaAlumno1.setFechaReserva(LocalDateTime.of(2024, 5, 15, 10, 0));
-			reservaAlumno1.setHoraInicio(10);
-			reservaAlumno1.setHoraFin(12);
+			  // Crear Reservas de Alumnos
+            ReservaAlumno reservaAlumno1 = new ReservaAlumno();
+            reservaAlumno1.setAlumno(juan);
+            reservaAlumno1.setProfesor(carlos);
+            reservaAlumno1.setAula(aula101);
+            reservaAlumno1.setFechaReserva(LocalDate.of(2024, 5, 15));
+            reservaAlumno1.setHoraInicio(10);
+            reservaAlumno1.setHoraFin(12);
 
-			ReservaAlumno reservaAlumno2 = new ReservaAlumno();
-			reservaAlumno2.setAlumno(maria);
-			reservaAlumno2.setProfesor(ana);
-			reservaAlumno2.setAula(aula102);
-			reservaAlumno2.setFechaReserva(LocalDateTime.of(2024, 5, 16, 14, 0));
-			reservaAlumno2.setHoraInicio(14);
-			reservaAlumno2.setHoraFin(16);
+            ReservaAlumno reservaAlumno2 = new ReservaAlumno();
+            reservaAlumno2.setAlumno(maria);
+            reservaAlumno2.setProfesor(ana);
+            reservaAlumno2.setAula(aula102);
+            reservaAlumno2.setFechaReserva(LocalDate.of(2024, 5, 16));
+            reservaAlumno2.setHoraInicio(14);
+            reservaAlumno2.setHoraFin(16);
 
-			reservaAlumnoRepository.saveAll(Arrays.asList(reservaAlumno1, reservaAlumno2));
+            reservaAlumnoRepository.saveAll(Arrays.asList(reservaAlumno1, reservaAlumno2));
 
-			// Crear Reservas de Profesores
-			ReservaProfesor reservaProfesor1 = new ReservaProfesor();
-			reservaProfesor1.setProfesor(carlos);
-			reservaProfesor1.setAula(aula101);
-			reservaProfesor1.setFechaReserva(LocalDateTime.of(2024, 5, 17, 8, 0));
-			reservaProfesor1.setHoraInicio(8);
-			reservaProfesor1.setHoraFin(10);
+            // Crear Reservas de Profesores
+            ReservaProfesor reservaProfesor1 = new ReservaProfesor();
+            reservaProfesor1.setProfesor(carlos);
+            reservaProfesor1.setAula(aula101);
+            reservaProfesor1.setFechaReserva(LocalDate.of(2024, 5, 17));
+            reservaProfesor1.setHoraInicio(8);
+            reservaProfesor1.setHoraFin(10);
 
-			ReservaProfesor reservaProfesor2 = new ReservaProfesor();
-			reservaProfesor2.setProfesor(ana);
-			reservaProfesor2.setAula(aula102);
-			reservaProfesor2.setFechaReserva(LocalDateTime.of(2024, 5, 18, 12, 0));
-			reservaProfesor2.setHoraInicio(12);
-			reservaProfesor2.setHoraFin(14);
-
+            ReservaProfesor reservaProfesor2 = new ReservaProfesor();
+            reservaProfesor2.setProfesor(ana);
+            reservaProfesor2.setAula(aula102);
+            reservaProfesor2.setFechaReserva(LocalDate.of(2024, 5, 18));
+            reservaProfesor2.setHoraInicio(12);
+            reservaProfesor2.setHoraFin(14);
+            
 			reservaProfesorRepository.saveAll(Arrays.asList(reservaProfesor1, reservaProfesor2));
 		};
 	}
