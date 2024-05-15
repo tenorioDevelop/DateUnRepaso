@@ -1,5 +1,6 @@
 package com.dateunrepaso.dur.servicios;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -217,7 +218,7 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 		return Optional.empty();
 	}
 	
-	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDateTime fechaReserva) {
+	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDate fechaReserva) {
 		
 		List<ReservaProfesor> reservaProf = reservaProfRepo.findAll();
 		

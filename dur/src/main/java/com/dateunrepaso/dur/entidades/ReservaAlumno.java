@@ -1,6 +1,7 @@
 package com.dateunrepaso.dur.entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -34,7 +35,7 @@ public class ReservaAlumno implements Serializable {
 	private Aula aula;
 
 	@Column(name = "fecha", nullable = false, unique = true)
-	private LocalDateTime fechaReserva;
+	private LocalDate fechaReserva;
 
 	@Column(name = "horaInicio", nullable = false)
 	private Integer horaInicio;
@@ -45,7 +46,7 @@ public class ReservaAlumno implements Serializable {
 	public ReservaAlumno() {
 	}
 
-	public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDateTime fechaReserva,
+	public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDate fechaReserva,
 			Integer horaInicio, Integer horaFin) {
 		this.id = id;
 		this.alumno = alumno;
@@ -88,11 +89,11 @@ public class ReservaAlumno implements Serializable {
 		this.aula = aula;
 	}
 
-	public LocalDateTime getFechaReserva() {
+	public LocalDate getFechaReserva() {
 		return fechaReserva;
 	}
 
-	public void setFechaReserva(LocalDateTime fechaReserva) {
+	public void setFechaReserva(LocalDate fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
 

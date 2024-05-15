@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/build/css/styles.css}">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<title>Registrarse</title>
+</head>
+
+<body>
+
+	<main>
+
+		<h1>Reserva</h1>
+
+		<section>
+
+			<th:form th:action="@{/reserva-alumno}" method="POST">
+
+				<select name="profesor">
+					<option th:each="profesor : ${listaProfesores}"
+						th:value="${profesor.id}"><span
+							th:text="${profesor.nomUsuario}"></span>
+					</option>
+				</select>
+				<select name="asignatura">
+				</select>
+				<input type="date" name="fechaReserva" placeholder="Fecha reserva" />
+				<input type="date" name="horaInc" placeholder="Hora inicio" />
+				<input type="date" name="horaFin" placeholder="Hora fin" />
+				<input type="submit">
+
+			</th:form>
+		</section>
+
+	</main>
+
+</body>
+
+</html>
