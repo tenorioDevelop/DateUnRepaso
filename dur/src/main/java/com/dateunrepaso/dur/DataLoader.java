@@ -23,7 +23,7 @@ import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
 
-@Configuration
+//@Configuration
 public class DataLoader {
 
 	@Bean

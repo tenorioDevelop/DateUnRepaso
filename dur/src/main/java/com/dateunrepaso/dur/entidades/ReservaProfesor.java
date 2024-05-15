@@ -41,8 +41,9 @@ public class ReservaProfesor implements Serializable {
 	public ReservaProfesor() {
 	}
 
-	public ReservaProfesor(Profesor profesor, Aula aula, LocalDateTime fechaReserva, Integer horaInicio,
+	public ReservaProfesor(Long id, Profesor profesor, Aula aula, LocalDateTime fechaReserva, Integer horaInicio,
 			Integer horaFin) {
+		this.id = id;
 		this.profesor = profesor;
 		this.aula = aula;
 		this.fechaReserva = fechaReserva;

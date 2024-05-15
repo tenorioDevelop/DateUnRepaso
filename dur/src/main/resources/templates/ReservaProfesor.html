@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/build/css/styles.css}">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<title>Reserva - DateUnRepaso</title>
+</head>
+
+<body>
+	
+	<main>
+		<h1>Reserva</h1>
+		
+		<section>
+				<form th:action="@{/reserva-profesor}" method="post">
+					<select name="resProfAula">
+						<option th:each="aula : ${listaAulas}" th:value="${aula.id}"><span th:text="${aula.nombre}"></span></option>
+					</select>
+					<input type="date" name="resProfFecha">
+					<input type="number" placeholder="Hora inicio" name="resProfHoraI">
+					<input type="number" placeholder="Hora fin" name="resProfHoraF">
+					<input type="submit" value="Reservar" name="resProfBoton">
+				</form>	
+		</section>
+	</main>
+	
+</body>
+</html>
