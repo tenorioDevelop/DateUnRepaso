@@ -41,10 +41,12 @@ public class InicioControlador {
 			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
 			model.addAttribute("usuario", alumno);
 			model.addAttribute("siguienteClase", reservaAlumnoRepo.findByAlumno(alumno));
+			model.addAttribute("tipoUsuario", "alumno");
 		} else {
 			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
 			model.addAttribute("usuario", profesor);
 			model.addAttribute("siguienteClase", reservaProfesorRepo.findByProfesor(profesor));
+			model.addAttribute("tipoUsuario", "profesor");
 		}
 
 		

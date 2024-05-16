@@ -10,33 +10,33 @@
 </head>
 
 <body>
-	<header style="background-color: purple;">
-		<div>
-			<figure>
-				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}">
-			</figure>
-			<p>DateUnRepaso</p>
-		</div>
+	<!-- 	<header style="background-color: purple;"> -->
+	<!-- 		<div> -->
+	<!-- 			<figure> -->
+	<!-- 				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}"> -->
+	<!-- 			</figure> -->
+	<!-- 			<p>DateUnRepaso</p> -->
+	<!-- 		</div> -->
 
-		<nav>
-			<ul>
-				<li><a>Inicio</a></li>
-				<li><a>Clases</a></li>
-				<li><a>Calendario</a></li>
-				<li><a>Contacto</a></li>
-			</ul>
-		</nav>
+	<!-- 		<nav> -->
+	<!-- 			<ul> -->
+	<!-- 				<li><a>Inicio</a></li> -->
+	<!-- 				<li><a>Clases</a></li> -->
+	<!-- 				<li><a>Calendario</a></li> -->
+	<!-- 				<li><a>Contacto</a></li> -->
+	<!-- 			</ul> -->
+	<!-- 		</nav> -->
 
-		<div>
-			<span></span> <i><img
-				th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i>
-		</div>
-	</header>
+	<!-- 		<div> -->
+	<!-- 			<span></span> <i><img -->
+	<!-- 				th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i> -->
+	<!-- 		</div> -->
+	<!-- 	</header> -->
 
 	<main>
 		<section>
 			<h2>Lunes, 08 Abril</h2>
-			
+
 			<div>
 				<section>
 					<p>Siguiente clase...</p>
@@ -46,47 +46,56 @@
 						</figure>
 						<div>
 							<h3>ASIGNATURA</h3>
-							<p><i></i>Nombre Profesor/a</p>
-							<p><i></i>Hora</p>
-							<p><i></i>Aula</p>
+							<p>
+								<i></i>Nombre Profesor/a
+							</p>
+							<p>
+								<i></i>Hora
+							</p>
+							<p>
+								<i></i>Aula
+							</p>
 						</div>
 					</div>
 				</section>
-				
+
 				<section>
 					<p>¿Quieres ver tus próximas clases?</p>
-					<figure><img></figure>
+					<figure>
+						<img>
+					</figure>
 					<a>Ver más</a>
 				</section>
-				
+
 				<section>
 					<p>¿Aún no tienes una RESERVA?</p>
-					<figure><img></figure>
-					<a>Reservar</a>
+					<figure>
+						<img>
+					</figure>
+					<a th:href="@{/reserva-profesor}" th:if="${tipoUsuario == 'profesor'}">Reservar</a>
+					<a th:href="@{/reserva-alumno}" th:if="${tipoUsuario == 'alumno'}">Reservar</a>
 					<p>Pulsa en el siguiente botón para reservar</p>
 				</section>
-				
-				<section>
-					CALENDARIO
-				</section>
+
+				<section>CALENDARIO</section>
 			</div>
 		</section>
-		
-		<section>
-			<div>
-				<p>Chats</p>
-				
-				<div>
-				MOSTRAR CHATS
-				</div>
-				
-				<a>Ver más</a>
-			</div>
-			
-			<div>
-				MOSTRAR LO DEL TIEMPO
-			</div>
-		</section>
+
+		<!-- 		<section> -->
+		<!-- 			<div> -->
+		<!-- 				<p>Chats</p> -->
+
+		<!-- 				<div> -->
+		<!-- 				MOSTRAR CHATS -->
+		<!-- 				</div> -->
+
+		<!-- 				<a>Ver más</a> -->
+		<!-- 			</div> -->
+
+		<!-- 			<div> -->
+		<!-- 				MOSTRAR LO DEL TIEMPO -->
+		<!-- 			</div> -->
+		<!-- 		</section> -->
 	</main>
 </body>
 </html>

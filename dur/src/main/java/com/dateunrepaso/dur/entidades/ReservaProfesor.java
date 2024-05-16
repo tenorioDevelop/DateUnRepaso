@@ -33,10 +33,10 @@ public class ReservaProfesor implements Serializable {
 	@Column(name = "fecha", nullable = false, unique = true)
 	private LocalDate fechaReserva;
 
-	@Column(name = "horaInicio", nullable = false)
+	@Column(name = "horaInicio", nullable = false, unique = true)
 	private Integer horaInicio;
 
-	@Column(name = "horaFin", nullable = false)
+	@Column(name = "horaFin", nullable = false, unique = true)
 	private Integer horaFin;
 
 	public ReservaProfesor() {

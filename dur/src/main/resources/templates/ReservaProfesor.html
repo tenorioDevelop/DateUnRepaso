@@ -20,8 +20,24 @@
 						<option th:each="aula : ${listaAulas}" th:value="${aula.id}"><span th:text="${aula.nombre}"></span></option>
 					</select>
 					<input type="date" name="resProfFecha">
-					<input type="number" placeholder="Hora inicio" name="resProfHoraI">
-					<input type="number" placeholder="Hora fin" name="resProfHoraF">
+					<select name="resProfHoraI">
+						<option>Hora inicio</option>
+						<option value="16">16:00</option>
+						<option value="17">17:00</option>
+						<option value="18">18:00</option>
+						<option value="19">19:00</option>
+						<option value="20">20:00</option>
+						<option value="21">21:00</option>
+					</select>
+					<select name="resProfHoraF">
+						<option>Hora fin</option>
+						<option value="16">16:00</option>
+						<option value="17">17:00</option>
+						<option value="18">18:00</option>
+						<option value="19">19:00</option>
+						<option value="20">20:00</option>
+						<option value="21">21:00</option>
+					</select>
 					<input type="submit" value="Reservar" name="resProfBoton">
 				</form>	
 		</section>

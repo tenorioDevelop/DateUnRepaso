@@ -2,6 +2,7 @@ package com.dateunrepaso.dur.controladores;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,11 +54,25 @@ public class ReservaProfesorControlador {
 		
 		Aula aula = aulaRepo.findById(idAula).get();
 		
-		ReservaProfesor reserva = new ReservaProfesor(null, profesor, aula, fecha, horaI, horaF);
+		List<ReservaProfesor> reservas = reservaProfRepo.findAll();
 		
-		reservaProfRepo.save(reserva);
+		for (ReservaProfesor reserva : reservas) {
+			if (reserva.getProfesor().getId().equals(profesor.getId()) && reserva.getAula().getId().equals(aula.getId()) 
+					&& reserva.getHoraInicio().equals(horaI) && reserva.getHoraFin().equals(horaF)) {
+				return "redirect:/reserva-profesor";
+			}
+		}
 		
-		return "redirect:/app";
+		if (horaI < horaF) {
+			ReservaProfesor reserva = new ReservaProfesor(null, profesor, aula, fecha, horaI, horaF);
+			
+			reservaProfRepo.save(reserva);
+			return "redirect:/app";
+		} else {
+			return "redirect:/reserva-profesor";
+		}
+		
+		
 	}
 	
 	
