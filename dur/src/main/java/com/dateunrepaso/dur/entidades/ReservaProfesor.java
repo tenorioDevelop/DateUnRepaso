@@ -23,20 +23,20 @@ public class ReservaProfesor implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "idProfesorFK", nullable = false, unique = true)
+	@JoinColumn(name = "idProfesorFK", nullable = false, unique = false)
 	private Profesor profesor;
 
 	@ManyToOne
-	@JoinColumn(name = "idAulaFK", nullable = false, unique = true)
+	@JoinColumn(name = "idAulaFK", nullable = false, unique = false)
 	private Aula aula;
 
-	@Column(name = "fecha", nullable = false, unique = true)
+	@Column(name = "fecha", nullable = false, unique = false)
 	private LocalDate fechaReserva;
 
-	@Column(name = "horaInicio", nullable = false, unique = true)
+	@Column(name = "horaInicio", nullable = false, unique = false)
 	private Integer horaInicio;
 
-	@Column(name = "horaFin", nullable = false, unique = true)
+	@Column(name = "horaFin", nullable = false, unique = false)
 	private Integer horaFin;
 
 	public ReservaProfesor() {
