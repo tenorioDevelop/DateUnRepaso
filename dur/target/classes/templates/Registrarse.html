@@ -46,14 +46,21 @@
 				<div class="invalid-feedback">
 					Campo requerido
 				</div>
+				<select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required="required">
+					<option>Seleccione una asignatura</option>
+					<option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}"><span th:text="${asig.nombre}"></span></option>
+				</select>
+				<div class="invalid-feedback">
+					Campo requerido
+				</div>
 				<div class="formRegistro_perfiles">
 
-					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfilSel">
+					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfilSel" value="esProfesor" checked="checked">
 					<label for="radioProf" class="formRegistro_perfiles--label"><i class="formRegistro_perfiles--icono"
 							aria-hidden="true"><img class="formRegistro_perfiles--iconoImagen"
 								th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt=""></i></label>
 
-					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfilSel">
+					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfilSel" value="esAlumno">
 					<label for="radioAlumno" class="formRegistro_perfiles--label"><i
 							class="formRegistro_perfiles--icono" aria-hidden="true"><img
 								class="formRegistro_perfiles--iconoImagen"
@@ -72,6 +79,7 @@
 		</figure>
 	</section>
 	<script src="../static/js/validacion.js"></script>
+	<script type="text/javascript" th:src="@{/js/registro.js}"></script>
 </body>
 
 </html>

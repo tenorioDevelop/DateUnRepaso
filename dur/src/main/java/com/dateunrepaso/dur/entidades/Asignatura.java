@@ -39,11 +39,11 @@ public class Asignatura implements Serializable {
 	}
 
 	// Getters and setters
-	public Long getIdAsignatura() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setIdAsignatura(Long idAsignatura) {
+	public void setId(Long idAsignatura) {
 		this.id = idAsignatura;
 	}
 

@@ -1,5 +1,6 @@
 package com.dateunrepaso.dur.controladores;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,12 @@ import com.dateunrepaso.dur.utilidades.UtilidadesString;
 import jakarta.servlet.http.HttpSession;
 
 import com.dateunrepaso.dur.entidades.Alumno;
+import com.dateunrepaso.dur.entidades.Asignatura;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
+import com.dateunrepaso.dur.repositorios.AsignaturaRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
+import com.dateunrepaso.dur.servicios.ProfesorImp;
 
 @Controller
 public class LoginControlador {
@@ -25,6 +29,12 @@ public class LoginControlador {
 
 	@Autowired
 	private AlumnoRepo alumnoRepo;
+	
+	@Autowired
+	private ProfesorImp profesorImp;
+	
+	@Autowired
+	private AsignaturaRepo asignaturaRepo;
 
 	@GetMapping("/")
 	public String getLandingPage() {
@@ -66,7 +76,11 @@ public class LoginControlador {
 	}
 
 	@GetMapping("/registro")
-	public String getRegistro() {
+	public String getRegistro(Model model) {
+		List<Asignatura> asignaturas = asignaturaRepo.findAll();
+		
+		model.addAttribute("listaAsignaturas", asignaturas);
+	
 		return "Registrarse";
 	}
 
@@ -75,18 +89,19 @@ public class LoginControlador {
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "perfilSel") String perfil, HttpSession sesion, Model model) {
+			@RequestParam(name = "perfilSel") String perfil, @RequestParam(name="asignaturaProf") Long idAsig, HttpSession sesion, Model model) {
 
 		Optional<Alumno> alumnoOpt = alumnoRepo.findByCorreo(correo);
-		Optional<Profesor> profesorOpt = profesorRepo.findByCorreo(correo);
+		Profesor profesorOpt = profesorImp.findByCorreoAndDni(correo, dni);
+		Asignatura asignaturaProf = asignaturaRepo.findById(idAsig).get();
 
-		if (alumnoOpt.isEmpty() && profesorOpt.isEmpty()) {
+		if (alumnoOpt.isEmpty() && profesorOpt == null) {
 			if (contrasena.equals(contrasenaRep)) {
 
 				if (perfil.equals("esProfesor")) {
 
 					Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre),
-							correo, contrasena, fechaNac, null);
+							correo, contrasena, fechaNac, asignaturaProf);
 
 					profesorRepo.save(profesor);
 
