@@ -12,8 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"idProfesorFK","idAulaFK","fecha","horaInicio","horaFin"})})
 public class ReservaProfesor implements Serializable {
 
 	private static final long serialVersionUID = 7L;

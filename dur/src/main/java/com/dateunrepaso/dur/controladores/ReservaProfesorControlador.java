@@ -55,6 +55,19 @@ public class ReservaProfesorControlador {
 
 		List<ReservaProfesor> reservas = reservaProfRepo.findAll();
 
+		// Comprobaciones de conflictos de las fechas
+		if (reservaProfRepo.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
+				.isPresent()) {
+			// Comprobar que la reserva no genera conflico con otra existente
+			if (horaI >= reservaProfRepo
+					.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get()).get()
+					.getHoraInicio() &&
+					horaI <= reservaProfRepo
+							.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
+							.get().getHoraFin())
+				return "redirect:/reserva-profesor";
+		}
+
 		for (ReservaProfesor reserva : reservas) {
 			if (reserva.getAula().getId().equals(aula.getId()) && reserva.getHoraInicio().equals(horaI)
 					&& reserva.getHoraFin().equals(horaF)) {
