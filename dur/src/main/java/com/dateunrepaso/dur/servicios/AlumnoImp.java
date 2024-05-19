@@ -12,14 +12,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
-import com.dateunrepaso.dur.repositorios.ProfesorRepo;
+import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 
 @Service
-public class ProfesorImp implements ProfesorRepo {
+public class AlumnoImp implements AlumnoRepo {
 
 	@Autowired
-	private ProfesorRepo profesorRepo;
+	private AlumnoRepo alumnoRepo;
 
 	@Override
 	public void flush() {
@@ -28,19 +29,19 @@ public class ProfesorImp implements ProfesorRepo {
 	}
 
 	@Override
-	public <S extends Profesor> S saveAndFlush(S entity) {
+	public <S extends Alumno> S saveAndFlush(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> List<S> saveAllAndFlush(Iterable<S> entities) {
+	public <S extends Alumno> List<S> saveAllAndFlush(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void deleteAllInBatch(Iterable<Profesor> entities) {
+	public void deleteAllInBatch(Iterable<Alumno> entities) {
 		// TODO Auto-generated method stub
 
 	}
@@ -58,61 +59,61 @@ public class ProfesorImp implements ProfesorRepo {
 	}
 
 	@Override
-	public Profesor getOne(Long id) {
+	public Alumno getOne(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Profesor getById(Long id) {
+	public Alumno getById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Profesor getReferenceById(Long id) {
+	public Alumno getReferenceById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> List<S> findAll(Example<S> example) {
+	public <S extends Alumno> List<S> findAll(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> List<S> findAll(Example<S> example, Sort sort) {
+	public <S extends Alumno> List<S> findAll(Example<S> example, Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> List<S> saveAll(Iterable<S> entities) {
+	public <S extends Alumno> List<S> saveAll(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Profesor> findAll() {
+	public List<Alumno> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Profesor> findAllById(Iterable<Long> ids) {
+	public List<Alumno> findAllById(Iterable<Long> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> S save(S entity) {
+	public <S extends Alumno> S save(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<Profesor> findById(Long id) {
+	public Optional<Alumno> findById(Long id) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
@@ -136,7 +137,7 @@ public class ProfesorImp implements ProfesorRepo {
 	}
 
 	@Override
-	public void delete(Profesor entity) {
+	public void delete(Alumno entity) {
 		// TODO Auto-generated method stub
 
 	}
@@ -148,7 +149,7 @@ public class ProfesorImp implements ProfesorRepo {
 	}
 
 	@Override
-	public void deleteAll(Iterable<? extends Profesor> entities) {
+	public void deleteAll(Iterable<? extends Alumno> entities) {
 		// TODO Auto-generated method stub
 
 	}
@@ -160,93 +161,94 @@ public class ProfesorImp implements ProfesorRepo {
 	}
 
 	@Override
-	public List<Profesor> findAll(Sort sort) {
+	public List<Alumno> findAll(Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Profesor> findAll(Pageable pageable) {
+	public Page<Alumno> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> Optional<S> findOne(Example<S> example) {
+	public <S extends Alumno> Optional<S> findOne(Example<S> example) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
 	@Override
-	public <S extends Profesor> Page<S> findAll(Example<S> example, Pageable pageable) {
+	public <S extends Alumno> Page<S> findAll(Example<S> example, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Profesor> long count(Example<S> example) {
+	public <S extends Alumno> long count(Example<S> example) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public <S extends Profesor> boolean exists(Example<S> example) {
+	public <S extends Alumno> boolean exists(Example<S> example) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public <S extends Profesor, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
+	public <S extends Alumno, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<Profesor> findByCorreo(String correo) {
+	public Optional<Alumno> findByCorreo(String correo) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
-	public Profesor findByCorreoAndDni(String correo, String dni) {
-		List<Profesor> profesores = profesorRepo.findAll();
-		Profesor profesor = new Profesor();
+	public Alumno findByCorreoAndDni(String correo, String dni) {
+		List<Alumno> alumnos = alumnoRepo.findAll();
+		Alumno alumno = new Alumno();
 
-		for (Profesor p : profesores) {
-			if (p.getCorreo().equals(correo) || p.getDni().equals(dni)) {
-				profesor = p;
-				return profesor;
+		for (Alumno a : alumnos) {
+			if (a.getCorreo().equals(correo) || a.getDni().equals(dni)) {
+				alumno = a;
+				return alumno;
 			}
 		}
 
 		return null;
 	}
 
-	public Profesor findByDni(String dni) {
-		List<Profesor> profesores = profesorRepo.findAll();
-		Profesor profesor = new Profesor();
+	public Alumno findByDni(String dni) {
+		List<Alumno> alumnos = alumnoRepo.findAll();
+		Alumno alumno = new Alumno();
 
-		for (Profesor p : profesores) {
-			if (p.getDni().equals(dni)) {
-				profesor = p;
-				return profesor;
+		for (Alumno a : alumnos) {
+			if (a.getDni().equals(dni)) {
+				alumno = a;
+				return alumno;
 			}
 		}
 
 		return null;
 	}
 
-	public Profesor findByCorreoAndContrasena(String correo, String contrasena) {
-		List<Profesor> profesores = profesorRepo.findAll();
-		Profesor profesor = new Profesor();
+	public Alumno findByCorreoAndContrasena(String correo, String contrasena) {
+		List<Alumno> alumnos = alumnoRepo.findAll();
+		Alumno alumno = new Alumno();
 
-		for (Profesor p : profesores) {
-			if (p.getCorreo().equals(correo) && p.getContrasena().equals(contrasena)) {
-				profesor = p;
-				return profesor;
+		for (Alumno a : alumnos) {
+			if (a.getContrasena().equals(contrasena) && a.getCorreo().equals(correo)) {
+				alumno = a;
+				return alumno;
 			}
 		}
 
 		return null;
+
 	}
 
 }
