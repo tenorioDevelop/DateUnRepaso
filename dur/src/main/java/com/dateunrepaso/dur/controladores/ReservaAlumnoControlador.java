@@ -3,6 +3,7 @@ package com.dateunrepaso.dur.controladores;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dateunrepaso.dur.entidades.Alumno;
+import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
@@ -34,7 +36,7 @@ public class ReservaAlumnoControlador {
 
 	@Autowired
 	ReservaAlumnoRepo reservaAlumnoRepo;
-	
+
 	@Autowired
 	ReservaAlumnoImp reservaAlumnoImp;
 
@@ -52,24 +54,37 @@ public class ReservaAlumnoControlador {
 	public String postReservar(
 			HttpSession sesion,
 			@RequestParam(name = "profesor") Long idProfesor,
-			@RequestParam(name = "asignatura") Long asignatura,
+			@RequestParam(name = "asignatura", required = false) Long asignatura,
 			@RequestParam(name = "fechaReserva") LocalDate fechaReserva,
-			@RequestParam(name = "horaI") int horaInicio,
-			@RequestParam(name = "horaFin") int horaFin
-			) {
-		
-		Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+			@RequestParam(name = "horaInc") int horaInicio,
+			@RequestParam(name = "horaFin") int horaFin) {
 
-		ReservaAlumno reserva = new ReservaAlumno(null, 
-				alumno, 
-				profesorRepo.findById(idProfesor).get(),
-				reservaAlumnoImp.getAulasByProfesorAndFechaReserva(idProfesor, fechaReserva),
+		Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+		Profesor profesor = profesorRepo.findById(idProfesor).get();
+		Aula aula = reservaAlumnoImp.getAulasByProfesorAndFechaReserva(idProfesor, fechaReserva);
+
+		//validaciones
+
+		if(aulaNoSuperaLimiteAlumnos()){
+			//TODO seguir haciendo
+		}
+
+
+		ReservaAlumno reserva = new ReservaAlumno(null,
+				alumno,
+				profesor,
+				aula,
 				fechaReserva,
 				horaInicio,
-				horaFin
-				)	;
-		
+				horaFin);
+
+		reservaAlumnoRepo.save(reserva);
+
 		return "redirect:/app";
+	}
+
+	public boolean aulaNoSuperaLimiteAlumnos(){
+		return false;
 	}
 
 }
