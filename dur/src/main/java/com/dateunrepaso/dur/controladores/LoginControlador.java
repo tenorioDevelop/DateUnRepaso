@@ -102,51 +102,59 @@ public class LoginControlador {
 
 		boolean correcto = true;
 
-		if (alumnoOpt == null && profesorOpt == null) {
-			if (contrasena.equals(contrasenaRep)) {
+		// Validaciones
 
-				if (perfil.equals("esProfesor")) {
-					if (idAsig != -1) {
-						Asignatura asignaturaProf = asignaturaRepo.findById(idAsig).get();
-
-						Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre),
-								correo, contrasena, fechaNac, asignaturaProf);
-
-						profesorRepo.save(profesor);
-
-						sesion.setAttribute("usuarioLogeado", profesor);
-					} else {
-						correcto = false;
-					}
-				} else if (perfil.equals("esAlumno")) {
-
-					Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-							contrasena, fechaNac, null, null);
-
-					alumnoRepo.save(alumno);
-					sesion.setAttribute("usuarioLogeado", alumno);
-
-				}
-			} else {
-				correcto = false;
-
-			}
-		} else {
+		if (!contrasena.equals(contrasenaRep)) {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+			correcto = false;
+		} else if (!profesorRepo.findByCorreo(correo).isEmpty() || !alumnoRepo.findByCorreo(correo).isEmpty()) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
+			correcto = false;
+		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
+			correcto = false;
+		} else if (perfil.equals("esProfesor") && idAsig == -1) {
+			atributos.addFlashAttribute("Error", "Al ser profesor tienes que elegir una asignatura");
+			correcto = false;
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18)) {
+			atributos.addFlashAttribute("Error", "No puedes ser menor de edad");
 			correcto = false;
 		}
 
-		if (correcto == true) {
+		if (alumnoOpt == null && profesorOpt == null) {
+
+			if (perfil.equals("esProfesor")) {
+				if (idAsig != -1) {
+					atributos.addFlashAttribute("Error", "No puedes no seleccionar asignaturas");
+					correcto = false;
+				}
+			}
+		} else {
+			atributos.addFlashAttribute("Error", "El formulario no puede ir vacio");
+			correcto = false;
+		}
+
+		// Fin validaciones
+
+		if (correcto) {
+			if (perfil.equals("esProfesor")) {
+				Asignatura asignaturaProf = asignaturaRepo.findById(idAsig).get();
+
+				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre),
+						correo, contrasena, fechaNac, asignaturaProf);
+
+				profesorRepo.save(profesor);
+
+				sesion.setAttribute("usuarioLogeado", profesor);
+			} else {
+				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+						contrasena, fechaNac, null, null);
+
+				alumnoRepo.save(alumno);
+				sesion.setAttribute("usuarioLogeado", alumno);
+			}
 			return "redirect:/app";
 		} else {
-			if (!contrasena.equals(contrasenaRep)) {
-				atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-			} else if (!profesorRepo.findByCorreo(correo).isEmpty() || !alumnoRepo.findByCorreo(correo).isEmpty()) {
-				atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-			} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
-				atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-			} else if (perfil.equals("esProfesor") && idAsig == -1) {
-				atributos.addFlashAttribute("Error", "Al ser profesor tienes que elegir una asignatura");
-			}
 			return "redirect:/registro";
 		}
 
