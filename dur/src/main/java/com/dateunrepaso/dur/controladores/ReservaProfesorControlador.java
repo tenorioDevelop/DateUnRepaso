@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ReservaProfesorControlador {
@@ -47,7 +48,7 @@ public class ReservaProfesorControlador {
 	@PostMapping("/reserva-profesor")
 	public String postReservar(@RequestParam(name = "resProfAula") Long idAula,
 			@RequestParam(name = "resProfFecha") LocalDate fecha, @RequestParam(name = "resProfHoraI") int horaI,
-			@RequestParam(name = "resProfHoraF") int horaF, HttpSession sesion) {
+			@RequestParam(name = "resProfHoraF") int horaF, HttpSession sesion, RedirectAttributes atributos) {
 
 		Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
 
@@ -58,29 +59,36 @@ public class ReservaProfesorControlador {
 		// Comprobaciones de conflictos de las fechas
 		if (reservaProfRepo.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
 				.isPresent()) {
-			// Comprobar que la reserva no genera conflico con otra existente
+			// Comprobar que la reserva no genera conflicto con otra existente
 			if (horaI >= reservaProfRepo
 					.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get()).get()
 					.getHoraInicio() &&
 					horaI <= reservaProfRepo
 							.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
 							.get().getHoraFin())
-				return "redirect:/reserva-profesor";
+			return "redirect:/reserva-profesor";
 		}
 
 		for (ReservaProfesor reserva : reservas) {
+			System.out.println("\n" + fecha + "\n");
 			if (reserva.getAula().getId().equals(aula.getId()) && reserva.getHoraInicio().equals(horaI)
-					&& reserva.getHoraFin().equals(horaF)) {
+					&& reserva.getHoraFin().equals(horaF) && reserva.getFechaReserva().equals(fecha)) {
+				atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
+				return "redirect:/reserva-profesor";
+			} else if (reserva.getProfesor().getId().equals(profesor.getId()) && reserva.getHoraInicio().equals(horaI)
+					&& reserva.getHoraFin().equals(horaF) && reserva.getFechaReserva().equals(fecha)) {
+				atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
 				return "redirect:/reserva-profesor";
 			}
+
 		}
 
 		if (horaI < horaF) {
 			ReservaProfesor reserva = new ReservaProfesor(null, profesor, aula, fecha, horaI, horaF);
-
 			reservaProfRepo.save(reserva);
 			return "redirect:/app";
 		} else {
+			atributos.addFlashAttribute("Error", "La hora final no puede ser antes que la hora inicio");
 			return "redirect:/reserva-profesor";
 		}
 
