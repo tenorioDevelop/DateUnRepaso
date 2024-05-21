@@ -19,6 +19,7 @@ import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
+import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
 
@@ -29,7 +30,33 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 	private ReservaAlumnoRepo reservaAlumRepo;
 	
 	@Autowired
+	private AlumnoRepo alumnoRepo;
+
+	@Autowired
 	private ReservaProfesorRepo reservaProfRepo;
+
+	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDate fechaReserva) {
+		
+		List<ReservaProfesor> reservaProf = reservaProfRepo.findAll();
+		
+		Aula aulaReservada = new Aula();
+		
+		for (ReservaProfesor reserva : reservaProf) {
+			if (reserva.getProfesor().getId() == idProfesor && reserva.getFechaReserva().equals(fechaReserva)) {
+				aulaReservada = reserva.getAula();
+			}
+		}
+		
+		return aulaReservada;
+	}
+
+	public List<ReservaAlumno> getReservasAlumno(Long idAlumno){
+		return this.findAllByAlumno(alumnoRepo.findById(idAlumno).get());
+	}
+
+	public boolean reservaSuperaNumMaxAlumnos(Aula aula, LocalDate fecha){
+		return this.findByFechaReservaAndAula(fecha, aula).size() > aula.getCantidadMaxAlumnos();
+	}
 
 	@Override
 	public void flush() {
@@ -217,20 +244,15 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
-	
-	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDate fechaReserva) {
-		
-		List<ReservaProfesor> reservaProf = reservaProfRepo.findAll();
-		
-		Aula aulaReservada = new Aula();
-		
-		for (ReservaProfesor reserva : reservaProf) {
-			if (reserva.getProfesor().getId() == idProfesor && reserva.getFechaReserva().equals(fechaReserva)) {
-				aulaReservada = reserva.getAula();
-			}
-		}
-		
-		return aulaReservada;
+
+	@Override
+	public List<ReservaAlumno> findByFechaReservaAndAula(LocalDate fecha, Aula aula) {
+		return reservaAlumRepo.findByFechaReservaAndAula(fecha, aula);
+	}
+
+	@Override
+	public List<ReservaAlumno> findAllByAlumno(Alumno alumno) {
+		return reservaAlumRepo.findAllByAlumno(alumno);
 	}
 	
 }

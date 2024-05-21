@@ -12,8 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"idAlumnoFK","idProfesorFK","idAulaFK","fecha"})})
 public class ReservaAlumno implements Serializable {
 
 	private static final long serialVersionUID = 6L;
@@ -23,18 +26,18 @@ public class ReservaAlumno implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "idAlumnoFK", nullable = false, unique = true)
+	@JoinColumn(name = "idAlumnoFK", nullable = false)
 	private Alumno alumno;
 
 	@ManyToOne
-	@JoinColumn(name = "idProfesorFK", nullable = false, unique = true)
+	@JoinColumn(name = "idProfesorFK", nullable = false)
 	private Profesor profesor;
 
 	@ManyToOne
-	@JoinColumn(name = "idAulaFK", nullable = false, unique = true)
+	@JoinColumn(name = "idAulaFK", nullable = false)
 	private Aula aula;
 
-	@Column(name = "fecha", nullable = false, unique = true)
+	@Column(name = "fecha", nullable = false)
 	private LocalDate fechaReserva;
 
 	@Column(name = "horaInicio", nullable = false)

@@ -10,12 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
+import com.dateunrepaso.dur.repositorios.AulaRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
@@ -53,6 +55,7 @@ public class ReservaAlumnoControlador {
 	@PostMapping("/reserva-alumno")
 	public String postReservar(
 			HttpSession sesion,
+			RedirectAttributes atributos,
 			@RequestParam(name = "profesor") Long idProfesor,
 			@RequestParam(name = "asignatura", required = false) Long asignatura,
 			@RequestParam(name = "fechaReserva") LocalDate fechaReserva,
@@ -61,14 +64,21 @@ public class ReservaAlumnoControlador {
 
 		Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
 		Profesor profesor = profesorRepo.findById(idProfesor).get();
+		//Recoge el aula segun el profesor y la fecha indicada
 		Aula aula = reservaAlumnoImp.getAulasByProfesorAndFechaReserva(idProfesor, fechaReserva);
+
+		boolean esValido = true;
 
 		//validaciones
 
-		if(aulaNoSuperaLimiteAlumnos()){
-			//TODO seguir haciendo
-		}
 
+		if(aula == null){
+			atributos.addFlashAttribute("Error", "No hay una reserva del profesor para ese dia");
+			esValido = false;
+		} else if(reservaAlumnoImp.reservaSuperaNumMaxAlumnos(aula, fechaReserva)){ //TODO hacer que funcione
+			atributos.addFlashAttribute("Error", "Se ha superado el numero maximo de reservas para ese dia");
+			esValido = false;
+		}
 
 		ReservaAlumno reserva = new ReservaAlumno(null,
 				alumno,
@@ -78,13 +88,14 @@ public class ReservaAlumnoControlador {
 				horaInicio,
 				horaFin);
 
-		reservaAlumnoRepo.save(reserva);
+		
+		if(esValido){
+			reservaAlumnoRepo.save(reserva);
+			return "redirect:/app";
+		} else {
+			return "redirect:/reserva-alumno";
+		}
 
-		return "redirect:/app";
-	}
-
-	public boolean aulaNoSuperaLimiteAlumnos(){
-		return false;
 	}
 
 }
