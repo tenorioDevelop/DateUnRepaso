@@ -71,4 +71,10 @@ public class InicioControlador {
 		return dia;
 	}
 
+	@GetMapping("/calendario")
+	public String getCalendario() {
+		return "Calendario";
+	}
+	
+
 }

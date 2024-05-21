@@ -2,36 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/build/css/styles.css}">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<title>Inicio - DateUnRepaso</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/build/css/styles.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<title>Inicio - DateUnRepaso</title>
 </head>
 
 <body>
-	<!-- 	<header style="background-color: purple;"> -->
-	<!-- 		<div> -->
-	<!-- 			<figure> -->
-	<!-- 				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}"> -->
-	<!-- 			</figure> -->
-	<!-- 			<p>DateUnRepaso</p> -->
-	<!-- 		</div> -->
+	<header style="background-color: lightblue;">
+		<div>
+			<figure>
+				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}">
+			</figure>
+			<p>DateUnRepaso</p>
+		</div>
 
-	<!-- 		<nav> -->
-	<!-- 			<ul> -->
-	<!-- 				<li><a>Inicio</a></li> -->
-	<!-- 				<li><a>Clases</a></li> -->
-	<!-- 				<li><a>Calendario</a></li> -->
-	<!-- 				<li><a>Contacto</a></li> -->
-	<!-- 			</ul> -->
-	<!-- 		</nav> -->
+		<nav>
+			<ul>
+				<li><a>Inicio</a></li>
+				<li><a>Clases</a></li>
+				<li><a th:href="@{/calendario}">Calendario</a></li>
+				<li><a>Contacto</a></li>
+			</ul>
+		</nav>
 
-	<!-- 		<div> -->
-	<!-- 			<span></span> <i><img -->
-	<!-- 				th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i> -->
-	<!-- 		</div> -->
-	<!-- 	</header> -->
+		<div>
+			<span></span> <i><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i>
+		</div>
+	</header>
 
 	<main>
 		<section>
@@ -98,4 +96,5 @@
 		<!-- 		</section> -->
 	</main>
 </body>
+
 </html>
