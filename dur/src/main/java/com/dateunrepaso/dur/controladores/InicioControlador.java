@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
@@ -45,8 +47,7 @@ public class InicioControlador {
 		String fechaActual = formato.format(LocalDate.now());
 		String fechaPartida[] = fechaActual.split("/");
 		model.addAttribute("fechaActual", fechaActual);
-//		LocalDate.now().getDayOfWeek();
-		
+		// LocalDate.now().getDayOfWeek();
 
 		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
 			return "redirect:/";
@@ -64,10 +65,10 @@ public class InicioControlador {
 
 		return "Index";
 	}
-	
+
 	public DayOfWeek fechaActual() {
 		DayOfWeek dia = LocalDate.now().getDayOfWeek();
-		
+
 		return dia;
 	}
 
@@ -77,10 +78,31 @@ public class InicioControlador {
 	}
 
 	@GetMapping("/clases")
-	public String getClases() {
+	public String getClases(Model model, HttpSession sesion) {
+		List<ReservaProfesor> reservaProf = new ArrayList<>();
+		List<ReservaAlumno> reservaAlum = new ArrayList<>();
+
+		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
+			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+			List<ReservaAlumno> reservas = reservaAlumnoRepo.findAll();
+			for (ReservaAlumno reservaA : reservaAlum) {
+				if (reservaA.getAlumno().getId().equals(alumno.getId())) {
+					reservaAlum.add(reservaA);
+				}
+			}
+			model.addAttribute("Reservas", reservaAlum);
+		} else {
+			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
+			List<ReservaProfesor> reservas = reservaProfesorRepo.findAll();
+			for (ReservaProfesor reservaP : reservas) {
+				if (reservaP.getProfesor().getId().equals(profesor.getId())) {
+					reservaProf.add(reservaP);
+				}
+			}
+			model.addAttribute("Reservas", reservaProf);
+		}
+
 		return "Clases";
 	}
-	
-	
 
 }

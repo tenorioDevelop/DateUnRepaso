@@ -32,7 +32,21 @@
 	</header> -->
 
 	
-	
+	<main>
+		<h1>Mis clases</h1>
+
+		<section>
+			<div th:each="reserva : ${Reservas}">
+				<h2 th:text="${reserva.aula.nombre}"></h2>
+				<p th:text="${reserva.fechaReserva}"></p>
+				<p><span th:text="${reserva.horaInicio}"></span>:00 - <span th:text="${reserva.horaFin}"></span>:00</p>
+				<div>
+					<a href="">Editar</a>
+					<a href="">Borrar</a>
+				</div>
+			</div>
+		</section>
+	</main>
 </body>
 
 </html>
