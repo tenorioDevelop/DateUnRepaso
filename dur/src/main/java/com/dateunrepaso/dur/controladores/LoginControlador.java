@@ -100,43 +100,35 @@ public class LoginControlador {
 		Alumno alumnoOpt = alumnoImp.findByCorreoAndDni(correo, dni);
 		Profesor profesorOpt = profesorImp.findByCorreoAndDni(correo, dni);
 
-		boolean correcto = true;
+		boolean correcto = false;
 
 		// Validaciones
 
 		if (!contrasena.equals(contrasenaRep)) {
 			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-			correcto = false;
+			
 		} else if (!profesorRepo.findByCorreo(correo).isEmpty() || !alumnoRepo.findByCorreo(correo).isEmpty()) {
 			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-			correcto = false;
+			
 		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
 			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-			correcto = false;
+			
 		} else if (perfil.equals("esProfesor") && idAsig == -1) {
 			atributos.addFlashAttribute("Error", "Al ser profesor tienes que elegir una asignatura");
-			correcto = false;
-		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18)) {
+			
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18) && perfil.equals("esProfesor")) {
 			atributos.addFlashAttribute("Error", "No puedes ser menor de edad");
-			correcto = false;
-		}
-
-		if (alumnoOpt == null && profesorOpt == null) {
-
-			if (perfil.equals("esProfesor")) {
-				if (idAsig != -1) {
-					atributos.addFlashAttribute("Error", "No puedes no seleccionar asignaturas");
-					correcto = false;
-				}
-			}
+			
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8) && perfil.equals("esAlumno")) {
+			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+			
 		} else {
-			atributos.addFlashAttribute("Error", "El formulario no puede ir vacio");
-			correcto = false;
+			correcto = true;
 		}
 
 		// Fin validaciones
 
-		if (correcto) {
+		if (correcto == true) {
 			if (perfil.equals("esProfesor")) {
 				Asignatura asignaturaProf = asignaturaRepo.findById(idAsig).get();
 
