@@ -65,8 +65,11 @@ public class ReservaProfesorControlador {
 					.getHoraInicio() &&
 					horaI <= reservaProfRepo
 							.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
-							.get().getHoraFin())
-			return "redirect:/reserva-profesor";
+							.get().getHoraFin()) {
+				atributos.addFlashAttribute("Error", "Ya existe una reserva en ese tramo de horario");
+				return "redirect:/reserva-profesor";
+			}
+
 		}
 
 		for (ReservaProfesor reserva : reservas) {
@@ -77,6 +80,11 @@ public class ReservaProfesorControlador {
 				return "redirect:/reserva-profesor";
 			} else if (reserva.getProfesor().getId().equals(profesor.getId()) && reserva.getHoraInicio().equals(horaI)
 					&& reserva.getHoraFin().equals(horaF) && reserva.getFechaReserva().equals(fecha)) {
+				atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
+				return "redirect:/reserva-profesor";
+			} else if (reserva.getAula().getId() != aula.getId() && reserva.getFechaReserva().equals(fecha)
+					&& (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin()
+							|| (horaI >= reserva.getHoraInicio() && horaF >= reserva.getHoraFin()))) {
 				atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
 				return "redirect:/reserva-profesor";
 			}

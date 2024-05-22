@@ -75,6 +75,12 @@ public class InicioControlador {
 	public String getCalendario() {
 		return "Calendario";
 	}
+
+	@GetMapping("/clases")
+	public String getClases() {
+		return "Clases";
+	}
+	
 	
 
 }
