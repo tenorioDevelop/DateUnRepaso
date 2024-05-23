@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.dateunrepaso.dur.enums.Roles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,6 +43,7 @@ public class Alumno implements Serializable {
 	@Column(name = "rol", nullable = true)
 	private Roles rol;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "alumno")
 	private List<ReservaAlumno> reservas;
 

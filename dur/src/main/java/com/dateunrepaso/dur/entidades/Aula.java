@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Aula implements Serializable {
 	@Column(name = "cantidadMaximaAlumnos", nullable = false, unique = false)
 	private int cantidadMaxAlumnos;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "aula")
 	private List<ReservaAlumno> reservas;
 

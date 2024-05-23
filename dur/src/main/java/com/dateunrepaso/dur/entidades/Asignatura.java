@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Asignatura implements Serializable {
 	@Column(name = "nombre", nullable = false, unique = true)
 	private String nombre;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "asignatura")
 	private List<Profesor> profesores;
 
