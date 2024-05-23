@@ -6,7 +6,7 @@
 <link rel="stylesheet" th:href="@{/build/css/styles.css}">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<title>Registrarse</title>
+<title>Reserva - DateUnRepaso</title>
 </head>
 
 <body>
@@ -16,38 +16,29 @@
 		<h1>Reserva</h1>
 
 		<section>
-
-			<form th:action="@{/reserva-alumno}" method="post">
-
-				<select name="profesor">
-					<option th:each="profesor : ${listaProfesores}"
-						th:value="${profesor.id}"><span
-							th:text="${profesor.nomUsuario}"></span>
-					</option>
-				</select>
-				<select name="asignatura">
-				</select>
-				<input type="date" name="fechaReserva" placeholder="Fecha reserva" />
-				<select name="horaInc">
-					<option>Hora inicio</option>
-					<option value="16">16:00</option>
-					<option value="17">17:00</option>
-					<option value="18">18:00</option>
-					<option value="19">19:00</option>
-					<option value="20">20:00</option>
-					<option value="21">21:00</option>
-				</select>
-				<select name="horaFin">
-					<option>Hora fin</option>
-					<option value="16">16:00</option>
-					<option value="17">17:00</option>
-					<option value="18">18:00</option>
-					<option value="19">19:00</option>
-					<option value="20">20:00</option>
-					<option value="21">21:00</option>
-				</select>
-				<input type="submit" value="Enviar">
-			</form>
+			<table class="text-center ">
+				<tr>
+					<th>Fecha</th>
+					<th>Hora Inicio</th>
+					<th>Hora Final</th>
+					<th>Aula</th>
+					<th>Asignatura</th>
+					<th>Profesor</th>
+					<th></th>
+				</tr>
+				<form th:action="@{/reserva-alumno}" method="post" th:each="reserva: ${listaReservasP}">
+					<tr>
+						<input type="hidden" name="idReserva" th:value="${reserva.id}">
+						<td th:text="${reserva.fechaReserva}"></td>
+						<td><span th:text="${reserva.horaInicio}"></span><span>:00</span></td>
+						<td><span th:text="${reserva.horaFin}"></span><span>:00</span></td>
+						<td th:text="${reserva.aula.nombre}"></td>
+						<td th:text="${reserva.profesor.asignatura.nombre}"></td>
+						<td th:text="${reserva.profesor.nomCompleto}"></td>
+						<td><input type="submit" value="Reservar"></td>
+					</tr>
+				</form>
+			</table>
 		</section>
 
 	</main>

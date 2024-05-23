@@ -14,6 +14,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 
 import com.dateunrepaso.dur.entidades.Alumno;
@@ -85,7 +86,7 @@ public class InicioControlador {
 		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
 			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
 			List<ReservaAlumno> reservas = reservaAlumnoRepo.findAll();
-			for (ReservaAlumno reservaA : reservaAlum) {
+			for (ReservaAlumno reservaA : reservas) {
 				if (reservaA.getAlumno().getId().equals(alumno.getId())) {
 					reservaAlum.add(reservaA);
 				}
@@ -104,5 +105,22 @@ public class InicioControlador {
 
 		return "Clases";
 	}
+
+	@GetMapping("/clases/preguntarBorrar/{id}")
+	public String getPreguntarBorrarReserva(@PathVariable Long id, HttpSession sesion, Model model) {
+		model.addAttribute("idReserva", id);
+		return "EliminarReserva";
+	}
+
+	@GetMapping("/clases/delete/{id}")
+	public String getBorrarReserva(@PathVariable Long id, @RequestParam(name = "btnBorrar") String boton, HttpSession sesion) {
+		if (boton.equals("SÍ")) {
+			reservaProfesorRepo.deleteById(id);
+		}
+		
+		return "redirect:/clases";
+		
+	}
+	
 
 }

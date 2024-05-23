@@ -16,10 +16,12 @@ import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
+import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.AulaRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
+import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,12 +44,16 @@ public class ReservaAlumnoControlador {
 	@Autowired
 	ReservaAlumnoImp reservaAlumnoImp;
 
+	@Autowired
+	ReservaProfesorRepo reservaProfeRepo;
+
 	@GetMapping("/reserva-alumno")
 	public String getMain(Model model) {
 
-		List<Profesor> profesores = profesorRepo.findAll();
+		// List<Profesor> profesores = profesorRepo.findAll();
+		List<ReservaProfesor> reservaP = reservaProfeRepo.findAll();
 
-		model.addAttribute("listaProfesores", profesores);
+		model.addAttribute("listaReservasP", reservaP);
 
 		return "ReservaAlumno";
 	}
@@ -56,46 +62,17 @@ public class ReservaAlumnoControlador {
 	public String postReservar(
 			HttpSession sesion,
 			RedirectAttributes atributos,
-			@RequestParam(name = "profesor") Long idProfesor,
-			@RequestParam(name = "asignatura", required = false) Long asignatura,
-			@RequestParam(name = "fechaReserva") LocalDate fechaReserva,
-			@RequestParam(name = "horaInc") int horaInicio,
-			@RequestParam(name = "horaFin") int horaFin) {
+			@RequestParam(name = "idReserva") Long idReserva) {
 
 		Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-		Profesor profesor = profesorRepo.findById(idProfesor).get();
-		//Recoge el aula segun el profesor y la fecha indicada
-		Aula aula = reservaAlumnoImp.getAulasByProfesorAndFechaReserva(idProfesor, fechaReserva);
-
-		boolean esValido = true;
-
-		//validaciones
-
-
-		if(aula == null){
-			atributos.addFlashAttribute("Error", "No hay una reserva del profesor para ese dia");
-			esValido = false;
-		} else if(reservaAlumnoImp.reservaSuperaNumMaxAlumnos(aula, fechaReserva)){ //TODO hacer que funcione
-			atributos.addFlashAttribute("Error", "Se ha superado el numero maximo de reservas para ese dia");
-			esValido = false;
-		}
-
-		ReservaAlumno reserva = new ReservaAlumno(null,
-				alumno,
-				profesor,
-				aula,
-				fechaReserva,
-				horaInicio,
-				horaFin);
-
 		
-		if(esValido){
-			reservaAlumnoRepo.save(reserva);
-			return "redirect:/app";
-		} else {
-			return "redirect:/reserva-alumno";
-		}
+		ReservaProfesor reservaP = reservaProfeRepo.findById(idReserva).get();
 
+		// ReservaAlumno reservaA = new ReservaAlumno(null, alumno, reservaP.getProfesor(), reservaP.getAula(), reservaP.getFechaReserva(), reservaP.getHoraInicio(), reservaP.getHoraFin());
+
+		// reservaAlumnoRepo.save(reservaA);
+
+		return "Clases";
 	}
 
 }
