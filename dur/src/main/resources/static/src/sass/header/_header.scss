@@ -1,0 +1,95 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.header {
+    // border: 2px solid red;
+    background-color: c.$primero;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    &_logo {
+        // border: 2px solid yellow;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 20%;
+        height: 6rem;
+
+        
+
+        &--imagen {
+            // border: 2px solid greenyellow;
+            width: 16%;
+            margin: 1rem;
+            
+        }
+
+        &--titulo {
+            // border: 2px solid blue;
+            color: white;
+            font-weight: 600;
+            margin: 1rem;
+            margin-left: 0.5rem;
+        }
+    }
+
+    &_navegacion {
+        // border: 2px solid darkorange;
+        width: 60%;
+        height: 6rem;
+        
+        &--enlaces {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+
+            .navegacion_enlace {
+                list-style: none;
+                padding: 0.5rem;
+                margin: 1rem;
+                // border: 2px solid yellow;
+                
+                a{
+                    color: white;
+                    font-size: 18px;
+                }
+
+                #seleccionado {
+                    font-weight: 600;
+                    color: c.$tercero;
+                }
+
+                a:hover {
+                    color: white;
+                }
+            }
+        }
+    }
+
+    &_usuario {
+        // border: 2px solid darkturquoise;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 6rem;
+
+        &--nombre {
+            // border: 2px solid darksalmon;
+            color: white;
+            font-weight: 600;
+            margin: 1rem;
+        }
+
+        &--icono {
+            // border: 2px solid darkseagreen;
+            width: 16%;
+        }
+    }
+}
