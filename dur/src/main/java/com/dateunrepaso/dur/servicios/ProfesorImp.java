@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -113,8 +114,7 @@ public class ProfesorImp implements ProfesorRepo {
 
 	@Override
 	public Optional<Profesor> findById(Long id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return profesorRepo.findById(id);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Asignatura;
 import com.dateunrepaso.dur.entidades.Profesor;
+import com.dateunrepaso.dur.enums.Roles;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.AsignaturaRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
@@ -140,7 +141,7 @@ public class LoginControlador {
 				sesion.setAttribute("usuarioLogeado", profesor);
 			} else {
 				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac, null, null);
+						contrasena, fechaNac, Roles.ROL_ALUMNO, null);
 
 				alumnoRepo.save(alumno);
 				sesion.setAttribute("usuarioLogeado", alumno);

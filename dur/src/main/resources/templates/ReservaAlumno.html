@@ -12,7 +12,9 @@
 <body>
 
 	<main>
-
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+			<label th:text="${Error}"></label>
+		</div>
 		<h1>Reserva</h1>
 
 		<section>

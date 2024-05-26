@@ -16,6 +16,7 @@ import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.repositorios.AulaRepo;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
+import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -32,7 +33,7 @@ public class ReservaProfesorControlador {
 	private AulaRepo aulaRepo;
 
 	@Autowired
-	private ReservaProfesorRepo reservaProfRepo;
+	private ReservaProfesorImp reservaProfImp;
 
 	@GetMapping("/reserva-profesor")
 	public String getMain(Model model) {
@@ -54,16 +55,16 @@ public class ReservaProfesorControlador {
 
 		Aula aula = aulaRepo.findById(idAula).get();
 
-		List<ReservaProfesor> reservas = reservaProfRepo.findAll();
+		List<ReservaProfesor> reservas = reservaProfImp.findAll();
 
 		// Comprobaciones de conflictos de las fechas
-		if (reservaProfRepo.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
+		if (reservaProfImp.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
 				.isPresent()) {
 			// Comprobar que la reserva no genera conflicto con otra existente
-			if (horaI >= reservaProfRepo
+			if (horaI >= reservaProfImp
 					.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get()).get()
 					.getHoraInicio() &&
-					horaI <= reservaProfRepo
+					horaI <= reservaProfImp
 							.findByFechaReservaAndProfesorAndAula(fecha, profesor, aulaRepo.findById(idAula).get())
 							.get().getHoraFin()) {
 				atributos.addFlashAttribute("Error", "Ya existe una reserva en ese tramo de horario");
@@ -93,7 +94,7 @@ public class ReservaProfesorControlador {
 
 		if (horaI < horaF) {
 			ReservaProfesor reserva = new ReservaProfesor(null, profesor, aula, fecha, horaI, horaF);
-			reservaProfRepo.save(reserva);
+			reservaProfImp.save(reserva);
 			return "redirect:/app";
 		} else {
 			atributos.addFlashAttribute("Error", "La hora final no puede ser antes que la hora inicio");

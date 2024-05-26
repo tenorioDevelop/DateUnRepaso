@@ -19,54 +19,52 @@ import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
-import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
-import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
 
 @Service
-public class ReservaAlumnoImp implements ReservaAlumnoRepo{
-	
+public class ReservaAlumnoImp implements ReservaAlumnoRepo {
+
 	@Autowired
 	private ReservaAlumnoRepo reservaAlumRepo;
-	
-	@Autowired
-	private AlumnoRepo alumnoRepo;
 
-	@Autowired
-	private ReservaProfesorRepo reservaProfRepo;
+	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDate fechaReserva,
+			List<ReservaProfesor> reservasProf) {
 
-	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDate fechaReserva) {
-		
-		List<ReservaProfesor> reservaProf = reservaProfRepo.findAll();
-		
 		Aula aulaReservada = new Aula();
-		
-		for (ReservaProfesor reserva : reservaProf) {
+
+		for (ReservaProfesor reserva : reservasProf) {
 			if (reserva.getProfesor().getId() == idProfesor && reserva.getFechaReserva().equals(fechaReserva)) {
 				aulaReservada = reserva.getAula();
 			}
 		}
-		
+
 		return aulaReservada;
 	}
 
-	public List<ReservaAlumno> getReservasAlumno(Long idAlumno){
-		return this.findAllByAlumno(alumnoRepo.findById(idAlumno).get());
+	public List<ReservaAlumno> getReservasAlumno(Alumno alumno) {
+		return this.findAllByAlumno(alumno);
 	}
 
-	public boolean reservaSuperaNumMaxAlumnos(Aula aula, LocalDate fecha){
+	public boolean reservaSuperaNumMaxAlumnos(Aula aula, LocalDate fecha) {
 		return this.findByFechaReservaAndAula(fecha, aula).size() > aula.getCantidadMaxAlumnos();
+	}
+
+	@Override
+	public Optional<ReservaAlumno> findByAulaAndProfesorAndAlumnoAndFechaReservaAndHoraInicio(Aula aula,
+			Profesor profesor, Alumno alumno, LocalDate fechaReserva, Integer horaInicio) {
+		return reservaAlumRepo.findByAulaAndProfesorAndAlumnoAndFechaReservaAndHoraInicio(aula, profesor, alumno,
+				fechaReserva, horaInicio);
 	}
 
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public <S extends ReservaAlumno> S saveAndFlush(S entity) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -79,19 +77,19 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 	@Override
 	public void deleteAllInBatch(Iterable<ReservaAlumno> entities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAllByIdInBatch(Iterable<Long> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAllInBatch() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -144,8 +142,7 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 
 	@Override
 	public <S extends ReservaAlumno> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return reservaAlumRepo.save(entity);
 	}
 
 	@Override
@@ -169,31 +166,31 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 	@Override
 	public void deleteById(Long id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(ReservaAlumno entity) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAllById(Iterable<? extends Long> ids) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll(Iterable<? extends ReservaAlumno> entities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -254,5 +251,5 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo{
 	public List<ReservaAlumno> findAllByAlumno(Alumno alumno) {
 		return reservaAlumRepo.findAllByAlumno(alumno);
 	}
-	
+
 }

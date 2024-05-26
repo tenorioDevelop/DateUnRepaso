@@ -23,6 +23,7 @@ import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
+import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,19 +40,16 @@ public class ReservaAlumnoControlador {
 	ProfesorRepo profesorRepo;
 
 	@Autowired
-	ReservaAlumnoRepo reservaAlumnoRepo;
-
-	@Autowired
 	ReservaAlumnoImp reservaAlumnoImp;
 
 	@Autowired
-	ReservaProfesorRepo reservaProfeRepo;
+	ReservaProfesorImp reservaProfeImp;
 
 	@GetMapping("/reserva-alumno")
 	public String getMain(Model model) {
 
 		// List<Profesor> profesores = profesorRepo.findAll();
-		List<ReservaProfesor> reservaP = reservaProfeRepo.findAll();
+		List<ReservaProfesor> reservaP = reservaProfeImp.findAll();
 
 		model.addAttribute("listaReservasP", reservaP);
 
@@ -64,15 +62,29 @@ public class ReservaAlumnoControlador {
 			RedirectAttributes atributos,
 			@RequestParam(name = "idReserva") Long idReserva) {
 
+		boolean esValido = true;
+
 		Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-		
-		ReservaProfesor reservaP = reservaProfeRepo.findById(idReserva).get();
 
-		// ReservaAlumno reservaA = new ReservaAlumno(null, alumno, reservaP.getProfesor(), reservaP.getAula(), reservaP.getFechaReserva(), reservaP.getHoraInicio(), reservaP.getHoraFin());
+		ReservaProfesor reservaP = reservaProfeImp.findById(idReserva).get();
 
-		// reservaAlumnoRepo.save(reservaA);
+		ReservaAlumno reservaA = new ReservaAlumno(null, alumno, reservaP.getProfesor(), reservaP.getAula(),
+				reservaP.getFechaReserva(), reservaP.getHoraInicio(), reservaP.getHoraFin());
 
-		return "Clases";
+		// Busca si la reserva que se quiere crear ya existe
+		if (reservaAlumnoImp.findByAulaAndProfesorAndAlumnoAndFechaReservaAndHoraInicio(reservaP.getAula(),
+				reservaP.getProfesor(), alumno, reservaP.getFechaReserva(), reservaP.getHoraInicio()).isPresent()) {
+			atributos.addFlashAttribute("Error", "Ya existe una reserva suya para ese dia a esa hora");
+			esValido = false;
+		}
+
+		if (esValido) {
+			reservaAlumnoImp.save(reservaA);
+			return "redirect:/clases";
+		} else {
+			return "redirect:/reserva-alumno";
+		}
+
 	}
 
 }

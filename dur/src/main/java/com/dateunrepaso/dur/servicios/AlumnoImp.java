@@ -114,8 +114,7 @@ public class AlumnoImp implements AlumnoRepo {
 
 	@Override
 	public Optional<Alumno> findById(Long id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return alumnoRepo.findById(id);
 	}
 
 	@Override
