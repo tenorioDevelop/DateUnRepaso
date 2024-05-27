@@ -11887,6 +11887,22 @@ h1 {
   font-weight: bold;
 }
 
+.boton-inicio {
+  font-size: 20px;
+  background-color: #643e7b;
+  padding: 0.5rem 6rem;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+  font-weight: 600;
+}
+
+.boton-inicio:hover {
+  background-color: #a594f9;
+  color: #643e7b;
+}
+
 i {
   font-size: 28px;
 }
@@ -12225,6 +12241,134 @@ i {
 }
 .header_usuario--icono {
   width: 16%;
+}
+
+.inicio {
+  border: 2px solid red;
+  display: flex;
+  flex-direction: row;
+}
+.inicio_contenido {
+  border: 2px solid darkmagenta;
+  width: 80%;
+  margin: 1.5rem;
+}
+.inicio_contenido--fecha {
+  font-size: 28px;
+  color: #a594f9;
+  margin-bottom: 1rem;
+}
+.inicio_contenido--principal {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1.5rem;
+}
+.inicio_contenido--principal .inSigClase {
+  background-color: #f5efff;
+  border-radius: 6px;
+}
+.inicio_contenido--principal .inSigClase_titulo {
+  font-size: 28px;
+  font-weight: 600;
+  color: #643e7b;
+  margin: 1.5rem;
+}
+.inicio_contenido--principal .inSigClase_contenido {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem;
+}
+.inicio_contenido--principal .inSigClase_contenido--imagen {
+  width: 60%;
+}
+.inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--titulo {
+  font-size: 32px;
+  color: #643e7b;
+  font-weight: 600;
+}
+.inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--contenido {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--contenido i {
+  width: 10%;
+}
+.inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--contenido span {
+  margin-left: 1rem;
+  font-weight: 600;
+  color: #a594f9;
+  font-size: 24px;
+}
+.inicio_contenido--principal .proxClases {
+  background-color: #f5efff;
+  border-radius: 6px;
+}
+.inicio_contenido--principal .proxClases_titulo {
+  font-size: 28px;
+  font-weight: 600;
+  color: #643e7b;
+  margin: 1.5rem;
+}
+.inicio_contenido--principal .proxClases_imagen {
+  width: 55%;
+  margin: 0 auto;
+}
+.inicio_contenido--principal .proxClases_imagen img {
+  rotate: -20deg;
+  opacity: 85%;
+  position: relative;
+  left: 6rem;
+}
+.inicio_contenido--principal .proxClases_imagen a {
+  position: relative;
+  bottom: 8rem;
+  left: 6rem;
+}
+.inicio_contenido--principal .reservarClases {
+  background-color: #f5efff;
+  border-radius: 6px;
+  height: 35rem;
+}
+.inicio_contenido--principal .reservarClases_titulo {
+  font-size: 28px;
+  font-weight: 600;
+  color: #643e7b;
+  margin: 1.5rem;
+}
+.inicio_contenido--principal .reservarClases_imagen {
+  width: 60%;
+  margin: 0 auto;
+}
+.inicio_contenido--principal .reservarClases_imagen img {
+  position: relative;
+  right: 6rem;
+  opacity: 85%;
+}
+.inicio_contenido--principal .reservarClases_imagen a {
+  position: relative;
+  bottom: 10rem;
+  left: 6rem;
+}
+.inicio_contenido--principal .reservarClases_informacion {
+  text-align: center;
+  font-weight: bold;
+  color: #643e7b;
+  font-size: 20px;
+  position: relative;
+  bottom: 4rem;
+}
+.inicio_sidebar {
+  border: 2px solid red;
+  width: 20%;
+  background-color: #643e7b;
+  color: white;
+  border-radius: 6px;
+  margin: 1.5rem;
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

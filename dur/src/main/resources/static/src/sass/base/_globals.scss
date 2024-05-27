@@ -59,6 +59,22 @@ h1 {
     font-weight: bold;
 }
 
+.boton-inicio {
+    font-size: 20px;
+    background-color: c.$primero;
+    padding: 0.5rem 6rem;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-weight: 600;
+}
+
+.boton-inicio:hover {
+    background-color: c.$segundo;
+    color: c.$primero;
+}
+
 i {
     font-size: 28px;
 }
