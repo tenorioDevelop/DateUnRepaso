@@ -49,7 +49,9 @@ public class ReservaAlumnoControlador {
 	public String getMain(Model model) {
 
 		// List<Profesor> profesores = profesorRepo.findAll();
-		List<ReservaProfesor> reservaP = reservaProfeImp.findAll();
+		List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
+
+		
 
 		model.addAttribute("listaReservasP", reservaP);
 

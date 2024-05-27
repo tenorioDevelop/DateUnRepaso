@@ -9,6 +9,7 @@ import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
+import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 
@@ -27,6 +28,9 @@ public class CalendarioControlador {
 
     @Autowired
     AlumnoImp alumnoImp;
+
+    @Autowired
+    ProfesorImp profesorImp;
 
     @Autowired
     ReservaAlumnoImp reservaAlumnoImp;
@@ -55,7 +59,7 @@ public class CalendarioControlador {
     @GetMapping("/reservas-profesor/{idProfesor}")
     public List<HashMap> getReservasProfesorAPI(@PathVariable Long idProfesor) {
         List<HashMap> resultado = new ArrayList<>();
-        List<ReservaProfesor> original = new ArrayList<>(reservaProfesorImp.getReservasProfesor(idProfesor));
+        List<ReservaProfesor> original = new ArrayList<>(reservaProfesorImp.findAllByProfesor(profesorImp.findById(idProfesor).get()));
 
         for (ReservaProfesor reserva : original) {
             HashMap map = new HashMap<>();

@@ -1,7 +1,6 @@
 package com.dateunrepaso.dur.controladores;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,48 +8,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
-import com.dateunrepaso.dur.entidades.ReservaAlumno;
-import com.dateunrepaso.dur.entidades.ReservaProfesor;
-import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
-import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
+import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
+import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClasesControlador {
 
-    @Autowired
-    ReservaProfesorRepo reservaProfesorRepo;
+	@Autowired
+	ReservaProfesorImp reservaProfesorImp;
 
-    @Autowired
-    ReservaAlumnoRepo reservaAlumnoRepo;
+	@Autowired
+	ReservaAlumnoImp reservaAlumnoImp;
 
-@GetMapping("/clases")
-	public String getClases(Model model, HttpSession sesion) {
-		List<ReservaProfesor> reservaProf = new ArrayList<>();
-		List<ReservaAlumno> reservaAlum = new ArrayList<>();
-
+	@GetMapping("/clases")
+	public String getClases(Model model, RedirectAttributes atributos, HttpSession sesion) {
 		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
 			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-			List<ReservaAlumno> reservas = reservaAlumnoRepo.findAll();
-			for (ReservaAlumno reservaA : reservas) {
-				if (reservaA.getAlumno().getId().equals(alumno.getId())) {
-					reservaAlum.add(reservaA);
-				}
-			}
-			model.addAttribute("Reservas", reservaAlum);
+			model.addAttribute("Reservas", reservaAlumnoImp.getReservasDeAlumnoPorFecha(alumno, LocalDate.now()));
 		} else {
 			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-			List<ReservaProfesor> reservas = reservaProfesorRepo.findAll();
-			for (ReservaProfesor reservaP : reservas) {
-				if (reservaP.getProfesor().getId().equals(profesor.getId())) {
-					reservaProf.add(reservaP);
-				}
-			}
-			model.addAttribute("Reservas", reservaProf);
+			model.addAttribute("Reservas", reservaProfesorImp.getReservasDeProfesorPorFecha(profesor, LocalDate.now()));
+		}
+
+		if (model.getAttribute("Reservas") == null) {
+			atributos.addAttribute("Error", "No hay reservas disponibles para realizar");
 		}
 
 		return "Clases";
@@ -63,13 +50,14 @@ public class ClasesControlador {
 	}
 
 	@GetMapping("/clases/delete/{id}")
-	public String getBorrarReserva(@PathVariable Long id, @RequestParam(name = "btnBorrar") String boton, HttpSession sesion) {
+	public String getBorrarReserva(@PathVariable Long id, @RequestParam(name = "btnBorrar") String boton,
+			HttpSession sesion) {
 		if (boton.equals("SÍ")) {
-			reservaProfesorRepo.deleteById(id);
+			reservaProfesorImp.deleteById(id);
 		}
-		
+
 		return "redirect:/clases";
-		
+
 	}
 
 }

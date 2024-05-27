@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -27,18 +29,16 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 	@Autowired
 	private ReservaAlumnoRepo reservaAlumRepo;
 
-	public Aula getAulasByProfesorAndFechaReserva(Long idProfesor, LocalDate fechaReserva,
-			List<ReservaProfesor> reservasProf) {
-
-		Aula aulaReservada = new Aula();
-
-		for (ReservaProfesor reserva : reservasProf) {
-			if (reserva.getProfesor().getId() == idProfesor && reserva.getFechaReserva().equals(fechaReserva)) {
-				aulaReservada = reserva.getAula();
-			}
-		}
-
-		return aulaReservada;
+	/**
+	 * @param alumno
+	 * @param fecha
+	 * @return Las reservas segun el alumno indicado de la fecha indicada y adelante
+	 */
+	public List<ReservaAlumno> getReservasDeAlumnoPorFecha(Alumno alumno, LocalDate fecha){
+		return this.findAllByAlumno(alumno)
+		.stream()
+		.filter(a -> a.getFechaReserva().isEqual(fecha) || a.getFechaReserva().isAfter(fecha))
+		.collect(Collectors.toList());
 	}
 
 	public List<ReservaAlumno> getReservasAlumno(Alumno alumno) {

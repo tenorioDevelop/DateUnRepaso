@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,6 @@ import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
-import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 
 @Service
 public class ReservaProfesorImp implements ReservaProfesorRepo {
@@ -29,12 +28,30 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
     @Autowired
     ProfesorImp profesorImp;
 
-    public List<ReservaProfesor> getReservasProfesor(Long idProfesor){
-        Profesor profesor = profesorImp.findById(idProfesor).get();
-        List<ReservaProfesor> prueba = this.findAllByProfesor(profesor);
-        return prueba;
+    /**
+     * @param alumno
+     * @param fecha
+     * @return Las reservas del profesor indicado y la fecha indicada en adelante
+     */
+    public List<ReservaProfesor> getReservasDeProfesorPorFecha(Profesor profesor, LocalDate fecha) {
+        return this.findAllByProfesor(profesor)
+                .stream()
+                .filter(p -> p.getFechaReserva().isEqual(fecha) || p.getFechaReserva().isAfter(fecha))
+                .collect(Collectors.toList());
     }
 
+    /**
+     * @param fecha
+     * @return Las reservas de todos los profesores y de la fecha indicada y
+     *         adelante
+     */
+    public List<ReservaProfesor> getReservasDeProfesorActuales() {
+        return this.findAll()
+                .stream()
+                .filter(p -> p.getFechaReserva().isEqual(LocalDate.now())
+                        || p.getFechaReserva().isAfter(LocalDate.now()))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Optional<ReservaProfesor> findById(Long id) {
@@ -148,8 +165,7 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        reservaProfesorRepo.deleteById(id);
     }
 
     @Override
@@ -230,7 +246,5 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
             Aula aula) {
         return reservaProfesorRepo.findByFechaReservaAndProfesorAndAula(fechaReserva, profesor, aula);
     }
-
-    
 
 }
