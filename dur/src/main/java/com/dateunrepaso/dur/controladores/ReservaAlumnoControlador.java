@@ -51,8 +51,6 @@ public class ReservaAlumnoControlador {
 		// List<Profesor> profesores = profesorRepo.findAll();
 		List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
 
-		
-
 		model.addAttribute("listaReservasP", reservaP);
 
 		return "ReservaAlumno";
@@ -77,6 +75,10 @@ public class ReservaAlumnoControlador {
 		if (reservaAlumnoImp.findByAulaAndProfesorAndAlumnoAndFechaReservaAndHoraInicio(reservaP.getAula(),
 				reservaP.getProfesor(), alumno, reservaP.getFechaReserva(), reservaP.getHoraInicio()).isPresent()) {
 			atributos.addFlashAttribute("Error", "Ya existe una reserva suya para ese dia a esa hora");
+			esValido = false;
+		} else if (reservaAlumnoImp.findByAulaAndFechaReservaAndProfesor(reservaP.getAula(), reservaP.getFechaReserva(),
+				reservaP.getProfesor()).get().size() >= reservaP.getAula().getCantidadMaxAlumnos()) {
+			atributos.addFlashAttribute("Error", "Se ha superado el numero de alumnos en este aula");
 			esValido = false;
 		}
 
