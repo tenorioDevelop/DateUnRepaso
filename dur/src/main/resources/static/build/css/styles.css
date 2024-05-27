@@ -12192,7 +12192,7 @@ i {
   height: 6rem;
 }
 .header_logo--imagen {
-  width: 16%;
+  width: 12%;
   margin: 1rem;
 }
 .header_logo--titulo {
@@ -12240,16 +12240,14 @@ i {
   margin: 1rem;
 }
 .header_usuario--icono {
-  width: 16%;
+  width: 12%;
 }
 
 .inicio {
-  border: 2px solid red;
   display: flex;
   flex-direction: row;
 }
 .inicio_contenido {
-  border: 2px solid darkmagenta;
   width: 80%;
   margin: 1.5rem;
 }
@@ -12322,16 +12320,19 @@ i {
   opacity: 85%;
   position: relative;
   left: 6rem;
+  top: 3rem;
 }
 .inicio_contenido--principal .proxClases_imagen a {
   position: relative;
-  bottom: 8rem;
-  left: 6rem;
+  bottom: 6rem;
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin: 0 auto;
 }
 .inicio_contenido--principal .reservarClases {
   background-color: #f5efff;
   border-radius: 6px;
-  height: 35rem;
 }
 .inicio_contenido--principal .reservarClases_titulo {
   font-size: 28px;
@@ -12350,8 +12351,11 @@ i {
 }
 .inicio_contenido--principal .reservarClases_imagen a {
   position: relative;
-  bottom: 10rem;
-  left: 6rem;
+  bottom: 8rem;
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin: 0 auto;
 }
 .inicio_contenido--principal .reservarClases_informacion {
   text-align: center;
@@ -12361,8 +12365,34 @@ i {
   position: relative;
   bottom: 4rem;
 }
+.inicio_contenido--principal .calendario {
+  background-color: #f5efff;
+  border-radius: 6px;
+}
+.inicio_contenido--principal .calendario #calendarioInicio {
+  margin: 1.5rem auto;
+  width: 70%;
+}
+.inicio_contenido--principal .calendario #calendarioInicio h2 {
+  color: #643e7b;
+}
+.inicio_contenido--principal .calendario #calendarioInicio .fc-toolbar-chunk button {
+  background-color: #643e7b;
+  color: white;
+  border: none;
+}
+.inicio_contenido--principal .calendario #calendarioInicio .fc-col-header {
+  background-color: #643e7b;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.inicio_contenido--principal .calendario #calendarioInicio .fc-col-header-cell-cushion {
+  color: white;
+}
+.inicio_contenido--principal .calendario #calendarioInicio .fc-daygrid-day-top a {
+  color: #643e7b;
+}
 .inicio_sidebar {
-  border: 2px solid red;
   width: 20%;
   background-color: #643e7b;
   color: white;

@@ -2,12 +2,12 @@
 @use '../base/mixins' as m;
 
 .inicio {
-    border: 2px solid red;
+    // border: 2px solid red;
     display: flex;
     flex-direction: row;
 
     &_contenido {
-        border: 2px solid darkmagenta;
+        // border: 2px solid darkmagenta;
         width: 80%;
         margin: 1.5rem;
 
@@ -109,14 +109,16 @@
                         opacity: 85%;
                         position: relative;
                         left: 6rem;
-                        // top: 3rem;
+                        top: 3rem;
                     }
                     
                     a {
-                        // border: 2px solid purple;
                         position: relative;
-                        bottom: 8rem;
-                        left: 6rem;
+                        bottom: 6rem;
+                        display: flex;
+                        justify-content: center;
+                        width: 70%;
+                        margin: 0 auto;
                     }
                 }
 
@@ -126,7 +128,6 @@
                 // border: 2px solid red;
                 background-color: c.$claro;
                 border-radius: 6px;
-                height: 35rem;
 
                 &_titulo {
                     // border: 2px solid yellow;
@@ -149,10 +150,12 @@
                     }
 
                     a {
-                        // border: 2px solid plum;
                         position: relative;
-                        bottom: 10rem;
-                        left: 6rem;
+                        bottom: 8rem;
+                        display: flex;
+                        justify-content: center;
+                        width: 70%;
+                        margin: 0 auto;
                     }
                 }
 
@@ -168,13 +171,51 @@
             }
 
             .calendario {
+                background-color: c.$claro;
+                border-radius: 6px;
                 
+                #calendarioInicio {
+                    margin: 1.5rem auto;
+                    width: 70%;
+
+                    h2 {
+                        color: c.$primero;
+                    }
+
+                    .fc-toolbar-chunk {
+
+
+                        button {
+                            background-color: c.$primero;
+                            color: white;
+                            border: none;
+                        }
+                    }
+
+                    .fc-col-header {
+                        // border: 2px solid red;
+                        background-color: c.$primero;
+                        border-top-left-radius: 6px;
+                        border-top-right-radius: 6px;
+                    }
+
+                    .fc-col-header-cell-cushion {
+                        color: white;
+                    }
+
+                    .fc-daygrid-day-top {
+
+                        a {
+                            color: c.$primero;
+                        }
+                    }
+                }
             }
         }
     }
 
     &_sidebar {
-        border: 2px solid red;
+        // border: 2px solid red;
         width: 20%;
         background-color: c.$primero;
         color: white;
