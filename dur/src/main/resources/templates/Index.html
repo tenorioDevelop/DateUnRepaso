@@ -44,7 +44,7 @@
 							<img th:src="@{build/img/Inicio/Imagen_siguiente_clase.svg}">
 						</figure>
 						<div class="inSigClase_contenido--informacion">
-							<h3 class="informacion_asignatura">ASIGNATURA</h3>
+							<h2 class="informacion_asignatura--titulo"><u>ASIGNATURA</u></h2>
 							<p class="informacion_asignatura--contenido">
 								<i><img th:src="@{build/img/Iconos/Icono_Descripcion_Profesor_Inicio.png}"></i><span>Nombre Profesor/a</span>
 							</p>
@@ -62,21 +62,23 @@
 					<p class="proxClases_titulo">¿Quieres ver tus próximas clases?</p>
 					<figure class="proxClases_imagen">
 						<img th:src="@{build/img/Inicio/Ver_Proximas_Clases_Inicio.svg}">
+						<a class="boton-inicio" th:href="@{/clases}">Ver más</a>
 					</figure>
-					<a class="proxClases_enlace">Ver más</a>
 				</section>
 
 				<section class="reservarClases">
 					<p class="reservarClases_titulo">¿Aún no tienes una RESERVA?</p>
 					<figure class="reservarClases_imagen">
 						<img th:src="@{build/img/Inicio/Reserva_Clases_Inicio.svg}">
+						<a class="boton-inicio" th:href="@{/reserva-profesor}" th:if="${tipoUsuario == 'profesor'}">Reservar</a>
+						<a class="boton-inicio" th:href="@{/reserva-alumno}" th:if="${tipoUsuario == 'alumno'}">Reservar</a>
 					</figure>
-					<a class="reservarClases_enlace" th:href="@{/reserva-profesor}" th:if="${tipoUsuario == 'profesor'}">Reservar</a>
-					<a class="reservarClases_enlace" th:href="@{/reserva-alumno}" th:if="${tipoUsuario == 'alumno'}">Reservar</a>
 					<p class="reservarClases_informacion">Pulsa en el siguiente botón para reservar</p>
 				</section>
 
-				<section class="calendario">CALENDARIO</section>
+				<section class="calendario">
+					
+				</section>
 			</div>
 		</section>
 
@@ -97,5 +99,7 @@
 		</section>
 	</main>
 </body>
+
+<script th:src="@{/js/calendarioInicio.js}"></script>
 
 </html>
