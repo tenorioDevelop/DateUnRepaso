@@ -56,6 +56,13 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 				fechaReserva, horaInicio);
 	}
 
+
+	@Override
+	public Optional<List<ReservaAlumno>> findByAulaAndFechaReservaAndProfesor(Aula aula, LocalDate fechaReserva,
+			Profesor profesor) {
+		return reservaAlumRepo.findByAulaAndFechaReservaAndProfesor(aula, fechaReserva, profesor);
+	}
+
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -251,5 +258,6 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 	public List<ReservaAlumno> findAllByAlumno(Alumno alumno) {
 		return reservaAlumRepo.findAllByAlumno(alumno);
 	}
+
 
 }
