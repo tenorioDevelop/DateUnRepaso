@@ -35,23 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'es',
-      headerToolbar: {
-        center: 'dayGridMonth,dayGridWeek,timeGridDay' // botones para cambiar entre vistas
-      },
-      views: {
-        dayGridMonth: {
-          type: 'dayGrid',
-          buttonText: 'Mes'
-        },
-        dayGridWeek: {
-          type: 'dayGrid',
-          buttonText: 'Semana'
-        },
-        timeGridDay: {
-          type: 'timeGrid',
-          buttonText: 'Día'
-        }
-      },
       events: eventosCalendario
     });
     calendar.render();

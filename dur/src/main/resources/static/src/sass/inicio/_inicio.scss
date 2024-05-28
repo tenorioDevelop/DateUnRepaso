@@ -2,31 +2,31 @@
 @use '../base/mixins' as m;
 
 .inicio {
-    // border: 2px solid red;
+    border: 2px solid red;
     display: flex;
     flex-direction: row;
 
     &_contenido {
-        // border: 2px solid darkmagenta;
+        border: 2px solid darkmagenta;
         width: 80%;
         margin: 1.5rem;
 
         &--fecha {
-            // border: 2px solid blue;
+            border: 2px solid blue;
             font-size: 28px;
             color: c.$segundo;
             margin-bottom: 1rem;
         }
 
         &--principal {
-            // border: 2px solid darkorange;
+            border: 2px solid darkorange;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 1.5rem;
 
 
             .inSigClase {
-                // border: 2px solid green;
+                border: 2px solid green;
                 background-color: c.$claro;
                 border-radius: 6px;
 
@@ -38,7 +38,7 @@
                 }
 
                 &_contenido {
-                    // border: 2px solid red;
+                    border: 2px solid red;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -47,22 +47,22 @@
                     margin: 2rem;
 
                     &--imagen {
-                        // border: 2px solid blue;
+                        border: 2px solid blue;
                         width: 60%;
                     }
 
                     &--informacion {
-                        // border: 2px solid orangered;
+                        border: 2px solid orangered;
 
                         .informacion_asignatura--titulo {
-                            // border: 2px solid yellow;
+                            border: 2px solid yellow;
                             font-size: 32px;
                             color: c.$primero;
                             font-weight: 600;
                         }
 
                         .informacion_asignatura--contenido {
-                            // border: 2px solid blueviolet;
+                            border: 2px solid blueviolet;
                             display: flex;
                             flex-direction: row;
                             align-items: center;
