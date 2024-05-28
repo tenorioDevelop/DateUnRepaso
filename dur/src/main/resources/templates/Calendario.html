@@ -2,66 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario - DateUnRepaso</title>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/locales/es.js'></script>
-   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario - DateUnRepaso</title>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar/locales/es.js'></script>
+  <link rel="stylesheet" th:href="@{/build/css/styles.css}">
+
 </head>
-<style>
-     #calendar {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    #eventModal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0,0,0);
-      background-color: rgba(0,0,0,0.4);
-    }
-    #eventModalContent {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-    }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-</style>
+
 <body>
-    <span id="idUsuario" th:text="${usuarioLogeado.id}" style="display: none;"></span>
-    <span id="rolUsuario" th:text="${usuarioLogeado.rol}" style="display: none;"></span>
-    <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
-        <label th:text="${Error}"></label>
+  <header class="header">
+    <div class="header_logo">
+      <figure class="header_logo--imagen">
+        <img th:src="@{/build/img/Logo/Icono_DU_blanco.png}">
+      </figure>
+      <p class="header_logo--titulo">DateUnRepaso</p>
     </div>
-    <div id="calendar"></div>
-    <div id="eventModal">
-        <div id="eventModalContent">
-          <span class="close">&times;</span>
-          <h2 id="modalTitle"></h2>
-          <p id="modalBody"></p>
+
+    <nav class="header_navegacion">
+      <ul class="header_navegacion--enlaces">
+        <li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+        <li class="navegacion_enlace"><a>Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="header_usuario">
+      <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span>
+      <i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i>
+    </div>
+  </header>
+
+  <main class="inicio">
+    <span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
+    <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
+    <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+      <label th:text="${Error}"></label>
+    </div>
+    <section class="inicio_contenido">
+      <div class="inicio_contenido--principal">
+        <section >
+          <div id="calendar"></div>
+        </section>
+        <div id="eventModal">
+          <div id="eventModalContent">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalBody"></p>
+          </div>
         </div>
       </div>
-</body>
-<script th:src="@{/js/calendario.js}"></script>
+    </section>
+  </main>
+  <script th:src="@{/js/calendario.js}"></script>
 
 </html>

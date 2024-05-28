@@ -76,7 +76,7 @@ public class InicioControlador {
 	@GetMapping("/calendario")
 	public String getCalendario(Model model, HttpSession sesion) {
 		if(sesion.getAttribute("usuarioLogeado") != null){
-			model.addAttribute("usuarioLogeado", sesion.getAttribute("usuarioLogeado"));
+			model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
 			return "Calendario";
 		}
 		return "redirect:/login";
