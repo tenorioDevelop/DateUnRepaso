@@ -12188,8 +12188,7 @@ i {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 20%;
-  height: 6rem;
+  width: 300px;
 }
 .header_logo--imagen {
   width: 12%;
@@ -12244,40 +12243,34 @@ i {
 }
 
 .inicio {
-  border: 2px solid red;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .inicio_contenido {
-  border: 2px solid darkmagenta;
-  width: 80%;
-  margin: 1.5rem;
+  width: 100%;
+  margin: 1.5rem 0rem;
 }
 .inicio_contenido--fecha {
-  border: 2px solid blue;
   font-size: 28px;
   color: #a594f9;
   margin-bottom: 1rem;
 }
 .inicio_contenido--principal {
-  border: 2px solid darkorange;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 1.5rem;
 }
 .inicio_contenido--principal .inSigClase {
-  border: 2px solid green;
   background-color: #f5efff;
   border-radius: 6px;
 }
 .inicio_contenido--principal .inSigClase_titulo {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   color: #643e7b;
   margin: 1.5rem;
 }
 .inicio_contenido--principal .inSigClase_contenido {
-  border: 2px solid red;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12286,20 +12279,14 @@ i {
   margin: 2rem;
 }
 .inicio_contenido--principal .inSigClase_contenido--imagen {
-  border: 2px solid blue;
   width: 60%;
 }
-.inicio_contenido--principal .inSigClase_contenido--informacion {
-  border: 2px solid orangered;
-}
 .inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--titulo {
-  border: 2px solid yellow;
-  font-size: 32px;
+  font-size: 28px;
   color: #643e7b;
   font-weight: 600;
 }
 .inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--contenido {
-  border: 2px solid blueviolet;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12311,7 +12298,7 @@ i {
   margin-left: 1rem;
   font-weight: 600;
   color: #a594f9;
-  font-size: 24px;
+  font-size: 20px;
 }
 .inicio_contenido--principal .proxClases {
   background-color: #f5efff;
@@ -12339,7 +12326,7 @@ i {
   bottom: 6rem;
   display: flex;
   justify-content: center;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 .inicio_contenido--principal .reservarClases {
@@ -12366,7 +12353,7 @@ i {
   bottom: 8rem;
   display: flex;
   justify-content: center;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 .inicio_contenido--principal .reservarClases_informacion {
@@ -12383,7 +12370,7 @@ i {
 }
 .inicio_contenido--principal .calendario #calendarioInicio {
   margin: 1.5rem auto;
-  width: 70%;
+  width: 90%;
 }
 .inicio_contenido--principal .calendario #calendarioInicio h2 {
   color: #643e7b;
@@ -12411,6 +12398,47 @@ i {
   border-radius: 6px;
   margin: 1.5rem;
   text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .inicio {
+    flex-direction: row;
+  }
+  .inicio_contenido {
+    width: 70%;
+    margin: 1.5rem;
+  }
+  .inicio_contenido--principal .inSigClase_titulo {
+    font-size: 28px;
+  }
+  .inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--titulo {
+    font-size: 32px;
+  }
+  .inicio_contenido--principal .inSigClase_contenido--informacion .informacion_asignatura--contenido span {
+    font-size: 24px;
+  }
+  .inicio_contenido--principal .proxClases_imagen a {
+    width: 70%;
+  }
+  .inicio_contenido--principal .reservarClases_imagen a {
+    width: 70%;
+  }
+  .inicio_sidebar {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .inicio {
+    flex-direction: row;
+  }
+  .inicio_contenido {
+    width: 80%;
+  }
+  .inicio_contenido--principal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .inicio_sidebar {
+    width: 20%;
+  }
 }
 
 #calendar {
