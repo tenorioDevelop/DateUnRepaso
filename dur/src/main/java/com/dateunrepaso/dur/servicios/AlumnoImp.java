@@ -96,8 +96,7 @@ public class AlumnoImp implements AlumnoRepo {
 
 	@Override
 	public List<Alumno> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return alumnoRepo.findAll();
 	}
 
 	@Override

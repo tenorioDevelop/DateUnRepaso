@@ -96,8 +96,7 @@ public class ProfesorImp implements ProfesorRepo {
 
 	@Override
 	public List<Profesor> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return profesorRepo.findAll();
 	}
 
 	@Override

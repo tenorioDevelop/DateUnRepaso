@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/build/css/styles.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <title>Alumnos - DateUnRepaso</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header_logo">
+      <figure class="header_logo--imagen">
+        <img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
+      </figure>
+      <p class="header_logo--titulo">DateUnRepaso</p>
+    </div>
+
+    <nav class="header_navegacion">
+      <ul class="header_navegacion--enlaces">
+        <li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+        <li class="navegacion_enlace"><a>Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="header_usuario">
+      <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span>
+      <i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
+          class="img-fluid"></i>
+    </div>
+  </header>
+
+  <main class="inicio">
+    <section class="inicio_contenido">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre usuario</th>
+            <th scope="col">Nombre completo</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Fecha nacimineto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="alumno : ${alumnos}">
+            <th scope="row" th:text="${alumno.id}"/>
+            <td th:text="${alumno.nomUsuario}" />
+            <td th:text="${alumno.nomCompleto}" />
+            <td th:text="${alumno.dni}" />
+            <td th:text="${alumno.fechaNac}" />
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+
+<script th:src="@{/js/calendarioInicio.js}"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+
+</html>
