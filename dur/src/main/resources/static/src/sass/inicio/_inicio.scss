@@ -2,43 +2,37 @@
 @use '../base/mixins' as m;
 
 .inicio {
-    border: 2px solid red;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     &_contenido {
-        border: 2px solid darkmagenta;
-        width: 80%;
-        margin: 1.5rem;
+        width: 100%;
+        margin: 1.5rem 0rem;
 
         &--fecha {
-            border: 2px solid blue;
             font-size: 28px;
             color: c.$segundo;
             margin-bottom: 1rem;
         }
 
         &--principal {
-            border: 2px solid darkorange;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(1, 1fr);
             grid-gap: 1.5rem;
 
 
             .inSigClase {
-                border: 2px solid green;
                 background-color: c.$claro;
                 border-radius: 6px;
 
                 &_titulo {
-                    font-size: 28px;
+                    font-size: 24px;
                     font-weight: 600;
                     color: c.$primero;
                     margin: 1.5rem;
                 }
 
                 &_contenido {
-                    border: 2px solid red;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -47,37 +41,31 @@
                     margin: 2rem;
 
                     &--imagen {
-                        border: 2px solid blue;
                         width: 60%;
                     }
 
                     &--informacion {
-                        border: 2px solid orangered;
 
                         .informacion_asignatura--titulo {
-                            border: 2px solid yellow;
-                            font-size: 32px;
+                            font-size: 28px;
                             color: c.$primero;
                             font-weight: 600;
                         }
 
                         .informacion_asignatura--contenido {
-                            border: 2px solid blueviolet;
                             display: flex;
                             flex-direction: row;
                             align-items: center;
 
                             i {
-                                // border: 2px solid red;
                                 width: 10%;
                             }
 
                             span {
-                                // border: 2px solid green;
                                 margin-left: 1rem;
                                 font-weight: 600;
                                 color: c.$segundo;
-                                font-size: 24px;
+                                font-size: 20px;
                             }
                         }
                     }
@@ -86,12 +74,10 @@
             }
 
             .proxClases {
-                // border: 2px solid yellow;
                 background-color: c.$claro;
                 border-radius: 6px;
 
                 &_titulo {
-                    // border: 2px solid red;
                     font-size: 28px;
                     font-weight: 600;
                     color: c.$primero;
@@ -99,25 +85,23 @@
                 }
 
                 &_imagen {
-                    // border: 2px solid blue;
                     width: 55%;
                     margin: 0 auto;
 
                     img {
-                        // border: 2px solid green;
                         rotate: -20deg;
                         opacity: 85%;
                         position: relative;
                         left: 6rem;
                         top: 3rem;
                     }
-                    
+
                     a {
                         position: relative;
                         bottom: 6rem;
                         display: flex;
                         justify-content: center;
-                        width: 70%;
+                        width: 80%;
                         margin: 0 auto;
                     }
                 }
@@ -125,12 +109,10 @@
             }
 
             .reservarClases {
-                // border: 2px solid red;
                 background-color: c.$claro;
                 border-radius: 6px;
 
                 &_titulo {
-                    // border: 2px solid yellow;
                     font-size: 28px;
                     font-weight: 600;
                     color: c.$primero;
@@ -138,12 +120,10 @@
                 }
 
                 &_imagen {
-                    // border: 2px solid blue;
                     width: 60%;
                     margin: 0 auto;
 
                     img {
-                        // border: 2px solid green;
                         position: relative;
                         right: 6rem;
                         opacity: 85%;
@@ -154,13 +134,12 @@
                         bottom: 8rem;
                         display: flex;
                         justify-content: center;
-                        width: 70%;
+                        width: 80%;
                         margin: 0 auto;
                     }
                 }
 
                 &_informacion {
-                    // border: 2px solid orange;
                     text-align: center;
                     font-weight: bold;
                     color: c.$primero;
@@ -173,10 +152,10 @@
             .calendario {
                 background-color: c.$claro;
                 border-radius: 6px;
-                
+
                 #calendarioInicio {
                     margin: 1.5rem auto;
-                    width: 70%;
+                    width: 90%;
 
                     h2 {
                         color: c.$primero;
@@ -193,7 +172,6 @@
                     }
 
                     .fc-col-header {
-                        // border: 2px solid red;
                         background-color: c.$primero;
                         border-top-left-radius: 6px;
                         border-top-right-radius: 6px;
@@ -215,12 +193,90 @@
     }
 
     &_sidebar {
-        // border: 2px solid red;
         width: 20%;
         background-color: c.$primero;
         color: white;
         border-radius: 6px;
         margin: 1.5rem;
         text-align: center;
+    }
+
+    @include m.tablet {
+        flex-direction: row;
+
+        &_contenido {
+            width: 70%;
+            margin: 1.5rem;
+
+            &--principal {
+
+                .inSigClase {
+
+                    &_titulo {
+                        font-size: 28px;
+                    }
+
+                    &_contenido {
+
+                        &--informacion {
+
+                            .informacion_asignatura--titulo {
+                                font-size: 32px;
+                            }
+
+                            .informacion_asignatura--contenido {
+
+                                span {
+                                    font-size: 24px;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                .proxClases {
+
+                    &_imagen {
+
+                        a {
+                            width: 70%;
+                        }
+                    }
+
+                }
+
+                .reservarClases {
+
+                    &_imagen {
+
+                        a {
+                            width: 70%;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        &_sidebar {
+            width: 30%;
+        }
+    }
+
+    @include m.desktop {
+        flex-direction: row;
+
+        &_contenido {
+            width: 80%;
+
+            &--principal {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        &_sidebar {
+            width: 20%;
+        }
     }
 }
