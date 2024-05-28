@@ -1,7 +1,6 @@
 package com.dateunrepaso.dur.controladores;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,21 +17,12 @@ import jakarta.servlet.http.HttpSession;
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Asignatura;
 import com.dateunrepaso.dur.entidades.Profesor;
-import com.dateunrepaso.dur.enums.Roles;
-import com.dateunrepaso.dur.repositorios.AlumnoRepo;
-import com.dateunrepaso.dur.repositorios.AsignaturaRepo;
-import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
+import com.dateunrepaso.dur.servicios.AsignaturaImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 
 @Controller
 public class LoginControlador {
-
-	@Autowired
-	private ProfesorRepo profesorRepo;
-
-	@Autowired
-	private AlumnoRepo alumnoRepo;
 
 	@Autowired
 	private ProfesorImp profesorImp;
@@ -41,7 +31,7 @@ public class LoginControlador {
 	private AlumnoImp alumnoImp;
 
 	@Autowired
-	private AsignaturaRepo asignaturaRepo;
+	private AsignaturaImp asignaturaImp;
 
 	@GetMapping("/")
 	public String getLandingPage() {
@@ -83,7 +73,7 @@ public class LoginControlador {
 
 	@GetMapping("/registro")
 	public String getRegistro(Model model) {
-		List<Asignatura> asignaturas = asignaturaRepo.findAll();
+		List<Asignatura> asignaturas = asignaturaImp.findAll();
 
 		model.addAttribute("listaAsignaturas", asignaturas);
 
@@ -98,31 +88,27 @@ public class LoginControlador {
 			@RequestParam(name = "perfilSel") String perfil, @RequestParam(name = "asignaturaProf") Long idAsig,
 			HttpSession sesion, Model model, RedirectAttributes atributos) {
 
-		Alumno alumnoOpt = alumnoImp.findByCorreoAndDni(correo, dni);
-		Profesor profesorOpt = profesorImp.findByCorreoAndDni(correo, dni);
-
 		boolean correcto = false;
 
 		// Validaciones
 
 		if (!contrasena.equals(contrasenaRep)) {
 			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-			
-		} else if (!profesorRepo.findByCorreo(correo).isEmpty() || !alumnoRepo.findByCorreo(correo).isEmpty()) {
+
+		} else if (!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty()) {
 			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-			
+
 		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
 			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-			
+
 		} else if (perfil.equals("esProfesor") && idAsig == -1) {
 			atributos.addFlashAttribute("Error", "Al ser profesor tienes que elegir una asignatura");
-			
+
 		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18) && perfil.equals("esProfesor")) {
 			atributos.addFlashAttribute("Error", "No puedes ser menor de edad");
-			
+
 		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8) && perfil.equals("esAlumno")) {
 			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
-			
 		} else {
 			correcto = true;
 		}
@@ -131,19 +117,16 @@ public class LoginControlador {
 
 		if (correcto == true) {
 			if (perfil.equals("esProfesor")) {
-				Asignatura asignaturaProf = asignaturaRepo.findById(idAsig).get();
+				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+						contrasena, fechaNac, asignaturaImp.findById(idAsig).get());
 
-				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre),
-						correo, contrasena, fechaNac, asignaturaProf);
-
-				profesorRepo.save(profesor);
-
+				profesorImp.save(profesor);
 				sesion.setAttribute("usuarioLogeado", profesor);
 			} else {
 				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac, Roles.ROL_ALUMNO, null);
+						contrasena, fechaNac, null);
 
-				alumnoRepo.save(alumno);
+				alumnoImp.save(alumno);
 				sesion.setAttribute("usuarioLogeado", alumno);
 			}
 			return "redirect:/app";

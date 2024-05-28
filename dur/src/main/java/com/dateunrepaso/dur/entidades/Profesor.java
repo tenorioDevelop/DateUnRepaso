@@ -68,6 +68,7 @@ public class Profesor implements Serializable {
 		this.contrasena = contrasena;
 		this.fechaNac = fechaNac;
 		this.asignatura = asignatura;
+		this.rol = Roles.ROL_PROFESOR;
 	}
 
 //Getters and setters
