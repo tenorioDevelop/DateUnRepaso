@@ -2,31 +2,25 @@
 @use '../base/mixins' as m;
 
 .header {
-    // border: 2px solid red;
     background-color: c.$primero;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     height: auto;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
 
     &_logo {
-        // border: 2px solid yellow;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        width: 300px;   
+        margin-left: 1rem;
 
         &--imagen {
-            // border: 2px solid greenyellow;
-            width: 12%;
-            margin: 1rem;
-            
+            width: 4.25rem;
+            margin: 0.5rem;
         }
 
         &--titulo {
-            // border: 2px solid blue;
             color: white;
             font-weight: 600;
             margin: 1rem;
@@ -35,10 +29,10 @@
     }
 
     &_navegacion {
-        // border: 2px solid darkorange;
+        display: none;
         width: 60%;
         height: 6rem;
-        
+
         &--enlaces {
             display: flex;
             flex-direction: row;
@@ -49,9 +43,8 @@
                 list-style: none;
                 padding: 0.5rem;
                 margin: 1rem;
-                // border: 2px solid yellow;
-                
-                a{
+
+                a {
                     color: white;
                     font-size: 18px;
                 }
@@ -69,24 +62,38 @@
     }
 
     &_usuario {
-        // border: 2px solid darkturquoise;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        width: 20%;
-        height: 6rem;
+        margin-right: 1rem;
 
         &--nombre {
-            // border: 2px solid darksalmon;
             color: white;
             font-weight: 600;
             margin: 1rem;
         }
 
         &--icono {
-            // border: 2px solid darkseagreen;
-            width: 12%;
+            width: 4.25rem;
+        }
+    }
+
+    @include m.tablet() {
+        justify-content: space-around;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+
+        &_logo {
+            margin-left: 0rem;
+        }
+
+        &_navegacion {
+            display: block;
+        }
+
+        &_usuario {
+            margin-right: 0rem;
         }
     }
 }

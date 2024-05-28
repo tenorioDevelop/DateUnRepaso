@@ -193,6 +193,7 @@
     }
 
     &_sidebar {
+        display: none;
         width: 20%;
         background-color: c.$primero;
         color: white;
@@ -260,7 +261,13 @@
         }
 
         &_sidebar {
+            display: block;
             width: 30%;
+
+            &--boton {
+                height: auto;
+                margin: 1.5rem;
+            }
         }
     }
 
@@ -277,6 +284,7 @@
 
         &_sidebar {
             width: 20%;
+
         }
     }
 }

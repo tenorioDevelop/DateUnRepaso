@@ -34,6 +34,21 @@
 		</div>
 	</header>
 
+	<header class="headerSecundario">
+		<nav class="headerSecundario_navegacion">
+			<ul class="headerSecundario_navegacion--enlaces">
+				<li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+				<li class="navegacion_enlace"><a>Contacto</a></li>
+			</ul>
+		</nav>
+
+		<div class="headerSecundario_boton">
+			<a class="btnCerrarSesion" href="">Cerrar sesión</a>
+		</div>
+	</header>
+
 	<main class="inicio">
 		<section class="inicio_contenido">
 			<h2 class="inicio_contenido--fecha" th:text="${fechaActual}"></h2>
@@ -87,17 +102,11 @@
 		</section>
 
 		<section class="inicio_sidebar">
-			<div>
-				<p>Chats</p>
-
-				<div>
-					MOSTRAR CHATS
-				</div>
-
-				<a>Ver más</a>
+			<div class="inicio_sidebar--boton">
+				<a class="btnCerrarSesion" href="">Cerrar sesión</a>
 			</div>
 
-			<div>
+			<div class="inicio_sidebar--tiempo">
 				MOSTRAR LO DEL TIEMPO
 			</div>
 		</section>
