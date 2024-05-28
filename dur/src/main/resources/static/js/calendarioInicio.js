@@ -22,13 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     if (rolUsuario == "ROL_ALUMNO") {
       conexion.open('GET', urlAlumno, true); // true para solicitud asíncrona
-      conexion.send();
     }
-    if (rolUsuario == "ROL_Profesor") {
+    if (rolUsuario == "ROL_PROFESOR") {
       conexion.open('GET', urlProfesor, true); // true para solicitud asíncrona
-      conexion.send();
-
     }
+    conexion.send();
   }
   function renderCalendar() {
     const calendarEl = document.getElementById('calendarioInicio');
