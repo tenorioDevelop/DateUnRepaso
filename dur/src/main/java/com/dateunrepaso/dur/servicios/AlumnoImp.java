@@ -108,8 +108,7 @@ public class AlumnoImp implements AlumnoRepo {
 
 	@Override
 	public <S extends Alumno> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return alumnoRepo.save(entity);
 	}
 
 	@Override
@@ -203,8 +202,7 @@ public class AlumnoImp implements AlumnoRepo {
 
 	@Override
 	public Optional<Alumno> findByCorreo(String correo) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return alumnoRepo.findByCorreo(correo);
 	}
 
 	public Alumno findByCorreoAndDni(String correo, String dni) {

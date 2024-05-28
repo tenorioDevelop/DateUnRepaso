@@ -52,7 +52,7 @@ public class Alumno implements Serializable {
 	}
 
 	public Alumno(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
-			String fechaNac, Roles rol, List<ReservaAlumno> reservas) {
+			String fechaNac, List<ReservaAlumno> reservas) {
 		this.id = id;
 		this.dni = dni;
 		this.nomCompleto = nomCompleto;
@@ -60,8 +60,8 @@ public class Alumno implements Serializable {
 		this.correo = correo;
 		this.contrasena = contrasena;
 		this.fechaNac = fechaNac;
-		this.rol = rol;
 		this.reservas = reservas;
+		this.rol = Roles.ROL_ALUMNO;
 	}
 
 	public Long getId() {
