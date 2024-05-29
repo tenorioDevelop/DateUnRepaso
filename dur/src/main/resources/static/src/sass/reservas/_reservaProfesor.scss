@@ -1,0 +1,20 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.resProfesor {
+    border: 2px solid red;
+
+    &_titulo {
+        border: 2px solid blue;
+        color: c.$primero;
+        font-weight: 600;
+        margin: 1.5rem;
+    }
+
+    &_contenido {
+        border: 2px solid orangered;
+        margin: 1.5rem;
+        display: flex;
+        flex-direction: row;
+    }
+}

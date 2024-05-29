@@ -12438,15 +12438,6 @@ i {
 .inicio_contenido--principal .calendario #calendar {
   width: 90%;
 }
-.inicio_sidebar {
-  display: none;
-  width: 20%;
-  background-color: #643e7b;
-  color: white;
-  border-radius: 6px;
-  margin: 1.5rem;
-  text-align: center;
-}
 @media screen and (min-width: 768px) {
   .inicio {
     flex-direction: row;
@@ -12470,14 +12461,6 @@ i {
   .inicio_contenido--principal .reservarClases_imagen a {
     width: 70%;
   }
-  .inicio_sidebar {
-    display: block;
-    width: 30%;
-  }
-  .inicio_sidebar--boton {
-    height: auto;
-    margin: 1.5rem;
-  }
 }
 @media screen and (min-width: 1280px) {
   .inicio {
@@ -12489,9 +12472,6 @@ i {
   .inicio_contenido--principal {
     grid-template-columns: repeat(2, 1fr);
   }
-  .inicio_sidebar {
-    width: 20%;
-  }
 }
 
 .calendario {
@@ -12500,6 +12480,7 @@ i {
 .calendario #calendar {
   margin: 1.5rem auto;
   width: 100%;
+  height: 80vh;
 }
 .calendario #calendar h2 {
   color: #643e7b;
@@ -12560,6 +12541,7 @@ i {
 @media screen and (min-width: 768px) {
   .calendario #calendar {
     width: 80%;
+    height: auto;
   }
   .calendario #calendar h2 {
     font-size: 30px;
@@ -12571,6 +12553,47 @@ i {
   }
   .calendario #eventModalContent {
     width: 30%;
+  }
+}
+
+.resProfesor {
+  border: 2px solid red;
+}
+.resProfesor_titulo {
+  border: 2px solid blue;
+  color: #643e7b;
+  font-weight: 600;
+  margin: 1.5rem;
+}
+.resProfesor_contenido {
+  border: 2px solid orangered;
+  margin: 1.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  display: none;
+  width: 20%;
+  background-color: #643e7b;
+  color: white;
+  border-radius: 6px;
+  margin: 1.5rem;
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .sidebar {
+    display: block;
+    width: 30%;
+  }
+  .sidebar_boton {
+    height: auto;
+    margin: 1.5rem;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .sidebar {
+    width: 20%;
   }
 }
 

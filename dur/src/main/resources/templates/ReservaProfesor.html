@@ -9,43 +9,103 @@
 </head>
 
 <body>
+	<!-- <span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
+    <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span> -->
+	<header class="header">
+		<div class="header_logo">
+			<figure class="header_logo--imagen">
+				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
+			</figure>
+			<p class="header_logo--titulo">DateUnRepaso</p>
+		</div>
 
-	<main>
+		<nav class="header_navegacion">
+			<ul class="header_navegacion--enlaces">
+				<li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+				<li class="navegacion_enlace"><a>Contacto</a></li>
+			</ul>
+		</nav>
+
+		<div class="header_usuario">
+			<!-- <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span> -->
+			<i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
+					class="img-fluid"></i>
+		</div>
+	</header>
+
+	<header class="headerSecundario">
+		<nav class="headerSecundario_navegacion">
+			<ul class="headerSecundario_navegacion--enlaces">
+				<li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+				<li class="navegacion_enlace"><a>Contacto</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="resProfesor">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 			<label th:text="${Error}"></label>
 		</div>
-		<h1>Reserva</h1>
+		<h1 class="resProfesor_titulo">Reserva</h1>
 
-		<section>
-			<form th:action="@{/reserva-profesor}" method="post">
-				<select name="resProfAula">
-					<option th:each="aula : ${listaAulas}" th:value="${aula.id}"><span th:text="${aula.nombre}"></span>
-					</option>
-				</select>
-				<input type="date" name="resProfFecha">
-				<select name="resProfHoraI">
-					<option>Hora inicio</option>
-					<option value="16">16:00</option>
-					<option value="17">17:00</option>
-					<option value="18">18:00</option>
-					<option value="19">19:00</option>
-					<option value="20">20:00</option>
-					<option value="21">21:00</option>
-				</select>
-				<select name="resProfHoraF">
-					<option>Hora fin</option>
-					<option value="16">16:00</option>
-					<option value="17">17:00</option>
-					<option value="18">18:00</option>
-					<option value="19">19:00</option>
-					<option value="20">20:00</option>
-					<option value="21">21:00</option>
-				</select>
+		<section class="resProfesor_contenido">
+			<form th:action="@{/reserva-profesor}" method="post" class="resProfesor_contenido--formulario">
+				<div class="formReserva">
+					<i><img th:src="@{build/img/Iconos/Icono_Aula_ReservaP.png}"></i>
+					<select name="resProfAula" class="formReserva_aula--select">
+						<option>Seleccionar aula</option>
+						<option th:each="aula : ${listaAulas}" th:value="${aula.id}"><span
+								th:text="${aula.nombre}"></span>
+						</option>
+					</select>
+				</div>
+
+				<div class="formReserva">
+					<i><img th:src="@{build/img/Iconos/Icono_Calendario_ReservaP.png}"></i>
+					<input type="date" name="resProfFecha">
+				</div>
+
+				<div class="formReserva">
+					<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}"></i>
+					<select name="resProfHoraI">
+						<option>Hora inicio</option>
+						<option value="16">16:00</option>
+						<option value="17">17:00</option>
+						<option value="18">18:00</option>
+						<option value="19">19:00</option>
+						<option value="20">20:00</option>
+						<option value="21">21:00</option>
+					</select>
+				</div>
+
+				<div class="formReserva">
+					<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}"></i>
+					<select name="resProfHoraF">
+						<option>Hora fin</option>
+						<option value="16">16:00</option>
+						<option value="17">17:00</option>
+						<option value="18">18:00</option>
+						<option value="19">19:00</option>
+						<option value="20">20:00</option>
+						<option value="21">21:00</option>
+					</select>
+				</div>
 				<input type="submit" value="Reservar" name="resProfBoton">
 			</form>
+
+			<section class="calendario">
+				<div id="calendar" class="calendario_contenido">
+		
+				</div>
+			</section>
 		</section>
 	</main>
 
 </body>
 
+<script th:src="@{/js/calendarioMini.js}"></script>
 </html>

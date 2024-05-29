@@ -9,40 +9,66 @@
 </head>
 
 <body>
-	<!-- <header style="background-color: lightblue;">
-		<div>
-			<figure>
-				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}">
+	<header class="header">
+		<div class="header_logo">
+			<figure class="header_logo--imagen">
+				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
 			</figure>
-			<p>DateUnRepaso</p>
+			<p class="header_logo--titulo">DateUnRepaso</p>
 		</div>
 
-		<nav>
-			<ul>
-				<li><a>Inicio</a></li>
-				<li><a>Clases</a></li>
-				<li><a th:href="@{/calendario}">Calendario</a></li>
-				<li><a>Contacto</a></li>
+		<nav class="header_navegacion">
+			<ul class="header_navegacion--enlaces">
+				<li class="navegacion_enlace"><a th:href="@{/app}">Inicio</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/clases}" id="seleccionado">Clases</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+				<li class="navegacion_enlace"><a>Contacto</a></li>
 			</ul>
 		</nav>
 
-		<div>
-			<span></span> <i><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i>
+		<div class="header_usuario">
+			<!-- <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span> -->
+			<i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
+					class="img-fluid"></i>
 		</div>
-	</header> -->
+	</header>
 
-	
-	<main>
-		<h1>Mis clases</h1>
+	<header class="headerSecundario">
+		<nav class="headerSecundario_navegacion">
+			<ul class="headerSecundario_navegacion--enlaces">
+				<li class="navegacion_enlace"><a th:href="@{/app}">Inicio</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/clases}" id="seleccionado">Clases</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+				<li class="navegacion_enlace"><a>Contacto</a></li>
+			</ul>
+		</nav>
 
-		<section>
-			<div th:each="reserva : ${Reservas}">
+		<div class="headerSecundario_boton">
+			<a class="btnCerrarSesion" href="">Cerrar sesión</a>
+		</div>
+	</header>
+
+
+	<main class="clases">
+		<section class="clases_contenido">
+			<h1 class="clases_contenido--titulo">Mis clases</h1>
+			<div th:each="reserva : ${Reservas}" class="clases_contenido--reservas">
 				<h2 th:text="${reserva.aula.nombre}"></h2>
 				<p th:text="${reserva.fechaReserva}"></p>
 				<p><span th:text="${reserva.horaInicio}"></span>:00 - <span th:text="${reserva.horaFin}"></span>:00</p>
 				<div>
 					<a th:href="@{/clases/preguntarBorrar/{id}(id=${reserva.id})}">Borrar</a>
 				</div>
+			</div>
+
+		</section>
+		<section class="sidebar">
+			<div class="sidebar_boton">
+				<a class="btnCerrarSesion" href="">Cerrar sesión</a>
+			</div>
+
+			<div class="sidebar_tiempo">
+				MOSTRAR LO DEL TIEMPO
 			</div>
 		</section>
 	</main>

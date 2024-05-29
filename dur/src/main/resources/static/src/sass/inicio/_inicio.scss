@@ -159,16 +159,6 @@
         }
     }
 
-    &_sidebar {
-        display: none;
-        width: 20%;
-        background-color: c.$primero;
-        color: white;
-        border-radius: 6px;
-        margin: 1.5rem;
-        text-align: center;
-    }
-
     @include m.tablet {
         flex-direction: row;
 
@@ -226,16 +216,6 @@
 
             }
         }
-
-        &_sidebar {
-            display: block;
-            width: 30%;
-
-            &--boton {
-                height: auto;
-                margin: 1.5rem;
-            }
-        }
     }
 
     @include m.desktop {
@@ -247,11 +227,6 @@
             &--principal {
                 grid-template-columns: repeat(2, 1fr);
             }
-        }
-
-        &_sidebar {
-            width: 20%;
-
         }
     }
 }
