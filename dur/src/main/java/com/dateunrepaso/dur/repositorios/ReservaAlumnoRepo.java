@@ -27,4 +27,6 @@ public interface ReservaAlumnoRepo extends JpaRepository<ReservaAlumno, Long> {
 
 	Optional<List<ReservaAlumno>> findByAulaAndFechaReservaAndProfesor(Aula aula, LocalDate fechaReserva, Profesor profesor);
 
+	List<ReservaAlumno> findAllByProfesorId(Long id);
+
 }

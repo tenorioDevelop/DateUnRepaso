@@ -3,6 +3,7 @@ package com.dateunrepaso.dur.controladores;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/panel-admin")
@@ -35,7 +35,7 @@ public class AdminControlador {
 
 	@Autowired
 	ReservaAlumnoImp reservaAlumnoImp;
-	
+
 	@Autowired
 	ReservaProfesorImp reservaProfesorImp;
 
@@ -87,11 +87,26 @@ public class AdminControlador {
 		return "ProfesoresADM";
 	}
 
+	@Transactional
 	@GetMapping("/profesores/eliminar/{id}")
 	public String getEliminarProfesor(@PathVariable Long id) {
+		List<ReservaAlumno> reservas = reservaAlumnoImp.findAllByProfesorId(id);
+		if (!reservas.isEmpty()) {
+			reservaAlumnoImp.deleteAll(reservas);
+		}
 		profesorImp.deleteById(id);
-		return "redirect:/panel-admin/alumnos";
+		return "redirect:/panel-admin/profesores";
 	}
+
+	// @GetMapping("/profesores/eliminar/{id}")
+	// public String getEliminarProfesor(@PathVariable Long id) {
+	// List<ReservaProfesor> reservasProfesor =
+	// reservaProfesorImp.findAllByProfesor(profesorImp.findById(id).get());
+	// reservaProfesorImp.deleteAll(reservasProfesor);
+	//
+	// profesorImp.deleteById(id);
+	// return "redirect:/panel-admin/profesores";
+	// }
 
 	@GetMapping("/aulas")
 	public String getAulas(Model model, HttpSession sesion) {

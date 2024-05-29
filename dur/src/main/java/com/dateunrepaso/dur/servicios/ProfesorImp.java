@@ -129,8 +129,7 @@ public class ProfesorImp implements ProfesorRepo {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-
+		profesorRepo.deleteById(id);
 	}
 
 	@Override

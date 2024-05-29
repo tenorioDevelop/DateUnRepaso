@@ -64,6 +64,11 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 	}
 
 	@Override
+	public List<ReservaAlumno> findAllByProfesorId(Long id) {
+		return reservaAlumRepo.findAllByProfesorId(id);
+	}
+
+	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
 
@@ -190,8 +195,7 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 
 	@Override
 	public void deleteAll(Iterable<? extends ReservaAlumno> entities) {
-		// TODO Auto-generated method stub
-
+		reservaAlumRepo.deleteAll(entities);
 	}
 
 	@Override
@@ -258,6 +262,8 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 	public List<ReservaAlumno> findAllByAlumno(Alumno alumno) {
 		return reservaAlumRepo.findAllByAlumno(alumno);
 	}
+
+	
 
 
 }

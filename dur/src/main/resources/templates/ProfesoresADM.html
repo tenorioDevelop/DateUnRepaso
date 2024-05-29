@@ -53,7 +53,7 @@
             <td th:text="${profesor.nomCompleto}" />
             <td th:text="${profesor.dni}" />
             <td th:text="${profesor.fechaNac}" />
-            <td th:if="${usuario.id != profesor.id}">
+            <td th:if="${usuario.correo != profesor.correo}">
               <a class="boton-secundario" th:href="@{/panel-admin/profesores/eliminar/}+${profesor.id}">Eliminar</a>
             </td>
           </tr>

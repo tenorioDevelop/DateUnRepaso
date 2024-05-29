@@ -50,8 +50,9 @@
             <th scope="row" th:text="${aula.id}"/>
             <td th:text="${aula.nombre}" />
             <td th:text="${aula.cantidadMaxAlumnos}" />
-            <td>
-              <a class="boton-secundario" th:href="@{/panel-admin/aulas/eliminar/}+${aula.id}">Eliminar</a>
+            <span th:text="${usuario.correo}"></span>
+            <td th:if="${usuario.correo != alumno.correo}">
+              <a class="boton-secundario" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}">Eliminar</a>
             </td>
           </tr>
         </tbody>
