@@ -129,8 +129,7 @@ public class AlumnoImp implements AlumnoRepo {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-
+		alumnoRepo.deleteById(id);
 	}
 
 	@Override

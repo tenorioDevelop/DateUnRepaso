@@ -124,7 +124,7 @@ public class LoginControlador {
 				sesion.setAttribute("usuarioLogeado", profesor);
 			} else {
 				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac, null);
+						contrasena, fechaNac);
 
 				alumnoImp.save(alumno);
 				sesion.setAttribute("usuarioLogeado", alumno);

@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.dateunrepaso.dur.enums.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,29 +23,29 @@ public class Alumno implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "dni", unique = true, nullable = false)
+	@Column(name = "dni", unique = true, nullable = false, length = 20)
 	private String dni;
 
-	@Column(name = "nom_completo", nullable = false)
+	@Column(name = "nom_completo", nullable = false, length = 100)
 	private String nomCompleto;
 
-	@Column(name = "nom_usuario", unique = true, nullable = false)
+	@Column(name = "nom_usuario", unique = true, nullable = false, length = 50)
 	private String nomUsuario;
 
-	@Column(name = "correo", unique = true, nullable = false)
+	@Column(name = "correo", unique = true, nullable = false, length = 100)
 	private String correo;
 
-	@Column(name = "contrasena", unique = false, nullable = false)
+	@Column(name = "contrasena", nullable = false, length = 100)
 	private String contrasena;
 
-	@Column(name = "fecha_nac", unique = false, nullable = false)
+	@Column(name = "fecha_nac", nullable = false, length = 10)
 	private String fechaNac;
 
 	@Column(name = "rol", nullable = true)
 	private Roles rol;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "alumno")
+	@OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ReservaAlumno> reservas;
 
 	public Alumno() {
@@ -52,7 +53,7 @@ public class Alumno implements Serializable {
 	}
 
 	public Alumno(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
-			String fechaNac, List<ReservaAlumno> reservas) {
+			String fechaNac) {
 		this.id = id;
 		this.dni = dni;
 		this.nomCompleto = nomCompleto;
@@ -60,8 +61,25 @@ public class Alumno implements Serializable {
 		this.correo = correo;
 		this.contrasena = contrasena;
 		this.fechaNac = fechaNac;
-		this.reservas = reservas;
 		this.rol = Roles.ROL_ALUMNO;
+	}
+
+	public Alumno(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
+			String fechaNac, Roles rol) {
+		this.id = id;
+		this.dni = dni;
+		this.nomCompleto = nomCompleto;
+		this.nomUsuario = nomUsuario;
+		this.correo = correo;
+		this.contrasena = contrasena;
+		this.fechaNac = fechaNac;
+		this.rol = rol;
+	}
+
+	public Alumno(Long id, String dni, String nomCompleto, String nomUsuario, String correo, String contrasena,
+			String fechaNac, List<ReservaAlumno> reservas) {
+		this(id, dni, nomCompleto, nomUsuario, correo, contrasena, fechaNac, Roles.ROL_ALUMNO);
+		this.reservas = reservas;
 	}
 
 	public Long getId() {
@@ -156,5 +174,4 @@ public class Alumno implements Serializable {
 				&& Objects.equals(nomUsuario, other.nomUsuario) && Objects.equals(reservas, other.reservas)
 				&& rol == other.rol;
 	}
-
 }

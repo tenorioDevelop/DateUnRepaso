@@ -54,6 +54,11 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
     }
 
     @Override
+    public List<ReservaProfesor> findByAulaId(Long id) {
+        return reservaProfesorRepo.findByAulaId(id);
+    }
+
+    @Override
     public Optional<ReservaProfesor> findById(Long id) {
         return reservaProfesorRepo.findById(id);
     }
@@ -182,8 +187,7 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
 
     @Override
     public void deleteAll(Iterable<? extends ReservaProfesor> entities) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+        reservaProfesorRepo.deleteAll(entities);
     }
 
     @Override
@@ -246,5 +250,7 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
             Aula aula) {
         return reservaProfesorRepo.findByFechaReservaAndProfesorAndAula(fechaReserva, profesor, aula);
     }
+
+   
 
 }

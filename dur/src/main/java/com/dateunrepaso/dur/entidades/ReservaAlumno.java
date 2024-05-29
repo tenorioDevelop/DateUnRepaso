@@ -2,7 +2,6 @@ package com.dateunrepaso.dur.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -12,128 +11,124 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"idAlumnoFK","idProfesorFK","idAulaFK","fecha"})})
 public class ReservaAlumno implements Serializable {
+    private static final long serialVersionUID = 2L;
 
-	private static final long serialVersionUID = 6L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @ManyToOne
+    @JoinColumn(name = "alumno_id", nullable = false)
+    private Alumno alumno;
 
-	@ManyToOne
-	@JoinColumn(name = "idAlumnoFK", nullable = false)
-	private Alumno alumno;
-
-	@ManyToOne
-	@JoinColumn(name = "idProfesorFK", nullable = false)
-	private Profesor profesor;
+    @ManyToOne
+    @JoinColumn(name = "profesor_id", nullable = false)
+    private Profesor profesor;
 
 	@ManyToOne
 	@JoinColumn(name = "idAulaFK", nullable = false)
-	private Aula aula;
+    private Aula aula;
 
-	@Column(name = "fecha", nullable = false)
-	private LocalDate fechaReserva;
+    @Column(name = "fecha_reserva", nullable = false)
+    private LocalDate fechaReserva;
 
-	@Column(name = "horaInicio", nullable = false)
-	private Integer horaInicio;
+    @Column(name = "hora_inicio", nullable = false)
+    private Integer horaInicio;
 
-	@Column(name = "horaFin", nullable = false)
-	private Integer horaFin;
+    @Column(name = "hora_fin", nullable = false)
+    private Integer horaFin;
 
-	public ReservaAlumno() {
-	}
+    // Constructors, getters, setters, hashCode, and equals methods
 
-	public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDate fechaReserva,
-			Integer horaInicio, Integer horaFin) {
-		this.id = id;
-		this.alumno = alumno;
-		this.profesor = profesor;
-		this.aula = aula;
-		this.fechaReserva = fechaReserva;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
-	}
+    public ReservaAlumno() {
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDate fechaReserva, Integer horaInicio, Integer horaFin) {
+        this.id = id;
+        this.alumno = alumno;
+        this.profesor = profesor;
+        this.aula = aula;
+        this.fechaReserva = fechaReserva;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Alumno getAlumno() {
-		return alumno;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setAlumno(Alumno alumno) {
-		this.alumno = alumno;
-	}
+    public Alumno getAlumno() {
+        return alumno;
+    }
 
-	public Profesor getProfesor() {
-		return profesor;
-	}
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
 
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
+    public Profesor getProfesor() {
+        return profesor;
+    }
 
-	public Aula getAula() {
-		return aula;
-	}
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
 
-	public void setAula(Aula aula) {
-		this.aula = aula;
-	}
+    public Aula getAula() {
+        return aula;
+    }
 
-	public LocalDate getFechaReserva() {
-		return fechaReserva;
-	}
+    public void setAula(Aula aula) {
+        this.aula = aula;
+    }
 
-	public void setFechaReserva(LocalDate fechaReserva) {
-		this.fechaReserva = fechaReserva;
-	}
+    public LocalDate getFechaReserva() {
+        return fechaReserva;
+    }
 
-	public Integer getHoraInicio() {
-		return horaInicio;
-	}
+    public void setFechaReserva(LocalDate fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
 
-	public void setHoraInicio(Integer horaInicio) {
-		this.horaInicio = horaInicio;
-	}
+    public Integer getHoraInicio() {
+        return horaInicio;
+    }
 
-	public Integer getHoraFin() {
-		return horaFin;
-	}
+    public void setHoraInicio(Integer horaInicio) {
+        this.horaInicio = horaInicio;
+    }
 
-	public void setHoraFin(Integer horaFin) {
-		this.horaFin = horaFin;
-	}
+    public Integer getHoraFin() {
+        return horaFin;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(alumno, aula, fechaReserva, horaFin, horaInicio, id, profesor);
-	}
+    public void setHoraFin(Integer horaFin) {
+        this.horaFin = horaFin;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ReservaAlumno other = (ReservaAlumno) obj;
-		return Objects.equals(alumno, other.alumno) && Objects.equals(aula, other.aula)
-				&& Objects.equals(fechaReserva, other.fechaReserva) && Objects.equals(horaFin, other.horaFin)
-				&& Objects.equals(horaInicio, other.horaInicio) && Objects.equals(id, other.id)
-				&& Objects.equals(profesor, other.profesor);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(aula, fechaReserva, horaFin, horaInicio, id, alumno, profesor);
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ReservaAlumno other = (ReservaAlumno) obj;
+        return Objects.equals(aula, other.aula) && Objects.equals(fechaReserva, other.fechaReserva)
+                && Objects.equals(horaFin, other.horaFin) && Objects.equals(horaInicio, other.horaInicio)
+                && Objects.equals(id, other.id) && Objects.equals(alumno, other.alumno)
+                && Objects.equals(profesor, other.profesor);
+    }
 }

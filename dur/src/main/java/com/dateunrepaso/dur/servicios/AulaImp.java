@@ -97,8 +97,7 @@ public class AulaImp implements AulaRepo{
 
     @Override
     public List<Aula> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return aulaRepo.findAll();
     }
 
     @Override
@@ -132,8 +131,7 @@ public class AulaImp implements AulaRepo{
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        aulaRepo.deleteById(id);
     }
 
     @Override

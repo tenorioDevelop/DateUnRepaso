@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/build/css/styles.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Profesores - DateUnRepaso</title>
+  <title>Aulas - DateUnRepaso</title>
 </head>
 
 <body>
@@ -39,22 +39,19 @@
         <thead class="thead-light">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre usuario</th>
-            <th scope="col">Nombre completo</th>
-            <th scope="col">DNI</th>
-            <th scope="col">Fecha nacimineto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad maxima alumnos</th>
             <th scope="col">Acciones</th>
+
           </tr>
         </thead>
         <tbody>
-          <tr th:each="profesor : ${profesores}">
-            <th scope="row" th:text="${profesor.id}" />
-            <td th:text="${profesor.nomUsuario}" />
-            <td th:text="${profesor.nomCompleto}" />
-            <td th:text="${profesor.dni}" />
-            <td th:text="${profesor.fechaNac}" />
-            <td th:if="${usuario.id != profesor.id}">
-              <a class="boton-secundario" th:href="@{/panel-admin/profesores/eliminar/}+${profesor.id}">Eliminar</a>
+          <tr th:each="aula : ${aulas}">
+            <th scope="row" th:text="${aula.id}"/>
+            <td th:text="${aula.nombre}" />
+            <td th:text="${aula.cantidadMaxAlumnos}" />
+            <td>
+              <a class="boton-secundario" th:href="@{/panel-admin/aulas/eliminar/}+${aula.id}">Eliminar</a>
             </td>
           </tr>
         </tbody>

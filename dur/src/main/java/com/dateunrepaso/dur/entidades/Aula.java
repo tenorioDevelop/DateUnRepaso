@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class Aula implements Serializable {
 	private int cantidadMaxAlumnos;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "aula")
+	@OneToMany(mappedBy = "aula", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ReservaAlumno> reservas;
 
 	public Aula() {

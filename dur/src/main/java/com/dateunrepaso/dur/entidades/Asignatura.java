@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Asignatura implements Serializable {
 	private String nombre;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "asignatura")
+	@OneToMany(mappedBy = "asignatura", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Profesor> profesores;
 
 	// Constructor

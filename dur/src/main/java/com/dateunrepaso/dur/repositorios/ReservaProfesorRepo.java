@@ -22,4 +22,6 @@ public interface ReservaProfesorRepo extends JpaRepository<ReservaProfesor, Long
 
 	List<ReservaProfesor> findAllByProfesor(Profesor profesor);
 
+	List<ReservaProfesor> findByAulaId(Long id);
+
 }
