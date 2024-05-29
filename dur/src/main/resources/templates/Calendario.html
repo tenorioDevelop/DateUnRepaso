@@ -16,47 +16,64 @@
   <header class="header">
     <div class="header_logo">
       <figure class="header_logo--imagen">
-        <img th:src="@{/build/img/Logo/Icono_DU_blanco.png}">
+        <img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
       </figure>
       <p class="header_logo--titulo">DateUnRepaso</p>
     </div>
 
     <nav class="header_navegacion">
       <ul class="header_navegacion--enlaces">
-        <li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/app}">Inicio</a></li>
         <li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
-        <li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/calendario}" id="seleccionado">Calendario</a></li>
         <li class="navegacion_enlace"><a>Contacto</a></li>
       </ul>
     </nav>
 
     <div class="header_usuario">
       <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span>
-      <i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"></i>
+      <i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
+          class="img-fluid"></i>
     </div>
   </header>
 
-  <main class="inicio">
+  <header class="headerSecundario">
+    <nav class="headerSecundario_navegacion">
+      <ul class="headerSecundario_navegacion--enlaces">
+        <li class="navegacion_enlace"><a th:href="@{/app}">Inicio</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/calendario}" id="seleccionado">Calendario</a></li>
+        <li class="navegacion_enlace"><a>Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="headerSecundario_boton">
+      <a class="btnCerrarSesion" href="">Cerrar sesión</a>
+    </div>
+  </header>
+
+  <main>
     <span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
     <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
     <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert">
       <label th:text="${Error}"></label>
     </div>
-    <section class="inicio_contenido">
-      <div class="inicio_contenido--principal">
-        <section >
-          <div id="calendar"></div>
-        </section>
-        <div id="eventModal">
-          <div id="eventModalContent">
-            <span class="close">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <p id="modalBody"></p>
-          </div>
+
+    <section class="calendario">
+
+      <div id="calendar"></div>
+
+
+      <div id="eventModal" class="calendario_evento">
+        <div id="eventModalContent" class="calendario_evento--contenido">
+          <span class="close">&times;</span>
+          <h2 id="modalTitle"></h2>
+          <p id="modalBody"></p>
         </div>
       </div>
     </section>
   </main>
+
   <script th:src="@{/js/calendario.js}"></script>
 
 </html>

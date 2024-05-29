@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     conexion.send();
   }
   function renderCalendar() {
-    const calendarEl = document.getElementById('calendarioInicio');
+    const calendarEl = document.getElementById('calendar');
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'es',

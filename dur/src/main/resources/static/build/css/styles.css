@@ -12434,30 +12434,9 @@ i {
 }
 .inicio_contenido--principal .calendario {
   background-color: #f5efff;
-  border-radius: 6px;
 }
-.inicio_contenido--principal .calendario #calendarioInicio {
-  margin: 1.5rem auto;
+.inicio_contenido--principal .calendario #calendar {
   width: 90%;
-}
-.inicio_contenido--principal .calendario #calendarioInicio h2 {
-  color: #643e7b;
-}
-.inicio_contenido--principal .calendario #calendarioInicio .fc-toolbar-chunk button {
-  background-color: #643e7b;
-  color: white;
-  border: none;
-}
-.inicio_contenido--principal .calendario #calendarioInicio .fc-col-header {
-  background-color: #643e7b;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-}
-.inicio_contenido--principal .calendario #calendarioInicio .fc-col-header-cell-cushion {
-  color: white;
-}
-.inicio_contenido--principal .calendario #calendarioInicio .fc-daygrid-day-top a {
-  color: #643e7b;
 }
 .inicio_sidebar {
   display: none;
@@ -12515,12 +12494,38 @@ i {
   }
 }
 
-#calendar {
-  max-width: 900px;
-  margin: 0 auto;
+.calendario {
+  border-radius: 6px;
 }
-
-#eventModal {
+.calendario #calendar {
+  margin: 1.5rem auto;
+  width: 100%;
+}
+.calendario #calendar h2 {
+  color: #643e7b;
+  font-size: 18px;
+}
+.calendario #calendar .fc-toolbar-chunk button {
+  background-color: #643e7b;
+  color: white;
+  border: none;
+}
+.calendario #calendar .fc-col-header {
+  background-color: #643e7b;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.calendario #calendar .fc-col-header-cell-cushion {
+  color: white;
+}
+.calendario #calendar .fc-daygrid-day-top a {
+  color: #643e7b;
+}
+.calendario #calendar .fc-daygrid-dot-event {
+  color: #643e7b;
+  background-color: #f5efff;
+}
+.calendario #eventModal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -12528,31 +12533,45 @@ i {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
-
-#eventModalContent {
+.calendario #eventModalContent {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 45vh auto;
   padding: 20px;
-  border: 1px solid #888;
+  border-radius: 6px;
   width: 80%;
+  color: #643e7b;
 }
-
-.close {
+.calendario .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-
-.close:hover,
-.close:focus {
-  color: black;
+.calendario .close:hover,
+.calendario .close:focus {
+  color: #643e7b;
   text-decoration: none;
   cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+  .calendario #calendar {
+    width: 80%;
+  }
+  .calendario #calendar h2 {
+    font-size: 30px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .calendario #calendar {
+    width: 50%;
+  }
+  .calendario #eventModalContent {
+    width: 30%;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

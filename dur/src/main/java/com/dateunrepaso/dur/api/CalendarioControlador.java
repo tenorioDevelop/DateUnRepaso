@@ -73,12 +73,12 @@ public class CalendarioControlador {
     }
 
     public String formatearNombreReservaAlumno(Profesor profesor, Aula aula) {
-        return profesor.getAsignatura().getNombre() + " con " + profesor.getNomCompleto() + " en el aula "
+        return profesor.getAsignatura().getNombre() + " con " + profesor.getNomCompleto() + " en el "
                 + aula.getNombre();
     }
 
     public String formatearNombreReservaProfesor(Aula aula) {
-        return "Clases en el aula "+ aula.getNombre();
+        return "Clases en el "+ aula.getNombre();
     }
 
 }

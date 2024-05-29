@@ -151,42 +151,9 @@
 
             .calendario {
                 background-color: c.$claro;
-                border-radius: 6px;
 
-                #calendarioInicio {
-                    margin: 1.5rem auto;
+                #calendar {
                     width: 90%;
-
-                    h2 {
-                        color: c.$primero;
-                    }
-
-                    .fc-toolbar-chunk {
-
-
-                        button {
-                            background-color: c.$primero;
-                            color: white;
-                            border: none;
-                        }
-                    }
-
-                    .fc-col-header {
-                        background-color: c.$primero;
-                        border-top-left-radius: 6px;
-                        border-top-right-radius: 6px;
-                    }
-
-                    .fc-col-header-cell-cushion {
-                        color: white;
-                    }
-
-                    .fc-daygrid-day-top {
-
-                        a {
-                            color: c.$primero;
-                        }
-                    }
                 }
             }
         }
