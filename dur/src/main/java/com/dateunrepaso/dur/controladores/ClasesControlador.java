@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
+import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 
@@ -49,11 +51,20 @@ public class ClasesControlador {
 		return "EliminarReserva";
 	}
 
+	@Transactional
 	@GetMapping("/clases/delete/{id}")
 	public String getBorrarReserva(@PathVariable Long id, @RequestParam(name = "btnBorrar") String boton,
-			HttpSession sesion) {
-		if (boton.equals("SÍ")) {
-			reservaProfesorImp.deleteById(id);
+			HttpSession sesion, Model model) {
+
+		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
+			reservaAlumnoImp.deleteById(id);
+		} else {
+			if (boton.equals("SÍ")) {
+				ReservaProfesor reservaProf = reservaProfesorImp.findById(id).get();
+				reservaAlumnoImp.deleteAllByAulaAndFechaReservaAndProfesor(reservaProf.getAula(),
+						reservaProf.getFechaReserva(), reservaProf.getProfesor());
+				reservaProfesorImp.deleteById(id);
+			}
 		}
 
 		return "redirect:/clases";

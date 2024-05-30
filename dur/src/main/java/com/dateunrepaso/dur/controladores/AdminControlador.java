@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dateunrepaso.dur.entidades.Alumno;
+import com.dateunrepaso.dur.entidades.Asignatura;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
+import com.dateunrepaso.dur.servicios.AsignaturaImp;
 import com.dateunrepaso.dur.servicios.AulaImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
@@ -26,6 +28,9 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/panel-admin")
 public class AdminControlador {
+
+	@Autowired
+	AsignaturaImp asigImp;
 
 	@Autowired
 	AlumnoImp alumnoImp;
@@ -98,16 +103,6 @@ public class AdminControlador {
 		return "redirect:/panel-admin/profesores";
 	}
 
-	// @GetMapping("/profesores/eliminar/{id}")
-	// public String getEliminarProfesor(@PathVariable Long id) {
-	// List<ReservaProfesor> reservasProfesor =
-	// reservaProfesorImp.findAllByProfesor(profesorImp.findById(id).get());
-	// reservaProfesorImp.deleteAll(reservasProfesor);
-	//
-	// profesorImp.deleteById(id);
-	// return "redirect:/panel-admin/profesores";
-	// }
-
 	@GetMapping("/aulas")
 	public String getAulas(Model model, HttpSession sesion) {
 		crearModel(model, sesion);
@@ -127,6 +122,34 @@ public class AdminControlador {
 		aulaImp.deleteById(id);
 		return "redirect:/panel-admin/aulas";
 	}
+	
+	@GetMapping("/asignaturas")
+	public String getAsignaturas(Model model, HttpSession sesion) {
+		crearModel(model, sesion);
+
+		List<Asignatura> asignaturas = asigImp.findAll();
+
+		if (sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class){
+			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
+			
+			if(asignaturas.removeIf(a -> a.getProfesores().contains(profesor))){
+				System.out.println("a");
+			}
+		}
+			
+		model.addAttribute("asignaturas", asignaturas);
+
+
+
+		return "AsignaturasADM";
+	}
+
+	@Transactional
+	@GetMapping("/asignaturas/eliminar/{id}")
+	public String getEliminarAsignatura(@PathVariable Long id) {
+		profesorImp.deleteAllByAsignatura(asigImp.findById(id).get());
+		return "redirect:/panel-admin/asignaturas";
+	}
 
 	public void crearModel(Model model, HttpSession sesion) {
 		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
@@ -139,5 +162,6 @@ public class AdminControlador {
 			model.addAttribute("tipoUsuario", "profesor");
 		}
 	}
+
 
 }

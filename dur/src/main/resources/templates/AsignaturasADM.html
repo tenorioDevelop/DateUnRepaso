@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/build/css/styles.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Aulas - DateUnRepaso</title>
+  <title>Asignaturas - DateUnRepaso</title>
 </head>
 
 <body>
@@ -40,18 +40,20 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Cantidad maxima alumnos</th>
-            <th scope="col">Acciones</th>
+            <th scope="col">Profesores</th>
 
           </tr>
         </thead>
         <tbody>
-          <tr th:each="aula : ${aulas}">
-            <th scope="row" th:text="${aula.id}" />
-            <td th:text="${aula.nombre}" />
-            <td th:text="${aula.cantidadMaxAlumnos}" />
+          <tr th:each="asignatura : ${asignaturas}">
+            <th scope="row" th:text="${asignatura.id}"/>
+            <td th:text="${asignatura.nombre}" />
+            <td th:each="profesor : ${asignatura.profesores}" >
+              <span th:text="${profesor.nomCompleto}"></span>
+              <span>&nbsp;</span>
+            </td>
             <td>
-              <a class="boton-secundario" th:href="@{/panel-admin/alumnos/eliminar/}+${aula.id}">Eliminar</a>
+              <a class="boton-secundario" th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
             </td>
           </tr>
         </tbody>

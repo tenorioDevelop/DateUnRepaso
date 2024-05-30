@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.dateunrepaso.dur.entidades.Asignatura;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 
@@ -21,6 +22,58 @@ public class ProfesorImp implements ProfesorRepo {
 
 	@Autowired
 	private ProfesorRepo profesorRepo;
+
+	@Override
+	public Optional<Profesor> findByCorreo(String correo) {
+		return profesorRepo.findByCorreo(correo);
+	}
+
+	public Profesor findByCorreoAndDni(String correo, String dni) {
+		List<Profesor> profesores = profesorRepo.findAll();
+		Profesor profesor = new Profesor();
+
+		for (Profesor p : profesores) {
+			if (p.getCorreo().equals(correo) || p.getDni().equals(dni)) {
+				profesor = p;
+				return profesor;
+			}
+		}
+
+		return null;
+	}
+
+	public Profesor findByDni(String dni) {
+		List<Profesor> profesores = profesorRepo.findAll();
+		Profesor profesor = new Profesor();
+
+		for (Profesor p : profesores) {
+			if (p.getDni().equals(dni)) {
+				profesor = p;
+				return profesor;
+			}
+		}
+
+		return null;
+	}
+
+	public Profesor findByCorreoAndContrasena(String correo, String contrasena) {
+		List<Profesor> profesores = profesorRepo.findAll();
+		Profesor profesor = new Profesor();
+
+		for (Profesor p : profesores) {
+			if (p.getCorreo().equals(correo) && p.getContrasena().equals(contrasena)) {
+				profesor = p;
+				return profesor;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public void deleteAllByAsignatura(Asignatura asignatura) {
+		profesorRepo.deleteAllByAsignatura(asignatura);
+	}
 
 	@Override
 	public void flush() {
@@ -198,51 +251,6 @@ public class ProfesorImp implements ProfesorRepo {
 		return null;
 	}
 
-	@Override
-	public Optional<Profesor> findByCorreo(String correo) {
-		return profesorRepo.findByCorreo(correo);
-	}
-
-	public Profesor findByCorreoAndDni(String correo, String dni) {
-		List<Profesor> profesores = profesorRepo.findAll();
-		Profesor profesor = new Profesor();
-
-		for (Profesor p : profesores) {
-			if (p.getCorreo().equals(correo) || p.getDni().equals(dni)) {
-				profesor = p;
-				return profesor;
-			}
-		}
-
-		return null;
-	}
-
-	public Profesor findByDni(String dni) {
-		List<Profesor> profesores = profesorRepo.findAll();
-		Profesor profesor = new Profesor();
-
-		for (Profesor p : profesores) {
-			if (p.getDni().equals(dni)) {
-				profesor = p;
-				return profesor;
-			}
-		}
-
-		return null;
-	}
-
-	public Profesor findByCorreoAndContrasena(String correo, String contrasena) {
-		List<Profesor> profesores = profesorRepo.findAll();
-		Profesor profesor = new Profesor();
-
-		for (Profesor p : profesores) {
-			if (p.getCorreo().equals(correo) && p.getContrasena().equals(contrasena)) {
-				profesor = p;
-				return profesor;
-			}
-		}
-
-		return null;
-	}
+	
 
 }

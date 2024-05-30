@@ -17,7 +17,6 @@ import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.repositorios.AulaRepo;
-import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 

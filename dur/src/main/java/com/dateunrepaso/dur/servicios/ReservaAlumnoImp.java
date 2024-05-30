@@ -56,6 +56,10 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 				fechaReserva, horaInicio);
 	}
 
+	@Override
+	public void deleteAllByAulaAndFechaReservaAndProfesor(Aula aula, LocalDate fechaReserva, Profesor profesor) {
+		reservaAlumRepo.deleteAllByAulaAndFechaReservaAndProfesor(aula,fechaReserva,profesor);
+	}
 
 	@Override
 	public Optional<List<ReservaAlumno>> findByAulaAndFechaReservaAndProfesor(Aula aula, LocalDate fechaReserva,
@@ -177,8 +181,7 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-
+		reservaAlumRepo.deleteById(id);
 	}
 
 	@Override
@@ -262,6 +265,8 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 	public List<ReservaAlumno> findAllByAlumno(Alumno alumno) {
 		return reservaAlumRepo.findAllByAlumno(alumno);
 	}
+
+	
 
 	
 
