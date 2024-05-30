@@ -9,8 +9,8 @@
 </head>
 
 <body>
-	<!-- <span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
-    <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span> -->
+	<span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
+    <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
 	<header class="header">
 		<div class="header_logo">
 			<figure class="header_logo--imagen">
@@ -29,7 +29,7 @@
 		</nav>
 
 		<div class="header_usuario">
-			<!-- <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span> -->
+			<span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span>
 			<i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
 					class="img-fluid"></i>
 		</div>
@@ -50,9 +50,9 @@
 		<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 			<label th:text="${Error}"></label>
 		</div>
-		<h1 class="resProfesor_titulo">Reserva</h1>
-
+		
 		<section class="resProfesor_contenido">
+			<h1 class="resProfesor_titulo">Reserva</h1>
 			<form th:action="@{/reserva-profesor}" method="post" class="resProfesor_contenido--formulario">
 				<div class="formReserva">
 					<i><img th:src="@{build/img/Iconos/Icono_Aula_ReservaP.png}"></i>
@@ -97,15 +97,15 @@
 				<input type="submit" value="Reservar" name="resProfBoton">
 			</form>
 
-			<section class="calendario">
-				<div id="calendar" class="calendario_contenido">
-		
-				</div>
-			</section>
+		</section>
+		<section class="calendario">
+			<div id="calendar" class="calendario_contenido">
+	
+			</div>
 		</section>
 	</main>
 
+	<script th:src="@{/js/calendarioMini.js}"></script>
 </body>
 
-<script th:src="@{/js/calendarioMini.js}"></script>
 </html>

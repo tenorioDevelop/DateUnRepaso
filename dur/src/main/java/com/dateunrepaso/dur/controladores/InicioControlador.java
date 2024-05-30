@@ -79,7 +79,7 @@ public class InicioControlador {
 			model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
 			return "Calendario";
 		}
-		return "redirect:/login";
+		return "redirect:/";
 	}
 	
 

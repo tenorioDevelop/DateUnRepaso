@@ -36,11 +36,18 @@ public class ReservaProfesorControlador {
     private ProfesorImp profesorImp;
 
     @GetMapping("/reserva-profesor")
-    public String getMain(Model model) {
-        List<Aula> aulas = new ArrayList<>();
-        aulas = aulaRepo.findAll();
-        model.addAttribute("listaAulas", aulas);
-        return "ReservaProfesor";
+    public String getMain(Model model, HttpSession sesion) {
+        if (sesion.getAttribute("usuarioLogeado") != null) {
+            model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
+
+            List<Aula> aulas = new ArrayList<>();
+            aulas = aulaRepo.findAll();
+            model.addAttribute("listaAulas", aulas);
+            
+            return "ReservaProfesor";
+        }
+
+        return "redirect:/";
     }
 
     @Transactional
