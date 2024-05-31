@@ -71,18 +71,17 @@ public class InicioControlador {
 				ReservaProfesor ultimaReserva = null;
 				model.addAttribute("ultimaReserva", ultimaReserva);
 			} else {
-				ReservaProfesor ultimaReserva = reservaProfesorRepo.findFirstByProfesorOrderByFechaReservaDesc(profesor);
+				ReservaProfesor ultimaReserva;
 
-				if (ultimaReserva.getFechaReserva().isBefore(LocalDate.now())) {
+				if (reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).size() == 0) {
 					ultimaReserva = null;
-					model.addAttribute("ultimaReserva", ultimaReserva);
-				} else if (ultimaReserva.getFechaReserva().isEqual(LocalDate.now())){
+				} else {
+					ultimaReserva = reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).get(reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).size() - 1);
 					int numeroAlumnos = reservaAlumnoRepo.findByAulaAndFechaReservaAndProfesor(ultimaReserva.getAula(), ultimaReserva.getFechaReserva(), profesor).get().size();
 					model.addAttribute("numeroAlumnos", numeroAlumnos);
-				} else {
-					ultimaReserva = null;
-					model.addAttribute("ultimaReserva", ultimaReserva);
 				}
+
+				model.addAttribute("ultimaReserva", ultimaReserva);
 			}
 			
 
@@ -106,6 +105,13 @@ public class InicioControlador {
 		}
 		return "redirect:/";
 	}
+
+	@GetMapping("/cerrarSesion")
+	public String getCerrarSesion(HttpSession sesion) {
+		sesion.removeAttribute("usuarioLogeado");
+		return "redirect:/";
+	}
+	
 	
 
 }

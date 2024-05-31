@@ -24,6 +24,6 @@ public interface ReservaProfesorRepo extends JpaRepository<ReservaProfesor, Long
 
 	List<ReservaProfesor> findByAulaId(Long id);
 
-	ReservaProfesor findFirstByProfesorOrderByFechaReservaDesc(Profesor profesor);
+	List<ReservaProfesor> findAllByProfesorAndFechaReserva(Profesor profesor, LocalDate fechaReserva);
 
 }
