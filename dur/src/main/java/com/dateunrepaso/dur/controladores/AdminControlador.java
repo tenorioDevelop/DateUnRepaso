@@ -165,12 +165,8 @@ public class AdminControlador {
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			@RequestParam(name = "perfilSel") String perfil, @RequestParam(name = "asignaturaProf") Long idAsig,
 			HttpSession sesion, Model model, RedirectAttributes atributos) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-
-		crearModel(model, sesion);
 
 		boolean correcto = false;
 
@@ -185,18 +181,20 @@ public class AdminControlador {
 		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
 			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
 
-		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
-			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
-		} else {
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18)) {
+			atributos.addFlashAttribute("Error", "No puedes ser menor de edad");
+
+		}else {
 			correcto = true;
 		}
 
 		// Fin validaciones
 
 		if (correcto == true) {
-			Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-					contrasena, fechaNac);
-			alumnoImp.save(alumno);
+			Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+					contrasena, fechaNac, asigImp.findById(idAsig).get());
+			profesorImp.save(profesor);
+			sesion.setAttribute("usuarioLogeado", profesor);
 		}
 		return "redirect:/panel-admin/alumnos/crear";
 	}
