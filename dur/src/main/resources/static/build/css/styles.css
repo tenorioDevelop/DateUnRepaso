@@ -12557,19 +12557,78 @@ i {
 }
 
 .resProfesor {
-  border: 2px solid red;
+  padding: 1.5rem;
 }
 .resProfesor_titulo {
-  border: 2px solid blue;
   color: #643e7b;
   font-weight: 600;
-  margin: 1.5rem;
 }
 .resProfesor_contenido {
-  border: 2px solid orangered;
-  margin: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+.resProfesor_contenido--form {
+  width: 100%;
+}
+.resProfesor_contenido--form .formReservaP {
+  background-color: #f5efff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.resProfesor_contenido--form .formReservaP_input {
   display: flex;
   flex-direction: row;
+  padding: 0.8rem;
+  margin: 1rem 0rem;
+  border-radius: 8px;
+  background-color: #cdc1ff;
+  width: 100%;
+}
+.resProfesor_contenido--form .formReservaP_input--datos {
+  color: #643e7b;
+  font-size: 18px;
+  border: none;
+  font-weight: 600;
+  background-color: #cdc1ff;
+}
+.resProfesor_contenido--form .formReservaP_input img {
+  width: 4rem;
+}
+.resProfesor_contenido--form .formReservaP_boton {
+  width: 20rem;
+  height: 5rem;
+  border-radius: 8px;
+  background-color: #643e7b;
+  color: white;
+  font-weight: 600;
+  border: none;
+  transition: 0.5s;
+}
+.resProfesor_contenido--form .formReservaP_boton:hover {
+  background-color: #cdc1ff;
+  color: #643e7b;
+}
+.resProfesor_contenido .calendario {
+  width: 100%;
+  margin: 1.5rem;
+}
+.resProfesor_contenido .calendario #calendar {
+  width: 95%;
+}
+@media screen and (min-width: 768px) {
+  .resProfesor_contenido--form .formReservaP {
+    flex-direction: row;
+  }
+  .resProfesor_contenido--form .formReservaP_input {
+    width: 20%;
+  }
 }
 
 .sidebar {

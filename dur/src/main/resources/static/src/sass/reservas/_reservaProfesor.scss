@@ -2,19 +2,94 @@
 @use '../base/mixins' as m;
 
 .resProfesor {
-    border: 2px solid red;
+    padding: 1.5rem;
 
     &_titulo {
-        border: 2px solid blue;
         color: c.$primero;
         font-weight: 600;
-        margin: 1.5rem;
     }
 
     &_contenido {
-        border: 2px solid orangered;
-        margin: 1.5rem;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+
+        &--form {
+            width: 100%;
+
+            .formReservaP {
+                background-color: c.$claro;
+                border-radius: 8px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+                justify-content: center;
+
+                &_input {
+                    display: flex;
+                    flex-direction: row;
+                    padding: 0.8rem;
+                    margin: 1rem 0rem;
+                    border-radius: 8px;
+                    background-color: c.$tercero;
+                    width: 100%;
+
+                    &--datos {
+                        color: c.$primero;
+                        font-size: 18px;
+                        border: none;
+                        font-weight: 600;
+                        background-color: c.$tercero;
+                    }
+
+                    img {
+                        width: 4rem;
+                    }
+                }
+
+
+                &_boton {
+                    width: 20rem;
+                    height: 5rem;
+                    border-radius: 8px;
+                    background-color: c.$primero;
+                    color: white;
+                    font-weight: 600;
+                    border: none;
+                    transition: 0.5s;
+                }
+
+                &_boton:hover {
+                    background-color: c.$tercero;
+                    color: c.$primero;
+                }
+            }
+        }
+
+        .calendario {
+            width: 100%;
+            margin: 1.5rem;
+
+            #calendar {
+                width: 95%;
+            }
+        }
+    }
+
+    @include m.tablet() {
+        &_contenido {
+            &--form {
+                .formReservaP {
+                    flex-direction: row;
+
+                    &_input {
+                        width: calc(100%/5);
+                    }
+                }
+            }
+        }
     }
 }
