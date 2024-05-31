@@ -57,10 +57,12 @@ public class ClasesControlador {
 			HttpSession sesion, Model model) {
 
 		if (boton.equals("SÍ")) {
-			ReservaProfesor reservaProf = reservaProfesorImp.findById(id).get();
-			reservaAlumnoImp.deleteAllByAulaAndFechaReservaAndProfesor(reservaProf.getAula(),
-					reservaProf.getFechaReserva(), reservaProf.getProfesor());
-			reservaProfesorImp.deleteById(id);
+			if (sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class) {
+				ReservaProfesor reservaProf = reservaProfesorImp.findById(id).get();
+				reservaAlumnoImp.deleteAllByAulaAndFechaReservaAndProfesor(reservaProf.getAula(),
+						reservaProf.getFechaReserva(), reservaProf.getProfesor());
+				reservaProfesorImp.deleteById(id);
+			}
 
 			if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
 				reservaAlumnoImp.deleteById(id);
