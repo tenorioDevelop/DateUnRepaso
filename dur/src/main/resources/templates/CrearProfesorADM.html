@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/build/css/styles.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Crear alumno - DateUnRepaso</title>
+  <title>Crear profesor - DateUnRepaso</title>
 </head>
 
 <body>
@@ -38,7 +38,7 @@
       <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
         <label th:text="${Error}"></label>
       </div>
-      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/alumnos/crear}">
+      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/profesores/crear}">
         <input class="formRegistro_datos form-control" type="text" name="nombreReg" placeholder="Nombre y apellidos"
           required>
         <div class="invalid-feedback">Campo requerido</div>
@@ -56,6 +56,14 @@
         <input class="formRegistro_datos form-control" type="password" name="contrasenaRepReg"
           placeholder="Repetir contraseña" required>
         <div class="invalid-feedback">Campo requerido</div>
+        <select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required>
+          <option value="-1">Seleccione una asignatura</option>
+          <option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}"><span th:text="${asig.nombre}"></span>
+          </option>
+        </select>
+        <select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaAlumno" required hidden>
+          <option value="-1">No puedes seleccionar una asignatura</option>
+        </select>
         <button class="boton-secundario">Crear</button>
     </section>
   </main>

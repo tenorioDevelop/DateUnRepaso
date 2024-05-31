@@ -148,6 +148,59 @@ public class AdminControlador {
 		return "ProfesoresADM";
 	}
 
+	@GetMapping("/profesores/crear")
+	public String getCrearProfesoresAdm(Model model, HttpSession sesion) {
+		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
+			return "redirect:/";
+		}
+		crearModel(model, sesion);
+
+		model.addAttribute("listaAsignaturas", asigImp.findAll());
+
+		return "CrearProfesorADM";
+	}
+
+	@PostMapping("/profesores/crear")
+	public String postsCrearProfesoresAdm(@RequestParam(name = "nombreReg") String nombre,
+			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
+			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			HttpSession sesion, Model model, RedirectAttributes atributos) {
+		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
+			return "redirect:/";
+		}
+
+		crearModel(model, sesion);
+
+		boolean correcto = false;
+
+		// Validaciones
+
+		if (!contrasena.equals(contrasenaRep)) {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+
+		} else if (!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty()) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
+
+		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
+
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
+			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+		} else {
+			correcto = true;
+		}
+
+		// Fin validaciones
+
+		if (correcto == true) {
+			Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+					contrasena, fechaNac);
+			alumnoImp.save(alumno);
+		}
+		return "redirect:/panel-admin/alumnos/crear";
+	}
+
 	@Transactional
 	@GetMapping("/profesores/eliminar/{id}")
 	public String getEliminarProfesor(@PathVariable Long id) {
@@ -195,7 +248,18 @@ public class AdminControlador {
 	@Transactional
 	@GetMapping("/asignaturas/eliminar/{id}")
 	public String getEliminarAsignatura(@PathVariable Long id) {
-		profesorImp.deleteAllByAsignatura(asigImp.findById(id).get());
+		Asignatura asignatura = asigImp.findById(id).get();
+
+		// Borrar todas las reservasprofesores cuyos profesores dan esa asignatura
+		for (Profesor profesor : asignatura.getProfesores()) {
+			for (ReservaProfesor reservaProfesor : reservaProfesorImp.findAllByProfesor(profesor)) {
+				reservaAlumnoImp.deleteAllByAulaAndFechaReservaAndProfesor(reservaProfesor.getAula(),
+						reservaProfesor.getFechaReserva(), reservaProfesor.getProfesor());
+			}
+		}
+
+		// Borrar todos los profesores que tienen esa asigantura
+		profesorImp.deleteAllByAsignatura(asignatura);
 		return "redirect:/panel-admin/asignaturas";
 	}
 

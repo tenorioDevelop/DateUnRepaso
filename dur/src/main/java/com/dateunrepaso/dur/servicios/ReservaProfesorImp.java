@@ -54,6 +54,11 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
     }
 
     @Override
+    public void deleteAllByProfesor(Profesor profesor) {
+        reservaProfesorRepo.deleteAllByProfesor(profesor);
+    }
+
+    @Override
     public List<ReservaProfesor> findByAulaId(Long id) {
         return reservaProfesorRepo.findByAulaId(id);
     }

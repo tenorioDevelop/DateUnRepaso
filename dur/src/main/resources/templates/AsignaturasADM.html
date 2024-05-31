@@ -41,7 +41,7 @@
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Profesores</th>
-
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +60,7 @@
                   th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
               </label>
               <label th:if="${esProfesor}">
-                <label th:if="${asignatura == usuario.asignatura}">
+                <label th:if="${asignatura.id != usuario.asignatura.id}">
                   <a class="boton-secundario"
                   th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
                 </label>

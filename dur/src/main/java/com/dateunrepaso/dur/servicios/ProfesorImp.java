@@ -75,6 +75,12 @@ public class ProfesorImp implements ProfesorRepo {
 		profesorRepo.deleteAllByAsignatura(asignatura);
 	}
 
+
+	@Override
+	public List<Profesor> findAllByAsignatura(Asignatura asignatura) {
+		return profesorRepo.findAllByAsignatura(asignatura);
+	}
+
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -250,6 +256,7 @@ public class ProfesorImp implements ProfesorRepo {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	
 

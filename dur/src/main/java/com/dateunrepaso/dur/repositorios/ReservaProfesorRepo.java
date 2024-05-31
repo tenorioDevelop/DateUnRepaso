@@ -26,4 +26,6 @@ public interface ReservaProfesorRepo extends JpaRepository<ReservaProfesor, Long
 
 	List<ReservaProfesor> findAllByProfesorAndFechaReserva(Profesor profesor, LocalDate fechaReserva);
 
+	void deleteAllByProfesor(Profesor profesor);
+
 }
