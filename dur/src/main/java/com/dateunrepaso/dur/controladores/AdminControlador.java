@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Asignatura;
@@ -19,9 +21,11 @@ import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 import com.dateunrepaso.dur.utilidades.UtilidadesControladores;
+import com.dateunrepaso.dur.utilidades.UtilidadesString;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -70,6 +74,58 @@ public class AdminControlador {
 		model.addAttribute("alumnos", alumnos);
 
 		return "AlumnosADM";
+	}
+
+	@GetMapping("/alumnos/crear")
+	public String getCrearAlumnosAdm(Model model, HttpSession sesion) {
+		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
+			return "redirect:/";
+		}
+
+		crearModel(model, sesion);
+
+		return "CrearAlumnoADM";
+	}
+
+	@PostMapping("/alumnos/crear")
+	public String postsCrearAlumnosAdm(@RequestParam(name = "nombreReg") String nombre,
+			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
+			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			HttpSession sesion, Model model, RedirectAttributes atributos) {
+		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
+			return "redirect:/";
+		}
+
+		crearModel(model, sesion);
+
+		boolean correcto = false;
+
+		// Validaciones
+
+		if (!contrasena.equals(contrasenaRep)) {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+
+		} else if (!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty()) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
+
+		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
+
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
+			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+		} else {
+			correcto = true;
+		}
+
+		// Fin validaciones
+
+		if (correcto == true) {
+			Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+					contrasena, fechaNac);
+			alumnoImp.save(alumno);
+		}
+		return "redirect:/panel-admin/alumnos/crear";
 	}
 
 	@GetMapping("/alumnos/eliminar/{id}")
@@ -122,24 +178,22 @@ public class AdminControlador {
 		aulaImp.deleteById(id);
 		return "redirect:/panel-admin/aulas";
 	}
-	
+
 	@GetMapping("/asignaturas")
 	public String getAsignaturas(Model model, HttpSession sesion) {
 		crearModel(model, sesion);
 
 		List<Asignatura> asignaturas = asigImp.findAll();
 
-		if (sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class){
+		if (sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class) {
 			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-			
-			if(asignaturas.removeIf(a -> a.getProfesores().contains(profesor))){
+
+			if (asignaturas.removeIf(a -> a.getProfesores().contains(profesor))) {
 				System.out.println("a");
 			}
 		}
-			
+
 		model.addAttribute("asignaturas", asignaturas);
-
-
 
 		return "AsignaturasADM";
 	}
@@ -162,6 +216,5 @@ public class AdminControlador {
 			model.addAttribute("tipoUsuario", "profesor");
 		}
 	}
-
 
 }
