@@ -185,15 +185,9 @@ public class AdminControlador {
 
 		List<Asignatura> asignaturas = asigImp.findAll();
 
-		if (sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class) {
-			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-
-			if (asignaturas.removeIf(a -> a.getProfesores().contains(profesor))) {
-				System.out.println("a");
-			}
-		}
-
 		model.addAttribute("asignaturas", asignaturas);
+
+		model.addAttribute("esProfesor", sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class);
 
 		return "AsignaturasADM";
 	}
