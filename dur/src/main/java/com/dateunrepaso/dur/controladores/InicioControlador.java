@@ -59,32 +59,35 @@ public class InicioControlador {
 			model.addAttribute("usuario", alumno);
 			model.addAttribute("tipoUsuario", "alumno");
 
-			ReservaAlumno ultimaReserva = reservaAlumnoRepo.findAll().get(reservaAlumnoRepo.findAll().size() - 1);
+			ReservaAlumno ultimaReserva;
+
+			if (reservaAlumnoRepo.findAllByAlumnoAndFechaReserva(alumno, LocalDate.now()).isEmpty()) {
+				ultimaReserva = null;
+			} else {
+				ultimaReserva = reservaAlumnoRepo.findAllByAlumnoAndFechaReserva(alumno, LocalDate.now())
+						.get(reservaAlumnoRepo.findAllByAlumnoAndFechaReserva(alumno, LocalDate.now()).size() - 1);
+			}
+
 			model.addAttribute("ultimaReserva", ultimaReserva);
-			
+
 		} else {
 			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
 			model.addAttribute("usuario", profesor);
 			model.addAttribute("tipoUsuario", "profesor");
 
-			if (reservaProfesorRepo.findAllByProfesor(profesor).isEmpty()) {
-				ReservaProfesor ultimaReserva = null;
-				model.addAttribute("ultimaReserva", ultimaReserva);
+			ReservaProfesor ultimaReserva;
+
+			if (reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).isEmpty()) {
+				ultimaReserva = null;
 			} else {
-				ReservaProfesor ultimaReserva;
-
-				if (reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).size() == 0) {
-					ultimaReserva = null;
-				} else {
-					ultimaReserva = reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).get(reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).size() - 1);
-					int numeroAlumnos = reservaAlumnoRepo.findByAulaAndFechaReservaAndProfesor(ultimaReserva.getAula(), ultimaReserva.getFechaReserva(), profesor).get().size();
-					model.addAttribute("numeroAlumnos", numeroAlumnos);
-				}
-
-				model.addAttribute("ultimaReserva", ultimaReserva);
+				ultimaReserva = reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).get(
+						reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).size() - 1);
+				int numeroAlumnos = reservaAlumnoRepo.findByAulaAndFechaReservaAndProfesor(ultimaReserva.getAula(),
+						ultimaReserva.getFechaReserva(), profesor).get().size();
+				model.addAttribute("numeroAlumnos", numeroAlumnos);
 			}
-			
 
+			model.addAttribute("ultimaReserva", ultimaReserva);
 
 		}
 
@@ -99,7 +102,7 @@ public class InicioControlador {
 
 	@GetMapping("/calendario")
 	public String getCalendario(Model model, HttpSession sesion) {
-		if(sesion.getAttribute("usuarioLogeado") != null){
+		if (sesion.getAttribute("usuarioLogeado") != null) {
 			model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
 			return "Calendario";
 		}
@@ -111,7 +114,5 @@ public class InicioControlador {
 		sesion.removeAttribute("usuarioLogeado");
 		return "redirect:/";
 	}
-	
-	
 
 }

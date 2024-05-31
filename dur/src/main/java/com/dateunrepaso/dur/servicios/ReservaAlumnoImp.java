@@ -266,6 +266,12 @@ public class ReservaAlumnoImp implements ReservaAlumnoRepo {
 		return reservaAlumRepo.findAllByAlumno(alumno);
 	}
 
+	@Override
+	public List<ReservaAlumno> findAllByAlumnoAndFechaReserva(Alumno alumno, LocalDate fechaReserva) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'findAllByAlumnoAndFechaReserva'");
+	}
+
 	
 
 	

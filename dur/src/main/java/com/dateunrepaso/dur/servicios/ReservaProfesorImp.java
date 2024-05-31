@@ -256,10 +256,4 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAllByProfesorAndFechaReserva'");
     }
-
-
-   
-
-   
-
 }
