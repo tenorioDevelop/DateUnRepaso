@@ -46,14 +46,25 @@
         </thead>
         <tbody>
           <tr th:each="asignatura : ${asignaturas}">
-            <th scope="row" th:text="${asignatura.id}"/>
+            <th scope="row" th:text="${asignatura.id}" />
             <td th:text="${asignatura.nombre}" />
-            <td th:each="profesor : ${asignatura.profesores}" >
-              <span th:text="${profesor.nomCompleto}"></span>
-              <span>&nbsp;</span>
+            <td>
+              <span th:each="profesor : ${asignatura.profesores}">
+                <span th:text="${profesor.nomCompleto}"></span>
+                <span>,</span>
+              </span>
             </td>
             <td>
-              <a class="boton-secundario" th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
+              <label th:if="${!esProfesor}">
+                <a class="boton-secundario"
+                  th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
+              </label>
+              <label th:if="${esProfesor}">
+                <label th:if="${asignatura == usuario.asignatura}">
+                  <a class="boton-secundario"
+                  th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
+                </label>
+              </label>
             </td>
           </tr>
         </tbody>
