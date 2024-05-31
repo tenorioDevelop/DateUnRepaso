@@ -42,7 +42,7 @@ public class ReservaProfesorControlador {
             List<Aula> aulas = new ArrayList<>();
             aulas = aulaRepo.findAll();
             model.addAttribute("listaAulas", aulas);
-            
+
             return "ReservaProfesor";
         }
 
@@ -68,31 +68,25 @@ public class ReservaProfesorControlador {
 
         List<ReservaProfesor> reservas = reservaProfImp.findAll();
 
-        // Comprobaciones de conflictos de las fechas
-        if (reservaProfImp.findByFechaReservaAndProfesorAndAula(fecha, profesor, aula).isPresent()) {
-            ReservaProfesor existingReserva = reservaProfImp.findByFechaReservaAndProfesorAndAula(fecha, profesor, aula)
-                    .get();
-            if (horaI >= existingReserva.getHoraInicio() && horaI <= existingReserva.getHoraFin()) {
-                atributos.addFlashAttribute("Error", "Ya existe una reserva en ese tramo de horario");
+        for (ReservaProfesor reserva : reservas) {
+
+            if (reserva.getProfesor().equals(profesor) && reserva.getFechaReserva().equals(fecha)
+                    && reserva.getHoraInicio() == horaI && reserva.getHoraFin() == horaF) {
+                atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
+                return "redirect:/reserva-profesor";
+            } else if (reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha) && (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin())) {
+                atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
                 return "redirect:/reserva-profesor";
             }
         }
 
-        for (ReservaProfesor reserva : reservas) {
-            if (reserva.getAula().getId().equals(aula.getId()) && reserva.getHoraInicio() == horaI
-                    && reserva.getHoraFin() == horaF && reserva.getFechaReserva().equals(fecha)) {
-                atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
-                return "redirect:/reserva-profesor";
-            } else if (reserva.getProfesor().getId().equals(profesor.getId()) && reserva.getHoraInicio() == horaI
-                    && reserva.getHoraFin() == horaF && reserva.getFechaReserva().equals(fecha)) {
-                atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
-                return "redirect:/reserva-profesor";
-            } else if (!reserva.getAula().getId().equals(aula.getId()) && reserva.getFechaReserva().equals(fecha)
-                    && (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin()
-                            || (horaI >= reserva.getHoraInicio() && horaF >= reserva.getHoraFin()))) {
-                atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
-                return "redirect:/reserva-profesor";
-            }
+        if (fecha.isBefore(LocalDate.now())) {
+            atributos.addFlashAttribute("Error", "No puedes reservar en una fecha anterior a la fecha actual");
+            return "redirect:/reserva-profesor";
+        }
+        if (horaI == horaF) {
+            atributos.addFlashAttribute("Error", "No puedes reservar con la misma hora en los dos tramos de horario");
+            return "redirect:/reserva-profesor";
         }
 
         if (horaI < horaF) {

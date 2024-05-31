@@ -1,7 +1,9 @@
 package com.dateunrepaso.dur.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -33,9 +35,34 @@ public class ReservaAlumnoControlador {
     AlumnoImp alumnoImp; // Añadir el repositorio de Alumno
 
     @GetMapping("/reserva-alumno")
-    public String getMain(Model model) {
+    public String getMain(Model model, HttpSession sesion) {
+        Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
         List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
-        model.addAttribute("listaReservasP", reservaP);
+        List<ReservaAlumno> reservaA = reservaAlumnoImp.getReservasAlumno(alumno);
+
+        List<ReservaProfesor> mostrarReservas = new ArrayList<>();
+
+        boolean existe = false;
+
+        for (ReservaProfesor reservaProfesor : reservaP) {
+            for (ReservaAlumno reservaAlumno : reservaA) {
+                if (reservaAlumno.getHoraInicio() != reservaProfesor.getHoraInicio()
+                        && reservaAlumno.getHoraFin() != reservaProfesor.getHoraFin()
+                        && reservaAlumno.getFechaReserva().equals(reservaProfesor.getFechaReserva())
+                        && reservaAlumno.getAula().equals(reservaProfesor.getAula())
+                        && reservaAlumno.getProfesor().equals(reservaProfesor.getProfesor())) {
+                    existe = true;
+                    mostrarReservas.add(reservaProfesor);
+                }
+            }
+        }
+
+        if (existe) {
+            model.addAttribute("listaReservasP", mostrarReservas);
+        } else {
+            model.addAttribute("listaReservasP", reservaP);
+        }
+
         return "ReservaAlumno";
     }
 
@@ -50,8 +77,8 @@ public class ReservaAlumnoControlador {
 
         Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
         // Reatachar el alumno al contexto de persistencia
-        alumno = alumnoImp.findById(alumno.getId()).orElseThrow(() -> 
-                new IllegalArgumentException("Alumno no encontrado"));
+        alumno = alumnoImp.findById(alumno.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado"));
 
         ReservaProfesor reservaP = reservaProfeImp.findById(idReserva).get();
 
