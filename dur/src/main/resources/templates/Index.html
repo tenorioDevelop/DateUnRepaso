@@ -60,17 +60,34 @@
 						<figure class="inSigClase_contenido--imagen">
 							<img th:src="@{build/img/Inicio/Imagen_siguiente_clase.svg}">
 						</figure>
-						<div class="inSigClase_contenido--informacion">
-							<h2 class="informacion_asignatura--titulo"><u>ASIGNATURA</u></h2>
+						<div class="inSigClase_contenido--informacion" th:if="${tipoUsuario == 'alumno' && ultimaReserva != null}">
+							<h2 class="informacion_asignatura--titulo"><u th:text="${ultimaReserva.profesor.asignatura.nombre}"></u></h2>
 							<p class="informacion_asignatura--contenido">
-								<i><img th:src="@{build/img/Iconos/Icono_Descripcion_Profesor_Inicio.png}"></i><span>Nombre Profesor/a</span>
+								<i><img th:src="@{build/img/Iconos/Icono_Descripcion_Profesor_Inicio.png}"></i><span th:text="${ultimaReserva.profesor.nomUsuario}"></span>
 							</p>
 							<p class="informacion_asignatura--contenido">
-								<i><img th:src="@{build/img/Iconos/Icono_Horario_Inicio.png}"></i><span>Hora</span>
+								<i><img th:src="@{build/img/Iconos/Icono_Horario_Inicio.png}"></i><span th:text="${ultimaReserva.horaInicio} + ':00'"></span><span> - </span><span th:text="${ultimaReserva.horaFin} + ':00'"></span>
 							</p>
 							<p class="informacion_asignatura--contenido">
-								<i><img th:src="@{build/img/Iconos/Icono_Aula_Inicio.png}"></i><span>Aula</span>
+								<i><img th:src="@{build/img/Iconos/Icono_Aula_Inicio.png}"></i><span th:text="${ultimaReserva.aula.nombre}"></span>
 							</p>
+						</div>
+
+						<div class="inSigClase_contenido--informacion" th:if="${tipoUsuario == 'profesor' && ultimaReserva != null}">
+							<h2 class="informacion_asignatura--titulo"><u th:text="${ultimaReserva.profesor.nomCompleto}"></u></h2>
+							<p class="informacion_asignatura--contenido">
+								<i><img th:src="@{build/img/Iconos/Icono_CantidadAlumnos_Inicio.png}"></i><span th:text="${numeroAlumnos}"></span>
+							</p>
+							<p class="informacion_asignatura--contenido">
+								<i><img th:src="@{build/img/Iconos/Icono_Horario_Inicio.png}"></i><span th:text="${ultimaReserva.horaInicio} + ':00'"></span><span> - </span><span th:text="${ultimaReserva.horaFin} + ':00'"></span>
+							</p>
+							<p class="informacion_asignatura--contenido">
+								<i><img th:src="@{build/img/Iconos/Icono_Aula_Inicio.png}"></i><span th:text="${ultimaReserva.aula.nombre}"></span>
+							</p>
+						</div>
+
+						<div class="inSigClase_contenido--informacion" th:if="${ultimaReserva == null}">
+							<h2 class="informacion_asignatura--titulo"><u>No existe ninguna reserva</u></h2>
 						</div>
 					</div>
 				</section>

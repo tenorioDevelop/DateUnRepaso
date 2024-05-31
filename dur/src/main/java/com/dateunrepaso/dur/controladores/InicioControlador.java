@@ -58,10 +58,35 @@ public class InicioControlador {
 			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
 			model.addAttribute("usuario", alumno);
 			model.addAttribute("tipoUsuario", "alumno");
+
+			ReservaAlumno ultimaReserva = reservaAlumnoRepo.findAll().get(reservaAlumnoRepo.findAll().size() - 1);
+			model.addAttribute("ultimaReserva", ultimaReserva);
+			
 		} else {
 			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
 			model.addAttribute("usuario", profesor);
 			model.addAttribute("tipoUsuario", "profesor");
+
+			if (reservaProfesorRepo.findAllByProfesor(profesor).isEmpty()) {
+				ReservaProfesor ultimaReserva = null;
+				model.addAttribute("ultimaReserva", ultimaReserva);
+			} else {
+				ReservaProfesor ultimaReserva = reservaProfesorRepo.findFirstByProfesorOrderByFechaReservaDesc(profesor);
+
+				if (ultimaReserva.getFechaReserva().isBefore(LocalDate.now())) {
+					ultimaReserva = null;
+					model.addAttribute("ultimaReserva", ultimaReserva);
+				} else if (ultimaReserva.getFechaReserva().isEqual(LocalDate.now())){
+					int numeroAlumnos = reservaAlumnoRepo.findByAulaAndFechaReservaAndProfesor(ultimaReserva.getAula(), ultimaReserva.getFechaReserva(), profesor).get().size();
+					model.addAttribute("numeroAlumnos", numeroAlumnos);
+				} else {
+					ultimaReserva = null;
+					model.addAttribute("ultimaReserva", ultimaReserva);
+				}
+			}
+			
+
+
 		}
 
 		return "Index";

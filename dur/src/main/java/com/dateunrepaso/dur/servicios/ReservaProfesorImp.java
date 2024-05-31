@@ -251,6 +251,12 @@ public class ReservaProfesorImp implements ReservaProfesorRepo {
         return reservaProfesorRepo.findByFechaReservaAndProfesorAndAula(fechaReserva, profesor, aula);
     }
 
+    @Override
+    public ReservaProfesor findFirstByProfesorOrderByFechaReservaDesc(Profesor profesor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findFirstByProfesorOrderByFechaReservaDesc'");
+    }
+
    
 
    
