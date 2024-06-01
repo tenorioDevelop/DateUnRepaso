@@ -1,0 +1,169 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.gestionUsuario {
+
+    &_contenido {
+        width: 100%;
+
+        &--titulo {
+            padding: 1.5rem;
+            color: c.$primero;
+            font-weight: 600;
+        }
+
+        &--formulario {
+            padding: 1.5rem;
+            width: 100%;
+
+
+            .formGestionUsuario_primeraParte {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 1.5rem;
+
+                &--imagenPerfil {
+                    width: 40%;
+                    margin: 0 auto;
+
+                    img {
+                        width: 22rem;
+                        margin: 0 auto;
+                    }
+                }
+
+                &--contenidoFormGestion {
+                    width: 60%;
+
+                    .contenidoFormGestion_label {
+                        font-weight: 600;
+                        color: c.$primero;
+                        margin-top: 1rem;
+                    }
+
+                    .contenidoFormGestion_datos {
+                        display: flex;
+                        flex-direction: row;
+                        background-color: c.$primero;
+                        align-items: center;
+                        border-radius: 8px;
+                        padding: 0.4rem 1rem;
+                        padding-left: 1rem;
+                        gap: 0.5rem;
+
+                        img {
+                            width: 4rem;
+                            align-self: center;
+                        }
+
+                        input {
+                            background-color: c.$primero;
+                            color: white;
+                            font-weight: 600;
+                            font-size: 18px;
+                            border: none;
+                        }
+
+                        .form-control:focus-visible {
+                            outline: 0 none;
+                            border: none;
+                            box-shadow: none;
+                        }
+
+                    }
+                }
+            }
+
+            .formGestionUsuario_segundaParte {
+
+                &--contenidoFormGestion {
+
+                    .contenidoFormGestion_label {
+                        font-weight: 600;
+                        color: c.$primero;
+                        margin-top: 1rem;
+                    }
+
+                    .contenidoFormGestion_datos {
+                        display: flex;
+                        flex-direction: row;
+                        background-color: c.$primero;
+                        align-items: center;
+                        border-radius: 8px;
+                        padding: 0.4rem 1rem;
+                        gap: 0.5rem;
+
+                        img {
+                            width: 4rem;
+                            align-self: center;
+                        }
+
+                        input {
+                            background-color: c.$primero;
+                            color: white;
+                            font-weight: 600;
+                            font-size: 18px;
+                            border: none;
+                        }
+
+                        .form-control:focus-visible {
+                            outline: 0 none;
+                            border: none;
+                            box-shadow: none;
+                        }
+
+                        
+                    }
+
+                    .contenidoFormGestion_btnGuardar {
+                        margin: 2rem 0rem;
+                        width: 45%;
+                        border-radius: 4px;
+                        background-color: c.$tercero;
+                        color: c.$primero;
+                        font-weight: 600;
+                        height: 4rem;
+                        border: none;
+                        transition: 0.5s;
+                    }
+
+                    .contenidoFormGestion_btnGuardar:hover {
+                        background-color: c.$primero;
+                        color: white;
+                    }
+
+                }
+            }
+        }
+    }
+
+    @include m.tablet() {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+
+        &_contenido {
+            margin: 1.5rem;
+            width: 80%;
+
+            &--formulario {
+                width: 100%;
+                margin: 0rem auto;
+
+            }
+        }
+    }
+
+    @include m.desktop() {
+        &_contenido {
+
+            &--formulario {
+                width: 60%;
+                margin: 2.5rem auto;
+
+
+            }
+        }
+    }
+}

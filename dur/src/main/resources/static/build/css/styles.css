@@ -12656,4 +12656,131 @@ i {
   }
 }
 
+.gestionUsuario_contenido {
+  width: 100%;
+}
+.gestionUsuario_contenido--titulo {
+  padding: 1.5rem;
+  color: #643e7b;
+  font-weight: 600;
+}
+.gestionUsuario_contenido--formulario {
+  padding: 1.5rem;
+  width: 100%;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--imagenPerfil {
+  width: 40%;
+  margin: 0 auto;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--imagenPerfil img {
+  width: 22rem;
+  margin: 0 auto;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--contenidoFormGestion {
+  width: 60%;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--contenidoFormGestion .contenidoFormGestion_label {
+  font-weight: 600;
+  color: #643e7b;
+  margin-top: 1rem;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--contenidoFormGestion .contenidoFormGestion_datos {
+  display: flex;
+  flex-direction: row;
+  background-color: #643e7b;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  padding-left: 1rem;
+  gap: 0.5rem;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--contenidoFormGestion .contenidoFormGestion_datos img {
+  width: 4rem;
+  align-self: center;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--contenidoFormGestion .contenidoFormGestion_datos input {
+  background-color: #643e7b;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_primeraParte--contenidoFormGestion .contenidoFormGestion_datos .form-control:focus-visible {
+  outline: 0 none;
+  border: none;
+  box-shadow: none;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_label {
+  font-weight: 600;
+  color: #643e7b;
+  margin-top: 1rem;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_datos {
+  display: flex;
+  flex-direction: row;
+  background-color: #643e7b;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  gap: 0.5rem;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_datos img {
+  width: 4rem;
+  align-self: center;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_datos input {
+  background-color: #643e7b;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_datos .form-control:focus-visible {
+  outline: 0 none;
+  border: none;
+  box-shadow: none;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_btnGuardar {
+  margin: 2rem 0rem;
+  width: 45%;
+  border-radius: 4px;
+  background-color: #cdc1ff;
+  color: #643e7b;
+  font-weight: 600;
+  height: 4rem;
+  border: none;
+  transition: 0.5s;
+}
+.gestionUsuario_contenido--formulario .formGestionUsuario_segundaParte--contenidoFormGestion .contenidoFormGestion_btnGuardar:hover {
+  background-color: #643e7b;
+  color: white;
+}
+@media screen and (min-width: 768px) {
+  .gestionUsuario {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
+  .gestionUsuario_contenido {
+    margin: 1.5rem;
+    width: 80%;
+  }
+  .gestionUsuario_contenido--formulario {
+    width: 100%;
+    margin: 0rem auto;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .gestionUsuario_contenido--formulario {
+    width: 60%;
+    margin: 2.5rem auto;
+  }
+}
+
 /*# sourceMappingURL=styles.css.map */
