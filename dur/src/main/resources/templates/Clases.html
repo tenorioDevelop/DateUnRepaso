@@ -28,8 +28,10 @@
 
 		<div class="header_usuario">
 			<!-- <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span> -->
-			<i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
-					class="img-fluid"></i>
+			<a th:href="@{/gestionUsuario}" class="header_usuario--icono">
+				<i><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
+						class="img-fluid"></i>
+			</a>
 		</div>
 	</header>
 
