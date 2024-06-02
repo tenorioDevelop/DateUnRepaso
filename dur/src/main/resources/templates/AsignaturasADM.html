@@ -62,13 +62,14 @@
               <label th:if="${esProfesor}">
                 <label th:if="${asignatura.id != usuario.asignatura.id}">
                   <a class="boton-secundario"
-                  th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
+                    th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
                 </label>
               </label>
             </td>
           </tr>
         </tbody>
       </table>
+      <a class="boton-secundario" th:href="@{/panel-admin/asignaturas/crear}">Crear asignatura</a>
     </section>
   </main>
 </body>

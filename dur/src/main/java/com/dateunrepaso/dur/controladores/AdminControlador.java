@@ -1,6 +1,8 @@
 package com.dateunrepaso.dur.controladores;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -135,6 +137,64 @@ public class AdminControlador {
 		return "redirect:/panel-admin/alumnos";
 	}
 
+	@GetMapping("/alumnos/editar/{id}")
+	public String getEditarAsignatura(@PathVariable Long id, Model model, HttpSession sesion,
+			RedirectAttributes atributos) {
+		crearModel(model, sesion);
+
+		Optional<Alumno> alumno = alumnoImp.findById(id);
+
+		if (alumno.isPresent()) {
+			model.addAttribute("alumno", alumno.get());
+		} else {
+			return "redirect:/panel-admin/alumnos";
+		}
+
+		return "EditarAlumnoADM";
+	}
+
+	@PostMapping("/alumnos/editar")
+	public String postEditarAsignatura(@RequestParam(name = "nombreReg") String nombre,
+			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
+			@RequestParam(name = "correoReg") String correo,
+			@RequestParam(name = "nomUsuario") String nomUsuario,
+			@RequestParam(name = "contrasenaReg") String contrasena,
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			@RequestParam(name = "id") Long id, Model model, HttpSession sesion,
+			RedirectAttributes atributos) {
+		crearModel(model, sesion);
+		boolean correcto = false;
+
+		Alumno alumnoOriginal = alumnoImp.findById(id).get();
+
+		// Validaciones
+
+		if (!contrasena.equals(contrasenaRep)) {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+
+		} else if ((!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty())
+				&& !correo.equals(alumnoOriginal.getCorreo())) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
+
+		} else if ((profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null)
+				&& !dni.equals(alumnoOriginal.getDni())) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
+
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
+			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+		} else {
+			correcto = true;
+		}
+
+		// Fin validaciones
+
+		if (correcto == true) {
+			alumnoImp.actualizarAlumno(id, nombre, nomUsuario, correo,
+					contrasena, fechaNac);
+		}
+		return "redirect:/panel-admin/alumnos/crear";
+	}
+
 	@GetMapping("/profesores")
 	public String getProfesoresAdm(Model model, HttpSession sesion) {
 		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
@@ -261,6 +321,26 @@ public class AdminControlador {
 		model.addAttribute("esProfesor", sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class);
 
 		return "AsignaturasADM";
+	}
+
+	@GetMapping("/asignaturas/crear")
+	public String getCrearAsignatura(Model model, HttpSession sesion) {
+		crearModel(model, sesion);
+		return "CrearAsignaturaADM";
+	}
+
+	@PostMapping("/asignaturas/crear")
+	public String postCrearAsignatura(@RequestParam(name = "nombreAsig") String nombre, RedirectAttributes atributos,
+			Model model, HttpSession sesion) {
+
+		if (asigImp.findByNombre(nombre).isEmpty()) {
+			Asignatura asig = new Asignatura(null, nombre, null);
+			asigImp.save(asig);
+		} else {
+			atributos.addFlashAttribute("Error", "Ya existe una asignatura con este nombre");
+		}
+
+		return "redirect:/panel-admin/asignaturas/crear";
 	}
 
 	@Transactional

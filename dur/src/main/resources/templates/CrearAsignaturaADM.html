@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/build/css/styles.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Crear aula - DateUnRepaso</title>
+  <title>Crear asignatura - DateUnRepaso</title>
 </head>
 
 <body>
@@ -35,14 +35,12 @@
 
   <main class="inicio">
     <section class="inicio_contenido">
-       <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
         <label th:text="${Error}"></label>
       </div>
-      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/aulas/crear}">
-        <input class="formRegistro_datos form-control" type="text" name="nombreAula" placeholder="Nombre"
+      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/asignaturas/crear}">
+        <input class="formRegistro_datos form-control" type="text" name="nombreAsig" placeholder="Nombre asignatura"
           required>
-        <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" type="number" name="cantMaxAlumn" placeholder="Cantidad maxima de alumnos" required>
         <div class="invalid-feedback">Campo requerido</div>
         <button class="boton-secundario">Crear</button>
     </section>

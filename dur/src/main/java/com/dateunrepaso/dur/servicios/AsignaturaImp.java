@@ -22,6 +22,11 @@ public class AsignaturaImp implements AsignaturaRepo{
     AsignaturaRepo asignaturaRepo;
 
     @Override
+    public Optional<Asignatura> findByNombre(String nombre) {
+        return asignaturaRepo.findByNombre(nombre);
+    }
+
+    @Override
     public void flush() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'flush'");
@@ -106,8 +111,7 @@ public class AsignaturaImp implements AsignaturaRepo{
 
     @Override
     public <S extends Asignatura> S save(S entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return asignaturaRepo.save(entity);
     }
 
     @Override
@@ -198,5 +202,7 @@ public class AsignaturaImp implements AsignaturaRepo{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findBy'");
     }
+
+   
 
 }
