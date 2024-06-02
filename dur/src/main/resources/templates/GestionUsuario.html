@@ -53,8 +53,12 @@
 	<main class="gestionUsuario">
 		<section class="gestionUsuario_contenido">
 			<h1 class="gestionUsuario_contenido--titulo">Gestión perfil</h1>
+			<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+				<label th:text="${Error}"></label>
+			</div>
+			<form class="gestionUsuario_contenido--formulario" method="post" th:action="@{/gestion-usuario/editar}">
 
-			<form class="gestionUsuario_contenido--formulario" action="">
+				<input type="hidden" name="id" th:value="${usuario.id}" id="">
 
 				<div class="formGestionUsuario_primeraParte">
 
@@ -70,8 +74,7 @@
 							<div class="contenidoFormGestion_datos">
 								<i><img th:src="@{build/img/Iconos/Icono_DNI_GestionPerfil.png}"
 										alt="Icono DNI usuario"></i>
-								<input type="text" name="dniPerfil" id="dni" class="form-control"
-									th:value="${usuario.dni}">
+								<input type="text" name="dni" id="dni" class="form-control" th:value="${usuario.dni}">
 							</div>
 						</div>
 
@@ -81,8 +84,8 @@
 							<div class="contenidoFormGestion_datos">
 								<i><img th:src="@{build/img/Iconos/Icono_FechaNac_GestionPerfil.png}"
 										alt="Icono fecha de nacimiento" class="img-fluid"></i>
-								<input type="date" name="fechaNacPerfil" id="fechaNacimiento"
-									th:value="${usuario.fechaNac}" class="form-control">
+								<input type="date" name="fechaNac" id="fechaNacimiento" th:value="${usuario.fechaNac}"
+									class="form-control">
 							</div>
 						</div>
 
@@ -91,7 +94,7 @@
 							<div class="contenidoFormGestion_datos">
 								<i><img th:src="@{build/img/Iconos/Icono_Contraseña_GestionPerfil.png}"
 										alt="Icono contraseña usuario"></i>
-								<input type="password" name="contrasenaPerfil" id="contrasena"
+								<input type="password" name="contrasena" id="contrasena"
 									th:value="${usuario.contrasena}" class="form-control">
 							</div>
 						</div>
@@ -104,12 +107,13 @@
 
 					<div class="formGestionUsuario_segundaParte--contenidoFormGestion">
 
-						<label for="correoElect" class="contenidoFormGestion_label form-label">Correo electrónico</label>
+						<label for="correoElect" class="contenidoFormGestion_label form-label">Correo
+							electrónico</label>
 
 						<div class="contenidoFormGestion_datos">
 							<i><img th:src="@{build/img/Iconos/Icono_Correo_GestionPerfil.png}"
 									alt="Icono correo electronico usuario"></i>
-							<input type="text" name="correoPerfil" id="correoElect" th:value="${usuario.correo}"
+							<input type="text" name="correo" id="correoElect" th:value="${usuario.correo}"
 								class="form-control">
 						</div>
 
@@ -123,7 +127,7 @@
 
 							<i><img th:src="@{build/img/Iconos/Icono_EditarNombre_GestionPerfil.png}"
 									alt="Icono nombre usuario"></i>
-							<input type="text" name="nombreComPerfil" id="nombreComp" th:value="${usuario.nomCompleto}"
+							<input type="text" name="nombre" id="nombreComp" th:value="${usuario.nomCompleto}"
 								class="form-control">
 
 						</div>
