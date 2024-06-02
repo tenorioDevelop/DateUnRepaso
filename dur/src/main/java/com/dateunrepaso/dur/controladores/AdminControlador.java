@@ -369,6 +369,31 @@ public class AdminControlador {
 		return "redirect:/panel-admin/aulas";
 	}
 
+	@GetMapping("/aulas/editar/{id}")
+	public String getEditarAula(@PathVariable Long id, Model model, HttpSession sesion) {
+		crearModel(model, sesion);
+		model.addAttribute("aula", aulaImp.findById(id).get());
+		return "EditarAulaADM";
+	}
+
+	@PostMapping("/aulas/editar")
+	public String postEditarAula(@RequestParam(name = "id") Long id,
+			@RequestParam(name = "nombre") String nombre,
+			@RequestParam(name = "cantidadMaxAlumnos") int cantidadMaxAlumnos,
+			Model model, HttpSession sesion, RedirectAttributes atributos) {
+
+		Aula aulaOriginal = aulaImp.findById(id).get();
+
+		if (aulaImp.findByNombre(nombre).isEmpty() || aulaOriginal.getNombre().equals(nombre)) {
+			aulaImp.actualizarAula(id, cantidadMaxAlumnos, nombre);
+		} else {
+			atributos.addFlashAttribute("Error", "Ya existe un aula con este nombre");
+			return "redirect:/panel-admin/aulas/editar/" + id;
+		}
+
+		return "redirect:/panel-admin/aulas";
+	}
+
 	@GetMapping("/asignaturas")
 	public String getAsignaturas(Model model, HttpSession sesion) {
 		crearModel(model, sesion);
