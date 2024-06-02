@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/build/css/styles.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <title>Editar asignatura - DateUnRepaso</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header_logo">
+      <figure class="header_logo--imagen">
+        <img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
+      </figure>
+      <p class="header_logo--titulo">DateUnRepaso</p>
+    </div>
+
+    <nav class="header_navegacion">
+      <ul class="header_navegacion--enlaces">
+        <li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+        <li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+        <li class="navegacion_enlace"><a>Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="header_usuario">
+      <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span>
+      <i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
+          class="img-fluid"></i>
+    </div>
+  </header>
+
+  <main class="inicio">
+    <section class="inicio_contenido">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+        <label th:text="${Error}"></label>
+      </div>
+      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/asignaturas/editar}">
+        <input type="hidden" name="id" th:value="${asignatura.id}" id="">
+        <input class="formRegistro_datos form-control" type="text" name="nombre" th:value="${asignatura.nombre}"
+          placeholder="Nombre asignatura" required>
+        <div class="invalid-feedback">Campo requerido</div>
+        <button class="boton-secundario">Crear</button>
+    </section>
+  </main>
+</body>
+
+<script th:src="@{/js/calendarioInicio.js}"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+
+</html>

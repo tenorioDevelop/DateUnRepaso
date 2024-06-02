@@ -457,4 +457,28 @@ public class AdminControlador {
 		}
 	}
 
+	@GetMapping("/asignaturas/editar/{id}")
+	public String getEditarAsignautura(@PathVariable Long id, Model model, HttpSession sesion) {
+		crearModel(model, sesion);
+		model.addAttribute("asignatura", asigImp.findById(id).get());
+		return "EditarAsignaturaADM";
+	}
+
+	@PostMapping("/asignaturas/editar")
+	public String postEditarAsignautura(@RequestParam(name = "id") Long id,
+			@RequestParam(name = "nombre") String nombre,
+			Model model, HttpSession sesion, RedirectAttributes atributos) {
+
+		Asignatura asigOriginal = asigImp.findById(id).get();
+
+		if (asigImp.findByNombre(nombre).isEmpty() || asigOriginal.getNombre().equals(nombre)) {
+			asigImp.actualiarAsignatura(id, nombre);
+		} else {
+			atributos.addFlashAttribute("Error", "Ya existe una asignatura con este nombre");
+			return "redirect:/panel-admin/asignaturas/editar/" + id;
+		}
+
+		return "redirect:/panel-admin/asignaturas";
+	}
+
 }
