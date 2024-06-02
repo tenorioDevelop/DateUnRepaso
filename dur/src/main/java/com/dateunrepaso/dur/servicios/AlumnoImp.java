@@ -37,8 +37,8 @@ public class AlumnoImp {
 	}
 
 	@Transactional
-    public void actualizarAlumno(Long id, String nomCompleto, String nomUsuario, String correo, String contrasena, String fechaNac) {
-        alumnoRepo.updateAlumno(id, nomCompleto, nomUsuario, correo, contrasena, fechaNac);
+    public void actualizarAlumno(Long id, String nomCompleto, String nomUsuario,String dni, String correo, String contrasena, String fechaNac) {
+        alumnoRepo.updateAlumno(id, nomCompleto, nomUsuario,dni, correo, contrasena, fechaNac);
     }
 
 	public Alumno findByCorreoAndDni(String correo, String dni) {

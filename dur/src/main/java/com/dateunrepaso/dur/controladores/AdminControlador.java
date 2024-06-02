@@ -154,7 +154,7 @@ public class AdminControlador {
 	}
 
 	@PostMapping("/alumnos/editar")
-	public String postEditarAsignatura(@RequestParam(name = "nombreReg") String nombre,
+	public String postEditarAlumno(@RequestParam(name = "nombreReg") String nombre,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo,
 			@RequestParam(name = "nomUsuario") String nomUsuario,
@@ -189,10 +189,12 @@ public class AdminControlador {
 		// Fin validaciones
 
 		if (correcto == true) {
-			alumnoImp.actualizarAlumno(id, nombre, nomUsuario, correo,
+			alumnoImp.actualizarAlumno(id, nombre, nomUsuario, dni, correo,
 					contrasena, fechaNac);
+		} else {
+			return "redirect:/panel-admin/alumnos/editar/" + id;
 		}
-		return "redirect:/panel-admin/alumnos/crear";
+		return "redirect:/panel-admin/alumnos";
 	}
 
 	@GetMapping("/profesores")
@@ -266,6 +268,63 @@ public class AdminControlador {
 			reservaAlumnoImp.deleteAll(reservas);
 		}
 		profesorImp.deleteById(id);
+		return "redirect:/panel-admin/profesores";
+	}
+
+	@GetMapping("/profesores/editar/{id}")
+	public String getEditarProfesorAdm(@PathVariable Long id, Model model, HttpSession sesion) {
+		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
+			return "redirect:/";
+		}
+		crearModel(model, sesion);
+		model.addAttribute("profesor", profesorImp.findById(id).get());
+		model.addAttribute("asignaturas", asigImp.findAll());
+
+		return "EditarProfesorADM";
+	}
+
+	@PostMapping("/profesores/editar")
+	public String postEditarProfesor(@RequestParam(name = "nombreReg") String nombre,
+			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
+			@RequestParam(name = "correoReg") String correo,
+			@RequestParam(name = "nomUsuario") String nomUsuario,
+			@RequestParam(name = "contrasenaReg") String contrasena,
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			@RequestParam(name = "asignaturaProf") Long asignaturaProf,
+			@RequestParam(name = "id") Long id, Model model, HttpSession sesion,
+			RedirectAttributes atributos) {
+		crearModel(model, sesion);
+		boolean correcto = false;
+
+		Profesor profesorOriginal = profesorImp.findById(id).get();
+
+		// Validaciones
+
+		if (!contrasena.equals(contrasenaRep)) {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+
+		} else if ((!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty())
+				&& !correo.equals(profesorOriginal.getCorreo())) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
+
+		} else if ((profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null)
+				&& !dni.equals(profesorOriginal.getDni())) {
+			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
+
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
+			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+		} else {
+			correcto = true;
+		}
+
+		// Fin validaciones
+
+		if (correcto == true) {
+			profesorImp.actualizarProfesor(id, nombre, nomUsuario, correo,
+					contrasena, fechaNac, dni, asigImp.findById(asignaturaProf).get());
+		} else {
+			return "redirect:/panel-admin/profesores/editar/" + id;
+		}
 		return "redirect:/panel-admin/profesores";
 	}
 

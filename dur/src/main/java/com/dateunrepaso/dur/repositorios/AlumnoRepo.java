@@ -18,10 +18,11 @@ public interface AlumnoRepo extends JpaRepository<Alumno, Long> {
 
 	@Modifying
 	@Transactional
-	@Query("UPDATE Alumno a SET a.nomCompleto = :nomCompleto, a.nomUsuario = :nomUsuario, a.correo = :correo, a.contrasena = :contrasena, a.fechaNac = :fechaNac WHERE a.id = :id")
+	@Query("UPDATE Alumno a SET a.nomCompleto = :nomCompleto, a.nomUsuario = :nomUsuario, a.correo = :correo, a.contrasena = :contrasena, a.fechaNac = :fechaNac, a.dni = :dni WHERE a.id = :id")
 	int updateAlumno(@Param("id") Long id,
 			@Param("nomCompleto") String nomCompleto,
 			@Param("nomUsuario") String nomUsuario,
+			@Param("dni") String dni,
 			@Param("correo") String correo,
 			@Param("contrasena") String contrasena,
 			@Param("fechaNac") String fechaNac);

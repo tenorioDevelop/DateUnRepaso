@@ -55,6 +55,7 @@
             <td th:text="${profesor.fechaNac}" />
             <td th:if="${usuario.correo != profesor.correo}">
               <a class="boton-secundario" th:href="@{/panel-admin/profesores/eliminar/}+${profesor.id}">Eliminar</a>
+              <a class="boton-secundario" th:href="@{/panel-admin/profesores/editar/}+${profesor.id}">Editar</a>
             </td>
           </tr>
         </tbody>
