@@ -164,8 +164,7 @@ public class AdminControlador {
 	public String postsCrearProfesoresAdm(@RequestParam(name = "nombreReg") String nombre,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
-			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "perfilSel") String perfil, @RequestParam(name = "asignaturaProf") Long idAsig,
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, @RequestParam(name = "asignaturaProf") Long idAsig,
 			HttpSession sesion, Model model, RedirectAttributes atributos) {
 
 		boolean correcto = false;
@@ -183,8 +182,7 @@ public class AdminControlador {
 
 		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18)) {
 			atributos.addFlashAttribute("Error", "No puedes ser menor de edad");
-
-		}else {
+		} else {
 			correcto = true;
 		}
 
@@ -194,9 +192,8 @@ public class AdminControlador {
 			Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
 					contrasena, fechaNac, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
-			sesion.setAttribute("usuarioLogeado", profesor);
 		}
-		return "redirect:/panel-admin/alumnos/crear";
+		return "redirect:/panel-admin/profesores/crear";
 	}
 
 	@Transactional
@@ -216,6 +213,12 @@ public class AdminControlador {
 
 		model.addAttribute("aulas", aulaImp.findAll());
 
+		return "AulasADM";
+	}
+
+	@GetMapping("/aulas/crear")
+	public String getCrearAula(Model model, HttpSession sesion) {
+		crearModel(model, sesion);
 		return "AulasADM";
 	}
 
