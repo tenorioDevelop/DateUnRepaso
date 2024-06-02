@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Asignatura;
+import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
@@ -164,7 +165,8 @@ public class AdminControlador {
 	public String postsCrearProfesoresAdm(@RequestParam(name = "nombreReg") String nombre,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
-			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, @RequestParam(name = "asignaturaProf") Long idAsig,
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
+			@RequestParam(name = "asignaturaProf") Long idAsig,
 			HttpSession sesion, Model model, RedirectAttributes atributos) {
 
 		boolean correcto = false;
@@ -219,7 +221,22 @@ public class AdminControlador {
 	@GetMapping("/aulas/crear")
 	public String getCrearAula(Model model, HttpSession sesion) {
 		crearModel(model, sesion);
-		return "AulasADM";
+		return "CrearAulaADM";
+	}
+
+	@PostMapping("/aulas/crear")
+	public String postCrearAula(@RequestParam(name = "nombreAula") String nombre,
+			@RequestParam(name = "cantMaxAlumn") Integer numAlumnos, RedirectAttributes atributos, Model model,
+			HttpSession sesion) {
+
+		if (aulaImp.findByNombre(nombre).isEmpty()) {
+			Aula aula = new Aula(null, nombre, numAlumnos, null);
+			aulaImp.save(aula);
+		} else {
+			atributos.addFlashAttribute("Error", "Ya existe un aula con este nombre");
+		}
+
+		return "redirect:/panel-admin/aulas/crear";
 	}
 
 	@GetMapping("/aulas/eliminar/{id}")

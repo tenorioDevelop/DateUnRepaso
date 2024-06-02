@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/build/css/styles.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <title>Profesores - DateUnRepaso</title>
+  <title>Crear alumno - DateUnRepaso</title>
 </head>
 
 <body>
@@ -35,31 +35,16 @@
 
   <main class="inicio">
     <section class="inicio_contenido">
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre usuario</th>
-            <th scope="col">Nombre completo</th>
-            <th scope="col">DNI</th>
-            <th scope="col">Fecha nacimineto</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="profesor : ${profesores}">
-            <th scope="row" th:text="${profesor.id}" />
-            <td th:text="${profesor.nomUsuario}" />
-            <td th:text="${profesor.nomCompleto}" />
-            <td th:text="${profesor.dni}" />
-            <td th:text="${profesor.fechaNac}" />
-            <td th:if="${usuario.correo != profesor.correo}">
-              <a class="boton-secundario" th:href="@{/panel-admin/profesores/eliminar/}+${profesor.id}">Eliminar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <a th:href="@{/panel-admin/profesores/crear}" class="boton-secundario">Crear profesor</a>
+       <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+        <label th:text="${Error}"></label>
+      </div>
+      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/aulas/crear}">
+        <input class="formRegistro_datos form-control" type="text" name="nombreAula" placeholder="Nombre"
+          required>
+        <div class="invalid-feedback">Campo requerido</div>
+        <input class="formRegistro_datos form-control" type="number" name="cantMaxAlumn" placeholder="Cantidad maxima de alumnos" required>
+        <div class="invalid-feedback">Campo requerido</div>
+        <button class="boton-secundario">Crear</button>
     </section>
   </main>
 </body>

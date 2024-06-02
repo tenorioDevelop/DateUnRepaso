@@ -22,6 +22,10 @@ public class AulaImp implements AulaRepo{
     AulaRepo aulaRepo;
 
 
+    @Override
+    public Optional<Aula> findByNombre(String nombre) {
+        return aulaRepo.findByNombre(nombre);
+    }
 
     @Override
     public void flush() {
@@ -108,8 +112,7 @@ public class AulaImp implements AulaRepo{
 
     @Override
     public <S extends Aula> S save(S entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return aulaRepo.save(entity);
     }
 
     @Override
@@ -199,5 +202,7 @@ public class AulaImp implements AulaRepo{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findBy'");
     }
+
+    
 
 }
