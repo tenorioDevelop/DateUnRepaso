@@ -58,7 +58,7 @@
 				<form th:action="@{/reserva-profesor}" method="post" class="formReservaP">
 					<div class="formReservaP_input">
 						<i><img th:src="@{build/img/Iconos/Icono_Aula_ReservaP.png}"></i>
-						<select name="resProfAula" class="formReservaP_input--datos form-control">
+						<select name="resProfAula" class="formReservaP_input--datos form-control" required>
 							<option>Seleccionar aula</option>
 							<option th:each="aula : ${listaAulas}" th:value="${aula.id}"><span
 									th:text="${aula.nombre}"></span>
@@ -68,12 +68,12 @@
 
 					<div class="formReservaP_input">
 						<i><img th:src="@{build/img/Iconos/Icono_Calendario_ReservaP.png}"></i>
-						<input type="date" name="resProfFecha" class="formReservaP_input--datos form-control">
+						<input type="date" name="resProfFecha" class="formReservaP_input--datos form-control" required>
 					</div>
 
 					<div class="formReservaP_input">
 						<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}"></i>
-						<select name="resProfHoraI" class="formReservaP_input--datos form-control">
+						<select name="resProfHoraI" class="formReservaP_input--datos form-control" required>
 							<option>Hora inicio</option>
 							<option value="16" class="prueba">16:00</option>
 							<option value="17">17:00</option>
@@ -86,7 +86,7 @@
 
 					<div class="formReservaP_input">
 						<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}"></i>
-						<select name="resProfHoraF" class="formReservaP_input--datos form-control">
+						<select name="resProfHoraF" class="formReservaP_input--datos form-control" required>
 							<option>Hora fin</option>
 							<option value="16">16:00</option>
 							<option value="17">17:00</option>

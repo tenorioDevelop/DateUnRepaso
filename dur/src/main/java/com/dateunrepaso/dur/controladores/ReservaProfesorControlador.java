@@ -58,43 +58,46 @@ public class ReservaProfesorControlador {
             HttpSession sesion,
             RedirectAttributes atributos) {
 
+        boolean correcto = true;
+
         Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
 
         // Reatachar el profesor al contexto de persistencia
-        profesor = profesorImp.findById(profesor.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Profesor no encontrado"));
+        profesor = profesorImp.findById(profesor.getId()).get();
 
-        Aula aula = aulaRepo.findById(idAula).orElseThrow(() -> new IllegalArgumentException("Aula no encontrada"));
+        Aula aula = aulaRepo.findById(idAula).get();
 
         List<ReservaProfesor> reservas = reservaProfImp.findAll();
+
+        if (fecha.isBefore(LocalDate.now())) {
+            atributos.addFlashAttribute("Error", "No puedes reservar en una fecha anterior a la fecha actual");
+            correcto = false;
+        } else if (horaI == horaF) {
+            atributos.addFlashAttribute("Error", "No puedes reservar con la misma hora en los dos tramos de horario");
+            correcto = false;
+        } else if (horaI > horaF) {
+            atributos.addFlashAttribute("Error", "La hora final no puede ser antes que la hora inicio");
+            correcto = false;
+        }
 
         for (ReservaProfesor reserva : reservas) {
 
             if (reserva.getProfesor().equals(profesor) && reserva.getFechaReserva().equals(fecha)
                     && reserva.getHoraInicio() == horaI && reserva.getHoraFin() == horaF) {
                 atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
-                return "redirect:/reserva-profesor";
-            } else if (reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha) && (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin())) {
+                correcto = false;
+            } else if (reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha)
+                    && (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin())) {
                 atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
-                return "redirect:/reserva-profesor";
+                correcto = false;
             }
         }
 
-        if (fecha.isBefore(LocalDate.now())) {
-            atributos.addFlashAttribute("Error", "No puedes reservar en una fecha anterior a la fecha actual");
-            return "redirect:/reserva-profesor";
-        }
-        if (horaI == horaF) {
-            atributos.addFlashAttribute("Error", "No puedes reservar con la misma hora en los dos tramos de horario");
-            return "redirect:/reserva-profesor";
-        }
-
-        if (horaI < horaF) {
+        if (correcto) {
             ReservaProfesor reserva = new ReservaProfesor(null, profesor, aula, fecha, horaI, horaF);
             reservaProfImp.save(reserva);
             return "redirect:/app";
         } else {
-            atributos.addFlashAttribute("Error", "La hora final no puede ser antes que la hora inicio");
             return "redirect:/reserva-profesor";
         }
     }
