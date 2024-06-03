@@ -93,6 +93,7 @@ public class InicioControlador {
 	public String getCalendario(Model model, HttpSession sesion) {
 		if (sesion.getAttribute("usuarioLogeado") != null) {
 			model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
+			model.addAttribute("paginaActiva", "calendario");
 			return "Calendario";
 		}
 		return "redirect:/";

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
@@ -56,8 +57,9 @@ public class ReservaProfesorControlador {
             @RequestParam(name = "resProfHoraI") int horaI,
             @RequestParam(name = "resProfHoraF") int horaF,
             HttpSession sesion,
+            Model model,
             RedirectAttributes atributos) {
-
+        crearModel(model, sesion);
         boolean correcto = true;
 
         Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
@@ -110,4 +112,17 @@ public class ReservaProfesorControlador {
             return "redirect:/reserva-profesor";
         }
     }
+
+    public void crearModel(Model model, HttpSession sesion) {
+        if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
+            Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+            model.addAttribute("usuario", alumno);
+            model.addAttribute("tipoUsuario", "alumno");
+        } else {
+            Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
+            model.addAttribute("usuario", profesor);
+            model.addAttribute("tipoUsuario", "profesor");
+        }
+    }
+
 }
