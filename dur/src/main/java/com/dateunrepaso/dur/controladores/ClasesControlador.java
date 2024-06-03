@@ -58,6 +58,7 @@ public class ClasesControlador {
 	@GetMapping("/clases/preguntarBorrar/{id}")
 	public String getPreguntarBorrarReserva(@PathVariable Long id, HttpSession sesion, Model model) {
 		model.addAttribute("idReserva", id);
+		model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
 		return "EliminarReserva";
 	}
 

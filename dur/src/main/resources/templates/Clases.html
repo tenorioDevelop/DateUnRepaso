@@ -21,7 +21,7 @@
 			<div class="clases_contenido--reservas">
 				<div th:each="reserva : ${Reservas}" class="reserva">
 					<h2 th:text="${reserva.aula.nombre}" class="reserva_titulo"></h2>
-					<div>
+					<div th:if="${tipoUsuario == 'alumno'}">
 						<i><img th:src="@{build/img/Iconos/Icono_Profesor_Clases.png}" alt=""></i>
 						<p th:text="${reserva.profesor.nomCompleto}" class="reserva_nombreP"></p>
 					</div>
