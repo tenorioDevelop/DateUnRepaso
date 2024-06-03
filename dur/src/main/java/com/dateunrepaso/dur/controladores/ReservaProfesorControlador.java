@@ -86,13 +86,17 @@ public class ReservaProfesorControlador {
                     && reserva.getHoraInicio() == horaI && reserva.getHoraFin() == horaF) {
                 atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
                 correcto = false;
-            } else if (reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha)
+            }
+
+            if (reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha)
                     && (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin())) {
                 atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
                 correcto = false;
-            } else if ((horaI > reserva.getHoraInicio() && horaI < reserva.getHoraFin())
-                    || (horaF > reserva.getHoraInicio() && horaF < reserva.getHoraFin())
-                            && reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha)) {
+            }
+
+            if (((horaI > reserva.getHoraInicio() && horaI < reserva.getHoraFin())
+                    || (horaF > reserva.getHoraInicio() && horaF < reserva.getHoraFin()))
+                    && reserva.getAula().getId().equals(aula.getId()) && reserva.getFechaReserva().equals(fecha)) {
                 atributos.addFlashAttribute("Error", "No puedes elegir una hora que ya esta ocupada por otra reserva");
                 correcto = false;
             }
