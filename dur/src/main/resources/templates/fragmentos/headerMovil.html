@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Fragment</title>
+</head>
+
+<body>
+    <header class="headerSecundario" th:fragment="headerMovilFragment">
+		<nav class="headerSecundario_navegacion">
+			<ul class="headerSecundario_navegacion--enlaces">
+				<li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
+				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
+				<li class="navegacion_enlace"><a>Contacto</a></li>
+			</ul>
+		</nav>
+
+		<div class="headerSecundario_boton">
+			<a th:href="@{/cerrarSesion}" class="btnCerrarSesion">Cerrar sesión</a>
+		</div>
+	</header>
+</body>
+
+</html>
