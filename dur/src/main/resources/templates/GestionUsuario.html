@@ -114,7 +114,8 @@
 							<i><img th:src="@{build/img/Iconos/Icono_Correo_GestionPerfil.png}"
 									alt="Icono correo electronico usuario"></i>
 							<input type="text" name="correo" id="correoElect" th:value="${usuario.correo}"
-								class="form-control">
+								class="form-control" disabled>
+							<input type="hidden" name="correo" th:value="${usuario.correo}">
 						</div>
 
 					</div>
