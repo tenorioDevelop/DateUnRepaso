@@ -11918,6 +11918,14 @@ i {
   font-size: 28px;
 }
 
+.alert {
+  background-color: #f5efff;
+  color: #643e7b;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid #643e7b;
+}
+
 .contenido {
   height: 100vh;
   background: url(../../../build/img/Landing/Background.svg);
@@ -12609,6 +12617,7 @@ i {
   font-size: 18px;
   border: none;
   font-weight: 600;
+  background-color: #cdc1ff;
 }
 .resProfesor_contenido--form .formReservaP_input--datos:focus-visible {
   box-shadow: none;
