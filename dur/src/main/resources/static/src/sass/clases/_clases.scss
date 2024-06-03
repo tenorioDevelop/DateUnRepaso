@@ -1,0 +1,118 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.clases {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+
+
+    &_contenido {
+        width: 100%;
+
+        &--titulo {
+            margin: 1.5rem;
+            font-weight: 600;
+            color: c.$primero;
+            margin-bottom: 1.5rem;
+        }
+
+        &--reservas {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+
+            .reserva {
+                background-color: c.$claro;
+                border-radius: 6px;
+                width: 90%;
+                margin: 0 auto;
+                padding: 1.5rem;
+
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    align-self: center;
+                    gap: 1rem;
+                    margin: 1.5rem 0rem;
+
+                    i {
+                        img {
+                            width: 4rem;
+                        }
+                    }
+                }
+
+                &_titulo {
+                    font-size: 28px;
+                    color: c.$primero;
+                    font-weight: 600;
+                    text-align: center;
+                }
+
+                &_fecha,
+                &_horas,
+                &_nombreP,
+                &_asignatura {
+                    font-size: 22px;
+                    color: c.$primero;
+                    font-weight: 500;
+                }
+
+                &_botonBorrar {
+                    background-color: c.$primero;
+                    color: white;
+                    padding: 0.5rem 8rem;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    border: none;
+                    transition: 0.5s;
+                }
+
+                &_botonBorrar:hover {
+                    background-color: c.$segundo;
+                    color: c.$primero;
+                }
+            }
+
+        }
+    }
+
+
+    @include m.tablet() {
+        flex-direction: row;
+        height: 100vh;
+        margin: 1.5rem;
+
+
+        &_contenido {
+            width: 80%;
+            // margin: 1.5rem;
+
+
+            &--reservas {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+
+                .reserva {
+                    width: 28rem;
+                }
+
+            }
+        }
+    }
+
+    @include m.desktop() {
+
+        &_contenido {
+
+            &--reservas {
+
+                .reserva {
+                    width: 38rem;
+                }
+
+            }
+        }
+    }
+}

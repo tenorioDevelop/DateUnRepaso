@@ -30,17 +30,27 @@ public class ClasesControlador {
 
 	@GetMapping("/clases")
 	public String getClases(Model model, RedirectAttributes atributos, HttpSession sesion) {
-		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
-			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-			model.addAttribute("Reservas", reservaAlumnoImp.getReservasDeAlumnoPorFecha(alumno, LocalDate.now()));
+		model.addAttribute("paginaActiva", "clases");
+
+		if (sesion.getAttribute("usuarioLogeado") != null) {
+			model.addAttribute("usuario", sesion.getAttribute("usuarioLogeado"));
+			if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
+				Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+				model.addAttribute("Reservas", reservaAlumnoImp.getReservasDeAlumnoPorFecha(alumno, LocalDate.now()));
+				model.addAttribute("tipoUsuario", "alumno");
+			} else {
+				Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
+				model.addAttribute("Reservas", reservaProfesorImp.getReservasDeProfesorPorFecha(profesor, LocalDate.now()));
+				model.addAttribute("tipoUsuario", "profesor");
+			}
+	
+			if (model.getAttribute("Reservas") == null) {
+				atributos.addAttribute("Error", "No hay reservas disponibles para realizar");
+			}
 		} else {
-			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-			model.addAttribute("Reservas", reservaProfesorImp.getReservasDeProfesorPorFecha(profesor, LocalDate.now()));
+			return "redirect:/";
 		}
 
-		if (model.getAttribute("Reservas") == null) {
-			atributos.addAttribute("Error", "No hay reservas disponibles para realizar");
-		}
 
 		return "Clases";
 	}

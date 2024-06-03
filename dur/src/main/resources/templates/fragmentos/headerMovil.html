@@ -10,10 +10,19 @@
     <header class="headerSecundario" th:fragment="headerMovilFragment">
 		<nav class="headerSecundario_navegacion">
 			<ul class="headerSecundario_navegacion--enlaces">
-				<li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
-				<li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
-				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
-				<li class="navegacion_enlace"><a>Contacto</a></li>
+				<li th:class="${paginaActiva == 'inicio' ? 'seleccionado' : 'navegacion_enlace'}">
+                    <a th:href="@{/app}">Inicio</a>
+                </li>
+                <li th:class="${paginaActiva == 'clases' ? 'seleccionado' : 'navegacion_enlace'}">
+                    <a th:href="@{/clases}">Clases</a>
+                </li>
+                <li
+                    th:class="${paginaActiva == 'calendario' ? 'seleccionado' : 'navegacion_enlace'}">
+                    <a th:href="@{/calendario}">Calendario</a>
+                </li>
+                <li th:class="${paginaActiva == 'contacto' ? 'seleccionado' : 'navegacion_enlace'}">
+                    <a th:href="@{/contacto}">Contacto</a>
+                </li>
 			</ul>
 		</nav>
 
