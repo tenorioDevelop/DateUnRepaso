@@ -9,70 +9,41 @@
 </head>
 
 <body>
-	<header class="header">
-		<div class="header_logo">
-			<figure class="header_logo--imagen">
-				<img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
-			</figure>
-			<p class="header_logo--titulo">DateUnRepaso</p>
-		</div>
+	<span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
+	<span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
 
-		<nav class="header_navegacion">
-			<ul class="header_navegacion--enlaces">
-				<li class="navegacion_enlace"><a th:href="@{/app}">Inicio</a></li>
-				<li class="navegacion_enlace"><a th:href="@{/clases}" id="seleccionado">Clases</a></li>
-				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
-				<li class="navegacion_enlace"><a>Contacto</a></li>
-			</ul>
-		</nav>
-
-		<div class="header_usuario">
-			<!-- <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span> -->
-			<a th:href="@{/gestionUsuario}" class="header_usuario--icono">
-				<i><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
-						class="img-fluid"></i>
-			</a>
-		</div>
-	</header>
-
-	<header class="headerSecundario">
-		<nav class="headerSecundario_navegacion">
-			<ul class="headerSecundario_navegacion--enlaces">
-				<li class="navegacion_enlace"><a th:href="@{/app}">Inicio</a></li>
-				<li class="navegacion_enlace"><a th:href="@{/clases}" id="seleccionado">Clases</a></li>
-				<li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
-				<li class="navegacion_enlace"><a>Contacto</a></li>
-			</ul>
-		</nav>
-
-		<div class="headerSecundario_boton">
-			<a class="btnCerrarSesion" href="">Cerrar sesión</a>
-		</div>
-	</header>
-
+	<div th:insert="fragmentos/header :: headerFragment"></div>
+	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
 
 	<main class="clases">
 		<section class="clases_contenido">
 			<h1 class="clases_contenido--titulo">Mis clases</h1>
-			<div th:each="reserva : ${Reservas}" class="clases_contenido--reservas">
-				<h2 th:text="${reserva.aula.nombre}"></h2>
-				<p th:text="${reserva.fechaReserva}"></p>
-				<p><span th:text="${reserva.horaInicio}"></span>:00 - <span th:text="${reserva.horaFin}"></span>:00</p>
-				<div>
-					<a th:href="@{/clases/preguntarBorrar/{id}(id=${reserva.id})}">Borrar</a>
+			<div class="clases_contenido--reservas">
+				<div th:each="reserva : ${Reservas}" class="reserva">
+					<h2 th:text="${reserva.aula.nombre}" class="reserva_titulo"></h2>
+					<div th:if="${tipoUsuario == 'alumno'}">
+						<i><img th:src="@{build/img/Iconos/Icono_Profesor_Clases.png}" alt=""></i>
+						<p th:text="${reserva.profesor.nomCompleto}" class="reserva_nombreP"></p>
+					</div>
+					<div>
+						<i><img th:src="@{build/img/Iconos/Icono_Asignatura_Clases.png}" alt=""></i>
+						<p th:text="${reserva.profesor.asignatura.nombre}" class="reserva_asignatura"></p>
+					</div>
+					<div>
+						<i><img th:src="@{build/img/Iconos/Icono_Calendario_ReservaP.png}" alt=""></i>
+						<p th:text="${reserva.fechaReserva}" class="reserva_fecha"></p>
+					</div>
+					<div>
+						<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}" alt=""></i>
+						<p class="reserva_horas"><span th:text="${reserva.horaInicio} + ':00'"></span> - <span
+								th:text="${reserva.horaFin} + ':00'"></span></p>
+					</div>
+					<a th:href="@{/clases/preguntarBorrar/{id}(id=${reserva.id})}"
+						class="reserva_botonBorrar">Borrar</a>
 				</div>
 			</div>
-
 		</section>
-		<section class="sidebar">
-			<div class="sidebar_boton">
-				<a class="btnCerrarSesion" href="">Cerrar sesión</a>
-			</div>
-
-			<div class="sidebar_tiempo">
-				MOSTRAR LO DEL TIEMPO
-			</div>
-		</section>
+		<div class="sidebar" th:insert="fragmentos/sidebar :: sidebarFragment"></div>
 	</main>
 </body>
 

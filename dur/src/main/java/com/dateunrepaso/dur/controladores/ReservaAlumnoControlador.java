@@ -41,23 +41,26 @@ public class ReservaAlumnoControlador {
         List<ReservaAlumno> reservaA = reservaAlumnoImp.getReservasAlumno(alumno);
 
         List<ReservaProfesor> mostrarReservas = new ArrayList<>();
+        mostrarReservas = reservaP;
 
         boolean existe = false;
 
         for (ReservaProfesor reservaProfesor : reservaP) {
             for (ReservaAlumno reservaAlumno : reservaA) {
-                if (reservaAlumno.getHoraInicio() != reservaProfesor.getHoraInicio()
-                        && reservaAlumno.getHoraFin() != reservaProfesor.getHoraFin()
+                if (reservaAlumno.getHoraInicio() == reservaProfesor.getHoraInicio()
+                        && reservaAlumno.getHoraFin() == reservaProfesor.getHoraFin()
                         && reservaAlumno.getFechaReserva().equals(reservaProfesor.getFechaReserva())
-                        && reservaAlumno.getAula().equals(reservaProfesor.getAula())
-                        && reservaAlumno.getProfesor().equals(reservaProfesor.getProfesor())) {
+                        && reservaAlumno.getAula().getId() == reservaProfesor.getAula().getId()
+                        && reservaAlumno.getProfesor().getId() == reservaProfesor.getProfesor().getId()) {
                     existe = true;
-                    mostrarReservas.add(reservaProfesor);
+                    mostrarReservas.remove(reservaProfesor);
                 }
+
             }
         }
 
-        if (existe) {
+        // System.out.println("\n" + existe + "\n");
+        if (existe == true) {
             model.addAttribute("listaReservasP", mostrarReservas);
         } else {
             model.addAttribute("listaReservasP", reservaP);
