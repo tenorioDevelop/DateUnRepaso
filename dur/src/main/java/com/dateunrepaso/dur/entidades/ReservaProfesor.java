@@ -2,6 +2,7 @@ package com.dateunrepaso.dur.entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
@@ -12,11 +13,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"idProfesorFK","idAulaFK","fecha","horaInicio","horaFin"})})
+@Table(uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "idProfesorFK", "idAulaFK", "fecha", "horaInicio", "horaFin" }) })
 public class ReservaProfesor implements Serializable {
 
 	private static final long serialVersionUID = 7L;
@@ -42,6 +45,9 @@ public class ReservaProfesor implements Serializable {
 	@Column(name = "horaFin", nullable = false, unique = false)
 	private Integer horaFin;
 
+	@OneToMany(mappedBy = "reservaProfesor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ReservaAlumno> lstReservaAlumno;
+
 	public ReservaProfesor() {
 	}
 
@@ -53,6 +59,17 @@ public class ReservaProfesor implements Serializable {
 		this.fechaReserva = fechaReserva;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
+	}
+
+	public ReservaProfesor(Long id, Profesor profesor, Aula aula, LocalDate fechaReserva, Integer horaInicio,
+			Integer horaFin, List<ReservaAlumno> lstReservaAlumno) {
+		this.id = id;
+		this.profesor = profesor;
+		this.aula = aula;
+		this.fechaReserva = fechaReserva;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.lstReservaAlumno = lstReservaAlumno;
 	}
 
 	public Profesor getProfesor() {
@@ -101,6 +118,14 @@ public class ReservaProfesor implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<ReservaAlumno> getLstReservaAlumno() {
+		return lstReservaAlumno;
+	}
+
+	public void setLstReservaAlumno(List<ReservaAlumno> lstReservaAlumno) {
+		this.lstReservaAlumno = lstReservaAlumno;
 	}
 
 	@Override

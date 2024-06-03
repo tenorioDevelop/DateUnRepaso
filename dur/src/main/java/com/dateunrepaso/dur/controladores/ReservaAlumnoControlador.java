@@ -3,7 +3,6 @@ package com.dateunrepaso.dur.controladores;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.entidades.Alumno;
+import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
@@ -35,43 +35,18 @@ public class ReservaAlumnoControlador {
     AlumnoImp alumnoImp; // Añadir el repositorio de Alumno
 
     @GetMapping("/reserva-alumno")
-    public String getMain(Model model, HttpSession sesion) {
+    public String getReservaAlumno(HttpSession sesion, Model model) {
+        crearModel(model, sesion);
         Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
         List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
-        List<ReservaAlumno> reservaA = reservaAlumnoImp.getReservasAlumno(alumno);
-
-        List<ReservaProfesor> mostrarReservas = new ArrayList<>();
-        mostrarReservas = reservaP;
-
-        boolean existe = false;
-
-        for (ReservaProfesor reservaProfesor : reservaP) {
-            for (ReservaAlumno reservaAlumno : reservaA) {
-                if (reservaAlumno.getHoraInicio() == reservaProfesor.getHoraInicio()
-                        && reservaAlumno.getHoraFin() == reservaProfesor.getHoraFin()
-                        && reservaAlumno.getFechaReserva().equals(reservaProfesor.getFechaReserva())
-                        && reservaAlumno.getAula().getId() == reservaProfesor.getAula().getId()
-                        && reservaAlumno.getProfesor().getId() == reservaProfesor.getProfesor().getId()) {
-                    existe = true;
-                    mostrarReservas.remove(reservaProfesor);
-                }
-
-            }
-        }
-
-        // System.out.println("\n" + existe + "\n");
-        if (existe == true) {
-            model.addAttribute("listaReservasP", mostrarReservas);
-        } else {
-            model.addAttribute("listaReservasP", reservaP);
-        }
-
+        reservaP.removeIf(p -> !p.getLstReservaAlumno().stream().allMatch(a -> a.getId() == alumno.getId()));
+        model.addAttribute("listaReservasP", reservaP);
         return "ReservaAlumno";
     }
 
     @Transactional
     @PostMapping("/reserva-alumno")
-    public String postReservar(
+    public String postReservaAlumno(
             HttpSession sesion,
             RedirectAttributes atributos,
             @RequestParam(name = "idReserva") Long idReserva) {
@@ -86,7 +61,7 @@ public class ReservaAlumnoControlador {
         ReservaProfesor reservaP = reservaProfeImp.findById(idReserva).get();
 
         ReservaAlumno reservaA = new ReservaAlumno(null, alumno, reservaP.getProfesor(), reservaP.getAula(),
-                reservaP.getFechaReserva(), reservaP.getHoraInicio(), reservaP.getHoraFin());
+                reservaP.getFechaReserva(), reservaP.getHoraInicio(), reservaP.getHoraFin(), reservaP);
 
         // Busca si la reserva que se quiere crear ya existe
         if (reservaAlumnoImp.findByAulaAndProfesorAndAlumnoAndFechaReservaAndHoraInicio(reservaP.getAula(),
@@ -104,6 +79,18 @@ public class ReservaAlumnoControlador {
             return "redirect:/clases";
         } else {
             return "redirect:/reserva-alumno";
+        }
+    }
+
+    public void crearModel(Model model, HttpSession sesion) {
+        if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
+            Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+            model.addAttribute("usuario", alumno);
+            model.addAttribute("tipoUsuario", "alumno");
+        } else {
+            Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
+            model.addAttribute("usuario", profesor);
+            model.addAttribute("tipoUsuario", "profesor");
         }
     }
 }

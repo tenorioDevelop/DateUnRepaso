@@ -28,8 +28,8 @@ public class ReservaAlumno implements Serializable {
     @JoinColumn(name = "profesor_id", nullable = false)
     private Profesor profesor;
 
-	@ManyToOne
-	@JoinColumn(name = "idAulaFK", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "idAulaFK", nullable = false)
     private Aula aula;
 
     @Column(name = "fecha_reserva", nullable = false)
@@ -41,12 +41,17 @@ public class ReservaAlumno implements Serializable {
     @Column(name = "hora_fin", nullable = false)
     private Integer horaFin;
 
+    @ManyToOne
+    @JoinColumn(name = "idReservaProfesor", nullable = false)
+    private ReservaProfesor reservaProfesor;
+
     // Constructors, getters, setters, hashCode, and equals methods
 
     public ReservaAlumno() {
     }
 
-    public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDate fechaReserva, Integer horaInicio, Integer horaFin) {
+    public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDate fechaReserva,
+            Integer horaInicio, Integer horaFin) {
         this.id = id;
         this.alumno = alumno;
         this.profesor = profesor;
@@ -54,6 +59,18 @@ public class ReservaAlumno implements Serializable {
         this.fechaReserva = fechaReserva;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+    }
+
+    public ReservaAlumno(Long id, Alumno alumno, Profesor profesor, Aula aula, LocalDate fechaReserva,
+            Integer horaInicio, Integer horaFin, ReservaProfesor reservaProfesor) {
+        this.id = id;
+        this.alumno = alumno;
+        this.profesor = profesor;
+        this.aula = aula;
+        this.fechaReserva = fechaReserva;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.reservaProfesor = reservaProfesor;
     }
 
     public Long getId() {
@@ -110,6 +127,14 @@ public class ReservaAlumno implements Serializable {
 
     public void setHoraFin(Integer horaFin) {
         this.horaFin = horaFin;
+    }
+
+    public ReservaProfesor getReservaProfesor() {
+        return reservaProfesor;
+    }
+
+    public void setReservaProfesor(ReservaProfesor reservaProfesor) {
+        this.reservaProfesor = reservaProfesor;
     }
 
     @Override

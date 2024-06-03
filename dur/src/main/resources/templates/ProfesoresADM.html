@@ -9,29 +9,8 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="header_logo">
-      <figure class="header_logo--imagen">
-        <img th:src="@{/build/img/Logo/Icono_DU_blanco.png}" class="img-fluid">
-      </figure>
-      <p class="header_logo--titulo">DateUnRepaso</p>
-    </div>
-
-    <nav class="header_navegacion">
-      <ul class="header_navegacion--enlaces">
-        <li class="navegacion_enlace"><a id="seleccionado">Inicio</a></li>
-        <li class="navegacion_enlace"><a th:href="@{/clases}">Clases</a></li>
-        <li class="navegacion_enlace"><a th:href="@{/calendario}">Calendario</a></li>
-        <li class="navegacion_enlace"><a>Contacto</a></li>
-      </ul>
-    </nav>
-
-    <div class="header_usuario">
-      <span class="header_usuario--nombre" th:text="${usuario.nomUsuario}"></span>
-      <i class="header_usuario--icono"><img th:src="@{/build/img/Iconos/Icono_Usuario_Header.png}"
-          class="img-fluid"></i>
-    </div>
-  </header>
+  <div th:insert="fragmentos/header :: headerFragment"></div>
+  <div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
 
   <main class="inicio">
     <section class="inicio_contenido">
