@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Fragment</title>
+</head>
+
+<body>
+    <section th:fragment="sidebarFragment">
+        <div class="sidebar_boton">
+            <a th:href="@{/cerrarSesion}" class="btnCerrarSesion">Cerrar sesión</a>
+        </div>
+
+        <div class="sidebar_tiempo">
+            <div id="weather">
+                <p>Loading...</p>
+            </div>
+
+            <script>
+                const apiKey = 'df08da455d5b0d3e64e44ea5129886c0';
+                const lat = 37.18;
+                const lon = -5.78;
+
+                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=es`;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const temperature = data.main.temp;
+                        const description = data.weather[0].description;
+                        const humidity = data.main.humidity;
+                        const windSpeed = data.wind.speed;
+
+                        document.getElementById('weather').innerHTML = `
+                                <p>Temperatura: ${temperature}°C</p>
+                                <p>Descripción: ${description}</p>
+                                <p>Humedad: ${humidity}%</p>
+                                <p>Velocidad del viento: ${windSpeed} m/s</p>
+                            `;
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los datos meteorológicos:', error);
+                        document.getElementById('weather').innerHTML = '<p>Error al obtener los datos meteorológicos.</p>';
+                    });
+            </script>
+        </div>
+    </section>
+</body>
+
+</html>
