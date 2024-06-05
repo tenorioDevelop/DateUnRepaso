@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.utilidades.UtilidadesString;
@@ -20,6 +21,7 @@ import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
 import com.dateunrepaso.dur.servicios.AsignaturaImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
+import com.dateunrepaso.dur.enums.Roles;
 
 @Controller
 public class LoginControlador {
@@ -118,13 +120,13 @@ public class LoginControlador {
 		if (correcto == true) {
 			if (perfil.equals("esProfesor")) {
 				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac, asignaturaImp.findById(idAsig).get());
+						contrasena, fechaNac,Roles.ROL_PROFESOR, asignaturaImp.findById(idAsig).get());
 
 				profesorImp.save(profesor);
 				sesion.setAttribute("usuarioLogeado", profesor);
 			} else {
 				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac);
+						contrasena, fechaNac, Roles.ROL_ALUMNO);
 
 				alumnoImp.save(alumno);
 				sesion.setAttribute("usuarioLogeado", alumno);
