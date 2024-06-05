@@ -1,0 +1,67 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.eliminarClase {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+
+    &_contenido {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+
+        &--formulario {
+            width: 60rem;
+            background-color: c.$primero;
+            border-radius: 8px;
+            padding: 4rem 2rem;
+
+            .formEliminar_titulo {
+                font-size: 20px;
+                color: white;
+                text-align: center;
+                font-weight: 600;
+                margin-bottom: 4rem;
+            }
+
+            .formEliminar_contenido {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                gap: 2rem;
+
+
+                input {
+                    width: 20rem;
+                    background-color: c.$tercero;
+                    color: c.$primero;
+                    font-weight: 800;
+                    border: none;
+                    padding: 0.25rem;
+                    border-radius: 6px;
+                }
+
+            }
+        }
+    }
+
+    @include m.tablet() {
+        &_contenido {
+            width: 70%;
+
+
+        }
+    }
+
+    @include m.desktop() {
+
+        &_contenido {
+            width: 80%;
+        }
+    }
+}

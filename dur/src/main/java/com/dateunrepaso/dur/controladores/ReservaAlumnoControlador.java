@@ -74,6 +74,18 @@ public class ReservaAlumnoControlador {
             esValido = false;
         }
 
+        if (!reservaAlumnoImp.findAll().isEmpty()) {
+            List<ReservaAlumno> reservasAlumnos = reservaAlumnoImp.findAll();
+            for (ReservaAlumno reserva : reservasAlumnos) {
+                if (reservaP.getFechaReserva().equals(reserva.getFechaReserva())
+                        && (reservaP.getHoraInicio() >= reserva.getHoraInicio()
+                        && reservaP.getHoraFin() <= reserva.getHoraFin())) {
+                    atributos.addFlashAttribute("Error", "Ya tienes una reserva en esa hora y fecha");
+                    esValido = false;
+                }
+            }
+        }
+
         if (esValido) {
             reservaAlumnoImp.save(reservaA);
             return "redirect:/clases";

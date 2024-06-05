@@ -10,12 +10,12 @@
 </head>
 
 <body>
-	<div class="alert alert-warning alert-dismissible fade show"
-		role="alert" th:if="${Error != null}">
-		<label th:text="${Error}"></label>
-	</div>
-
+	
 	<section class="login">
+		<div class="alert alert-warning alert-dismissible fade show"
+			role="alert" th:if="${Error != null}">
+			<label th:text="${Error}"></label>
+		</div>
 		<div class="login_contenido">
 			<h1 class="login_contenido--titulo">Iniciar sesión</h1>
 			<p class="login_contenido--registrarse">

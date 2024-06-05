@@ -1,0 +1,73 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.reservaA {
+    padding: 1.5rem;
+
+    &_titulo {
+        color: c.$primero;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    &_contenido {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+
+        &--formulario {
+            background-color: c.$claro;
+            border-radius: 6px;
+            padding: 1.5rem;
+            width: 100%;
+
+            .formReservaAlum_titulo {
+                font-size: 28px;
+                color: c.$primero;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            .formReservaAlum_datos {
+                display: flex;
+                flex-direction: row;
+                align-self: center;
+                gap: 1rem;
+                margin: 1.5rem 0rem;
+
+                i {
+                    img {
+                        width: 4rem;
+                    }
+                }
+
+                p {
+                    font-size: 22px;
+                    color: c.$primero;
+                    font-weight: 500;
+                }
+            }
+
+            .formReservaAlum_btnReservar {
+                background-color: c.$primero;
+                color: white;
+                padding: 0.5rem 8rem;
+                border-radius: 6px;
+                font-weight: 600;
+                border: none;
+                transition: 0.5s;
+            }
+
+            .formReservaAlum_btnReservar:hover {
+                background-color: c.$segundo;
+                color: c.$primero;
+            }
+        }
+    }
+
+    @include m.tablet() {
+        &_contenido {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}

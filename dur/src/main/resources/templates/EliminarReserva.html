@@ -17,15 +17,12 @@
 
 	<main class="eliminarClase">
 		<section class="eliminarClase_contenido">
-			<p class="eliminarClase_contenido--titulo">¿DESEAS ELIMINAR LA RESERVA?</p>
 
-			<form th:action="@{/clases/delete/{id}(id=${idReserva})}" method="get" class="eliminarClase_contenido--formulario">
-				<div>
-					<i><img th:src="@{build/img/Iconos/Icono_EliminarClases.png}" alt=""></i>
+			<form th:action="@{/clases/delete/{id}(id=${idReserva})}" method="get"
+				class="eliminarClase_contenido--formulario">
+				<p class="formEliminar_titulo">¿DESEAS ELIMINAR LA RESERVA?</p>
+				<div class="formEliminar_contenido">
 					<input type="submit" value="SÍ" name="btnBorrar">
-				</div>
-				<div>
-					<i><img th:src="@{build/img/Iconos/Icono_GuardarClases.png}" alt=""></i>
 					<input type="submit" value="NO" name="btnBorrar">
 				</div>
 			</form>

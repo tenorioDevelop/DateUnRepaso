@@ -107,7 +107,7 @@ public class ReservaProfesorControlador {
         if (correcto) {
             ReservaProfesor reserva = new ReservaProfesor(null, profesor, aula, fecha, horaI, horaF);
             reservaProfImp.save(reserva);
-            return "redirect:/app";
+            return "redirect:/clases";
         } else {
             return "redirect:/reserva-profesor";
         }

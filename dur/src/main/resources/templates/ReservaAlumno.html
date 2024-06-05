@@ -11,38 +11,39 @@
 <body>
 	<div th:insert="fragmentos/header :: headerFragment"></div>
 	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
-	<main>
+
+	<main class="reservaA">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 			<label th:text="${Error}"></label>
 		</div>
-		<h1>Reserva</h1>
+		<h1 class="reservaA_titulo">Reserva</h1>
 
-		<section>
-			<table class="text-center ">
-				<tr>
-					<th>Fecha</th>
-					<th>Hora Inicio</th>
-					<th>Hora Final</th>
-					<th>Aula</th>
-					<th>Asignatura</th>
-					<th>Profesor</th>
-					<th></th>
-				</tr>
-				<form th:action="@{/reserva-alumno}" method="post" th:each="reserva: ${listaReservasP}">
-					<tr>
-						<input type="hidden" name="idReserva" th:value="${reserva.id}">
-						<td th:text="${reserva.fechaReserva}"></td>
-						<td><span th:text="${reserva.horaInicio}"></span><span>:00</span></td>
-						<td><span th:text="${reserva.horaFin}"></span><span>:00</span></td>
-						<td th:text="${reserva.aula.nombre}"></td>
-						<td th:text="${reserva.profesor.asignatura.nombre}"></td>
-						<td th:text="${reserva.profesor.nomCompleto}"></td>
-						<td><input type="submit" value="Reservar"></td>
-					</tr>
-				</form>
-			</table>
+		<section class="reservaA_contenido">
+
+			<form th:action="@{/reserva-alumno}" method="post" th:each="reserva: ${listaReservasP}"
+				class="reservaA_contenido--formulario">
+				<input type="hidden" name="idReserva" th:value="${reserva.id}">
+				<h2 th:text="${reserva.aula.nombre}" class="formReservaAlum_titulo"></h2>
+				<div class="formReservaAlum_datos">
+					<i><img th:src="@{build/img/Iconos/Icono_Profesor_Clases.png}" alt="Icono Profesor"></i>
+					<p th:text="${reserva.profesor.nomCompleto}" class="reserva_nombreP"></p>
+				</div>
+				<div class="formReservaAlum_datos">
+					<i><img th:src="@{build/img/Iconos/Icono_Asignatura_Clases.png}" alt=""></i>
+					<p th:text="${reserva.profesor.asignatura.nombre}" class="reserva_asignatura"></p>
+				</div>
+				<div class="formReservaAlum_datos">
+					<i><img th:src="@{build/img/Iconos/Icono_Calendario_ReservaP.png}" alt=""></i>
+					<p th:text="${reserva.fechaReserva}" class="reserva_fecha"></p>
+				</div>
+				<div class="formReservaAlum_datos">
+					<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}" alt=""></i>
+					<p class="reserva_horas"><span th:text="${reserva.horaInicio} + ':00'"></span> - <span
+							th:text="${reserva.horaFin} + ':00'"></span></p>
+				</div>
+				<input type="submit" value="Reservar" class="formReservaAlum_btnReservar">
+			</form>
 		</section>
-
 	</main>
 
 </body>
