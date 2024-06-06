@@ -1,0 +1,75 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.tablasADM {
+    padding: 0rem;
+
+    &_contenido {
+        margin: 1.5rem 0rem;
+
+        .table {
+            text-align: center;
+
+            thead {
+
+                tr {
+
+                    th {
+                        background-color: c.$primero;
+                        color: white;
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+
+                    th,
+                    td {
+                        padding: 2rem;
+                        color: c.$primero;
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    @include m.tablet() {
+        padding: 1.5rem;
+
+        &_contenido {
+
+            .table {
+                text-align: center;
+
+                thead {
+
+                    tr {
+
+                        th {
+                            background-color: c.$primero;
+                            color: white;
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+
+                        th,
+                        td {
+                            padding: 2rem;
+                            color: c.$primero;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

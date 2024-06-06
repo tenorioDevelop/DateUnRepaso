@@ -9,13 +9,13 @@
 </head>
 
 <body>
-  <div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+  <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+  <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <table class="table">
-        <thead class="thead-light">
+  <main class="tablasADM">
+    <section class="tablasADM_contenido">
+      <table class="table table-responsive-sm">
+        <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre usuario</th>
@@ -23,17 +23,16 @@
             <th scope="col">DNI</th>
             <th scope="col">Fecha nacimineto</th>
             <th scope="col">Acciones</th>
-
           </tr>
         </thead>
         <tbody>
           <tr th:each="alumno : ${alumnos}">
-            <th scope="row" th:text="${alumno.id}"/>
+            <th scope="row" th:text="${alumno.id}" />
             <td th:text="${alumno.nomUsuario}" />
             <td th:text="${alumno.nomCompleto}" />
             <td th:text="${alumno.dni}" />
             <td th:text="${alumno.fechaNac}" />
-            <td th:if="${usuario.correo != alumno.correo}">
+            <td class="tablaBotones">
               <a class="boton-secundario" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}">Eliminar</a>
               <a class="boton-secundario" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}">Editar</a>
             </td>
@@ -41,6 +40,7 @@
         </tbody>
       </table>
       <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario">Crear alumnos</a>
+      <a th:href="@{/panel-admin}">Volver</a>
     </section>
   </main>
 </body>
