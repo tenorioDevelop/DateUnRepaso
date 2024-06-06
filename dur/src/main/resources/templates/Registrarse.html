@@ -9,13 +9,13 @@
 <title>Registrarse</title>
 </head>
 
-<body>
+<body style="background-color: #643e7b;">
 	
+	<div class="alert alert-warning alert-dismissible fade show"
+		role="alert" th:if="${Error != null}">
+		<label th:text="${Error}"></label>
+	</div>
 	<section class="registro">
-		<div class="alert alert-warning alert-dismissible fade show"
-			role="alert" th:if="${Error != null}">
-			<label th:text="${Error}"></label>
-		</div>
 		<div class="registro_contenido">
 			<h1 class="registro_contenido--titulo">Registro</h1>
 			<p class="registro_contenido--logearse">
