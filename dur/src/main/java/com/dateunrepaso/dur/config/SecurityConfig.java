@@ -23,39 +23,67 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.dateunrepaso.dur.servicios.UserDetailsServiceImp;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    /* @Bean
-    public DefaultSecurityFilterChain SecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-                .csrf(csrf -> csrf.disable())
-                .httpBasic(Customizer.withDefaults())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(http -> {
-                    //Configurar endpoints publicos
-                    http.requestMatchers(HttpMethod.GET, "/auth-no").permitAll();
-                    
-                    //Configurar endpoints privados
-                    http.requestMatchers(HttpMethod.GET, "/auth-si/prueba").hasAnyAuthority("CREATE");
-                    
-                    //Configurar endpoints no especificados
-                    http.anyRequest().denyAll(); //Rechaza todo
-                })
-                .build();
-    } */
+    /*
+     * @Bean
+     * public DefaultSecurityFilterChain SecurityFilterChain(HttpSecurity
+     * httpSecurity) throws Exception {
+     * return httpSecurity
+     * .csrf(csrf -> csrf.disable())
+     * .httpBasic(Customizer.withDefaults())
+     * .sessionManagement(session ->
+     * session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+     * .authorizeHttpRequests(http -> {
+     * //Configurar endpoints publicos
+     * http.requestMatchers(HttpMethod.GET, "/auth-no").permitAll();
+     * 
+     * //Configurar endpoints privados
+     * http.requestMatchers(HttpMethod.GET,
+     * "/auth-si/prueba").hasAnyAuthority("CREATE");
+     * 
+     * //Configurar endpoints no especificados
+     * http.anyRequest().denyAll(); //Rechaza todo
+     * })
+     * .build();
+     * }
+     */
 
-    @Bean
-    public DefaultSecurityFilterChain SecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
+
+//https://www.youtube.com/watch?v=0wTsLRxS3gA&ab_channel=LaTecnolog%C3%ADaAvanza HACER QUE REDIRIGA EL LOGIN
+     @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(httpBasic -> httpBasic.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .build();
-    }
+                .authorizeHttpRequests(http -> http
+                        .requestMatchers("/", "/login", "/registro", "/logout", "/build/css/**", "/build/img/**",
+                                "/js/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/app").authenticated()
+                        .anyRequest().denyAll())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/app", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll());
+
+        return httpSecurity.build();
+    }   
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
@@ -64,10 +92,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImp userDetailsServiceImp) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsServiceImp);
         return provider;
     }
 
@@ -94,5 +122,12 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
+    /*
+     * @Bean
+     * public PasswordEncoder passwordEncoder() {
+     * return new BCryptPasswordEncoder();
+     * }
+     */
 
 }

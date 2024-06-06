@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("denyAll()")
 public class ControladorPrueba {
 
-    @GetMapping("/prueba")
-    @PreAuthorize("permitAll()")
+    @GetMapping("/profesores")
+    @PreAuthorize("hasRole('PROFESOR')")
     public String getMethodNameUno() {
-        return "prueba";
+        return "PROFESORES";
     }
 
-    @GetMapping("/prueba2")
-    @PreAuthorize("hasAuthority('READ')")
+    @GetMapping("/alumnos")
+    @PreAuthorize("hasRole('ALUMNO')")
     public String getMethodNameDos() {
-        return "prueba";
+        return "ALUMNOS";
     }
 
 }

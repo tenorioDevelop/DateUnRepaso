@@ -74,7 +74,7 @@ public class GestionUsuarioControlador {
             if (correcto) {
                 alumnoImp.actualizarAlumno(id, nombre, alumno.getNomUsuario(), dni, correo, contrasena, fechaNac);
                 alumno = new Alumno(id, dni, nombre, alumno.getNomUsuario(), correo, contrasena, fechaNac,
-                        Roles.ROL_ALUMNO);
+                        Roles.ALUMNO);
                 sesion.setAttribute("usuarioLogeado", alumno);
             }
 
@@ -100,7 +100,7 @@ public class GestionUsuarioControlador {
                 profesorImp.actualizarProfesor(id, nombre, profesor.getNomUsuario(), correo, contrasena, fechaNac, dni,
                         profesor.getAsignatura());
                 profesor = new Profesor(id, dni, nombre, profesor.getNomUsuario(), correo, contrasena, fechaNac,
-                        Roles.ROL_PROFESOR, profesor.getAsignatura());
+                        Roles.PROFESOR, profesor.getAsignatura());
                 sesion.setAttribute("usuarioLogeado", profesor);
 
             }

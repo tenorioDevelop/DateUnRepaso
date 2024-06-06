@@ -127,7 +127,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-					contrasena, fechaNac, Roles.ROL_ALUMNO);
+					contrasena, fechaNac, Roles.ALUMNO);
 			alumnoImp.save(alumno);
 		}
 		return "redirect:/panel-admin/alumnos/crear";
@@ -256,7 +256,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-					contrasena, fechaNac,Roles.ROL_PROFESOR, asigImp.findById(idAsig).get());
+					contrasena, fechaNac,Roles.PROFESOR, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
 		}
 		return "redirect:/panel-admin/profesores/crear";

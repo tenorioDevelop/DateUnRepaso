@@ -2,16 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/build/css/styles.css}">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<title>Login</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/build/css/styles.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<title>Login</title>
 </head>
 
 <body>
-	<div class="alert alert-warning alert-dismissible fade show"
-		role="alert" th:if="${Error != null}">
+	<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 		<label th:text="${Error}"></label>
 	</div>
 
@@ -21,49 +19,24 @@
 			<p class="login_contenido--registrarse">
 				¿No tienes cuenta? <a th:href="@{/registro}">Registrate aquí.</a>
 			</p>
-			<form class="login_contenido--formLogin needs-validation"
-				method="post" th:action="@{/login}" novalidate>
-				<input class="formLogin_datos form-control" type="text"
-					name="correoLogin" placeholder="Correo electrónico" required>
-				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formLogin_datos form-control" type="password"
-					name="contrasenaLogin" placeholder="Contraseña" required>
-				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formLogin_recuerdameDatos form-check-input"
-					id="recuerdame" type="checkbox" name="recordarLogin"> <label
-					class="formLogin_recuerdameLabel form-check-label" for="recuerdame">Recuerdame</label><br>
-				<input class="boton-secundario formLogin_boton" type="submit"
-					name="botonLogin" value="Iniciar sesión">
+			<div th:if="${param.error}">
+				<div class="alert">Usuario o contraseña invalidos</div>
+			</div>
+			<div th:if="${param.logout}">
+				<div class="alert">Ha cerrado sesion exitosamenete</div>
+			</div>
+			<form class="login_contenido--formLogin needs-validation" method="post" th:action="@{/login}">
+				<input class="formLogin_datos form-control" type="text" id="username" name="username"
+					placeholder="Nombre usuario" required>
+				<input class="formLogin_datos form-control" type="password" id="password" name="password"
+					placeholder="Contraseña" required>
+				<input class="boton-secundario formLogin_boton" type="submit" name="botonLogin" id="login-submit" value="Iniciar sesión" />
 			</form>
 		</div>
 		<figure class="login_imagen">
-			<img class="login_imagen--svg"
-				th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Login">
+			<img class="login_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Login">
 		</figure>
 	</section>
-
-	<script>
-		(() => {
-		    'use strict'
-		  
-		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-		    const forms = document.querySelectorAll('.needs-validation')
-		  
-		    // Loop over them and prevent submission
-		    Array.from(forms).forEach(form => {
-		      form.addEventListener('submit', event => {
-		        if (!form.checkValidity()) {
-		          event.preventDefault()
-		          event.stopPropagation()
-		        }
-		  
-		        form.classList.add('was-validated')
-		      }, false)
-		    })
-		  })()
-	</script>
-
-	<!--	<script src="../static/js/validacion.js"></script>-->
 </body>
 
 </html>

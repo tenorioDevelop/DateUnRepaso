@@ -2,6 +2,7 @@ package com.dateunrepaso.dur.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,10 @@ public class UsuarioService {
         usuarios.addAll(alumnoImp.findAll());
         usuarios.addAll(profesorImp.findAll());
         return usuarios;
+    }
+
+    public Optional<Usuario> findByUsername(String nomUsuario){
+        List<Usuario> usuarios = findAllUsuarios();
+        return usuarios.stream().filter(u -> u.getNomUsuario().equals(nomUsuario)).findFirst();
     }
 }

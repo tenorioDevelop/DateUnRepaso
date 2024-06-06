@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 
 import com.dateunrepaso.dur.entidades.Alumno;
@@ -33,54 +34,9 @@ public class InicioControlador {
 	AlumnoRepo alumnoRepo;
 
 	@GetMapping("/app")
-	public String getApp(HttpSession sesion, Model model) {
-		model.addAttribute("paginaActiva", "inicio");
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String fechaActual = formato.format(LocalDate.now());
-		model.addAttribute("fechaActual", fechaActual);
-
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-
-		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
-			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-			model.addAttribute("usuario", alumno);
-			model.addAttribute("tipoUsuario", "alumno");
-
-			ReservaAlumno ultimaReserva;
-
-			if (reservaAlumnoRepo.findAllByAlumnoAndFechaReserva(alumno, LocalDate.now()).isEmpty()) {
-				ultimaReserva = null;
-			} else {
-				ultimaReserva = reservaAlumnoRepo.findAllByAlumnoAndFechaReserva(alumno, LocalDate.now())
-						.get(reservaAlumnoRepo.findAllByAlumnoAndFechaReserva(alumno, LocalDate.now()).size() - 1);
-			}
-
-			model.addAttribute("ultimaReserva", ultimaReserva);
-
-		} else {
-			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-			model.addAttribute("usuario", profesor);
-			model.addAttribute("tipoUsuario", "profesor");
-
-			ReservaProfesor ultimaReserva;
-
-			if (reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).isEmpty()) {
-				ultimaReserva = null;
-			} else {
-				ultimaReserva = reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).get(
-						reservaProfesorRepo.findAllByProfesorAndFechaReserva(profesor, LocalDate.now()).size() - 1);
-				int numeroAlumnos = reservaAlumnoRepo.findByAulaAndFechaReservaAndProfesor(ultimaReserva.getAula(),
-						ultimaReserva.getFechaReserva(), profesor).get().size();
-				model.addAttribute("numeroAlumnos", numeroAlumnos);
-			}
-
-			model.addAttribute("ultimaReserva", ultimaReserva);
-
-		}
-
-		return "Index";
+	@ResponseBody
+	public String getApp(Model model) {
+		return "hola";
 	}
 
 	public DayOfWeek fechaActual() {

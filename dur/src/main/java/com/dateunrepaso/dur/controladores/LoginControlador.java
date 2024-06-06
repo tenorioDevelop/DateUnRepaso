@@ -45,7 +45,7 @@ public class LoginControlador {
 		return "Login";
 	}
 
-	@PostMapping("/login")
+	/* @PostMapping("/login")
 	public String getInicioSesion(@RequestParam(name = "correoLogin") String correoLogin,
 			@RequestParam(name = "contrasenaLogin") String contrasenaLogin, HttpSession sesion,
 			RedirectAttributes atributos) {
@@ -71,7 +71,7 @@ public class LoginControlador {
 
 		}
 
-	}
+	} */
 
 	@GetMapping("/registro")
 	public String getRegistro(Model model) {
@@ -120,13 +120,13 @@ public class LoginControlador {
 		if (correcto == true) {
 			if (perfil.equals("esProfesor")) {
 				Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac,Roles.ROL_PROFESOR, asignaturaImp.findById(idAsig).get());
+						contrasena, fechaNac,Roles.PROFESOR, asignaturaImp.findById(idAsig).get());
 
 				profesorImp.save(profesor);
 				sesion.setAttribute("usuarioLogeado", profesor);
 			} else {
 				Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-						contrasena, fechaNac, Roles.ROL_ALUMNO);
+						contrasena, fechaNac, Roles.ALUMNO);
 
 				alumnoImp.save(alumno);
 				sesion.setAttribute("usuarioLogeado", alumno);
