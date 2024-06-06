@@ -1,0 +1,32 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.informacionADM {
+    margin: 1.5rem;
+
+    &_contenidoPrincipal {
+        border: 2px solid red;
+        display: flex;
+        flex-direction: row;
+        align-items: center; 
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        
+        &--titulo {
+            color: c.$primero;
+            font-weight: 600;
+        }
+    }
+
+    &_contenidoSecundario {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+
+        &--datos {
+            background-color: c.$claro;
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+    }
+}

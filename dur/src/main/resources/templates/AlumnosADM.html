@@ -12,35 +12,34 @@
   <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
   <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="tablasADM">
-    <section class="tablasADM_contenido">
-      <table class="table table-responsive-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre usuario</th>
-            <th scope="col">Nombre completo</th>
-            <th scope="col">DNI</th>
-            <th scope="col">Fecha Nacimiento</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="alumno : ${alumnos}">
-            <th scope="row" th:text="${alumno.id}" />
-            <td th:text="${alumno.nomUsuario}" />
-            <td th:text="${alumno.nomCompleto}" />
-            <td th:text="${alumno.dni}" />
-            <td th:text="${alumno.fechaNac}" />
-            <td class="tablaBotones">
-              <a class="boton-secundario" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}">Eliminar</a>
-              <a class="boton-secundario" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}">Editar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario">Crear alumnos</a>
-      <a th:href="@{/panel-admin}">Volver</a>
+  <main class="informacionADM">
+    <section class="informacionADM_contenidoPrincipal">
+      <h1 class="informacionADM_contenidoPrincipal--titulo">Administrar Alumnos</h1>
+  
+      <section class="informacionADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario">Crear alumnos</a>
+        <a th:href="@{/panel-admin}">Volver</a>
+      </section>
+    </section>
+    <section class="informacionADM_contenidoSecundario">
+
+      <div th:each="alumno : ${alumnos}" class="informacionADM_contenidoSecundario--datos">
+        <div>
+          <i><img th:src="@{build/img/Iconos/Icono_Hastag_Morado.png}" alt=""></i>
+          <p th:text="${alumno.id}"></p>
+        </div>
+        <div>
+          <i><img th:src="@{build/img/Iconos/Icono_NombreUser_Morado.png}" alt=""></i>
+          <p th:text="${alumno.nomUsuario}"></p>
+        </div>
+        <p th:text="${alumno.nomCompleto}"></p>
+        <p th:text="${alumno.dni}"></p>
+        <p th:text="${alumno.fechaNac}"></p>
+        <div class="datosADM_botones">
+          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}">Eliminar</a>
+          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}">Editar</a>
+        </div>
+      </div>
     </section>
   </main>
 </body>
