@@ -13142,27 +13142,35 @@ i {
 }
 .tablasADM_contenido .table tbody tr th,
 .tablasADM_contenido .table tbody tr td {
-  padding: 2rem;
   color: #643e7b;
   font-weight: 600;
   font-size: 16px;
+}
+.tablasADM_contenido .table tbody tr .tablaBotones {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+.tablasADM_contenido .table tbody tr .tablaBotones .boton-secundario {
+  width: 8rem;
 }
 @media screen and (min-width: 768px) {
   .tablasADM {
     padding: 1.5rem;
   }
-  .tablasADM_contenido .table {
-    text-align: center;
-  }
   .tablasADM_contenido .table thead tr th {
-    background-color: #643e7b;
-    color: white;
+    font-size: 18px;
   }
   .tablasADM_contenido .table tbody tr th,
   .tablasADM_contenido .table tbody tr td {
-    padding: 2rem;
-    color: #643e7b;
-    font-weight: 600;
+    font-size: 18px;
+  }
+  .tablasADM_contenido .table tbody tr .tablaBotones {
+    flex-direction: row;
+  }
+  .tablasADM_contenido .table tbody tr .tablaBotones .boton-secundario {
+    width: 12rem;
   }
 }
 

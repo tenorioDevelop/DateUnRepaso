@@ -23,14 +23,23 @@
             }
 
             tbody {
-                tr {
-
+                tr {                   
                     th,
                     td {
-                        padding: 2rem;
                         color: c.$primero;
                         font-weight: 600;
                         font-size: 16px;
+                    }
+
+                    .tablaBotones {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 2rem;
+
+                        .boton-secundario {
+                            width: 8rem;
+                        }
                     }
                 }
             }
@@ -44,15 +53,12 @@
         &_contenido {
 
             .table {
-                text-align: center;
-
                 thead {
 
                     tr {
-
+    
                         th {
-                            background-color: c.$primero;
-                            color: white;
+                            font-size: 18px; 
                         }
                     }
                 }
@@ -62,9 +68,15 @@
 
                         th,
                         td {
-                            padding: 2rem;
-                            color: c.$primero;
-                            font-weight: 600;
+                            font-size: 18px;
+                        }
+
+                        .tablaBotones {
+                            flex-direction: row;
+
+                            .boton-secundario {
+                                width: 12rem;
+                            }
                         }
                     }
                 }
