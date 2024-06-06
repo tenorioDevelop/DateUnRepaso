@@ -79,8 +79,15 @@ public class ReservaAlumnoControlador {
             for (ReservaAlumno reserva : reservasAlumnos) {
                 if (reservaP.getFechaReserva().equals(reserva.getFechaReserva())
                         && (reservaP.getHoraInicio() >= reserva.getHoraInicio()
-                        && reservaP.getHoraFin() <= reserva.getHoraFin())) {
-                    atributos.addFlashAttribute("Error", "Ya tienes una reserva en esa hora y fecha");
+                                && reservaP.getHoraFin() <= reserva.getHoraFin())) {
+                    atributos.addFlashAttribute("Error", "Ya tienes una reserva en esas horas");
+                    esValido = false;
+                } else if (((reservaP.getHoraInicio() > reserva.getHoraInicio()
+                        && reservaP.getHoraInicio() < reserva.getHoraFin())
+                        || (reservaP.getHoraFin() > reserva.getHoraInicio()
+                                && reservaP.getHoraFin() < reserva.getHoraFin()))
+                        && reservaP.getFechaReserva().equals(reserva.getFechaReserva())) {
+                    atributos.addFlashAttribute("Error", "Ya tienes una reserva entre esas horas");
                     esValido = false;
                 }
             }
