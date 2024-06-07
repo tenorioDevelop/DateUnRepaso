@@ -22,18 +22,5 @@ public class DurApplication {
 		SpringApplication.run(DurApplication.class, args);
 	}
 
-	/* @Bean
-	CommandLineRunner init(AlumnoImp alumnoImp, ProfesorImp profesorImp){
-		return args -> {
-			Alumno alumno = new Alumno(null, "1234juan", "juan perez", "juanjj", "juan@gmail.com", "juan@gmail.com", "01-01-2000", Roles.ALUMNO);
-			Profesor profesor = new Profesor(null, "1234carlos", "carlos sanchez", "carloscc", "carlos@gmail.com", "carlos@gmail.com", "01-01-2000", Roles.PROFESOR, null);
-			Asignatura asig = new Asignatura();
-			asig.setNombre("mates");
-			profesor.setAsignatura(asig);
-			alumnoImp.save(alumno);
-			profesorImp.save(profesor);
-		};
-	} */
-
 }
 	

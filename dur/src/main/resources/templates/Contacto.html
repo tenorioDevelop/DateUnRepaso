@@ -14,21 +14,25 @@
 	<div th:insert="fragmentos/header :: headerFragment"></div>
 	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
 
-
 	<main class="inicio">
 		<section class="inicio_contenido">
 			<h2 class="inicio_contenido--fecha" th:text="${fechaActual}"></h2>
 
 			<div class="inicio_contenido--principal">
-				
+				<form th:action="@{/contacto/mandarcorreo}" method="post" th:object="${emailDTO}"
+					th:with="emailDTO=${new EmailDTO()}">
+					<input type="email" name="destinatario" th:field="*{destinatario}" id="destinatario" required>
+					<input type="text" name="asunto" th:field="*{asunto}" id="asunto" required>
+					<textarea name="mensaje" th:field="*{mensaje}" id="mensaje" required></textarea>
+					<input type="submit" id="submit">
+				</form>
 			</div>
-			
+
 		</section>
-
 	</main>
-</body>
 
-<script th:src="@{/js/calendarioMini.js}"></script>
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+	<script th:src="@{/js/calendarioMini.js}"></script>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+</body>
 
 </html>
