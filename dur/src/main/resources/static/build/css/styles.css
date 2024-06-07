@@ -11872,6 +11872,7 @@ h1 {
   text-align: center;
   border-radius: 6px;
   font-size: 26px;
+  border: none;
 }
 
 .boton-secundario {
@@ -11896,6 +11897,7 @@ h1 {
   cursor: pointer;
   transition: 0.5s;
   font-weight: 600;
+  border: none;
 }
 
 .boton-inicio:hover {
@@ -13214,6 +13216,64 @@ i {
 @media screen and (min-width: 1280px) {
   .informacionADM_contenidoSecundario {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.editarADM {
+  margin: 1.5rem;
+}
+.editarADM_contenidoPrincipal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.editarADM_contenidoPrincipal--titulo {
+  color: #643e7b;
+  font-weight: 600;
+  font-size: 40px;
+}
+.editarADM_contenidoPrincipal--btns a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  justify-content: center;
+  width: 18rem;
+}
+.editarADM_contenidoPrincipal--btns a i img {
+  width: 3rem;
+}
+.editarADM_contenidoSecundario--formulario {
+  width: 100%;
+  margin: 1.5rem auto;
+  background-color: #f5efff;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+}
+.editarADM_contenidoSecundario--formulario label {
+  color: #643e7b;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.editarADM_contenidoSecundario--formulario .formEditarADM_datos {
+  padding: 1rem;
+  margin: 1rem 0rem;
+  font-size: 22px;
+  color: #643e7b;
+}
+@media screen and (min-width: 768px) {
+  .editarADM_contenidoPrincipal {
+    flex-direction: row;
+    gap: 0rem;
+  }
+  .editarADM_contenidoPrincipal--titulo {
+    font-size: 50px;
+  }
+  .editarADM_contenidoSecundario--formulario {
+    width: 50%;
   }
 }
 

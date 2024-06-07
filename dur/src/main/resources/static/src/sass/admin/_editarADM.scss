@@ -1,0 +1,81 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.editarADM {
+    margin: 1.5rem;
+
+    &_contenidoPrincipal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+
+        &--titulo {
+            color: c.$primero;
+            font-weight: 600;
+            font-size: 40px;
+        }
+
+        &--btns {
+
+            a {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 18px;
+                justify-content: center;
+                width: 18rem;
+
+                i {
+                    img {
+                        width: 3rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &_contenidoSecundario {
+
+        &--formulario {
+            width: 100%;
+            margin: 1.5rem auto;
+            background-color: c.$claro;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+
+            label {
+                color: c.$primero;
+                font-weight: 600;
+                margin-top: 1rem;
+            }
+
+            .formEditarADM_datos {
+                padding: 1rem;
+                margin: 1rem 0rem;
+                font-size: 22px;
+                color: c.$primero;
+            }
+        }
+    }
+
+    @include m.tablet() {
+        &_contenidoPrincipal {
+            flex-direction: row;
+            gap: 0rem;
+
+            &--titulo {
+                font-size: 50px;
+            }
+        }
+
+        &_contenidoSecundario {
+
+            &--formulario {
+                width: 50%;
+            }
+        }
+    }
+}
