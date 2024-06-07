@@ -9,49 +9,46 @@
 </head>
 
 <body>
-  <div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+  <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+  <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Profesores</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="asignatura : ${asignaturas}">
-            <th scope="row" th:text="${asignatura.id}" />
-            <td th:text="${asignatura.nombre}" />
-            <td>
-              <span th:each="profesor : ${asignatura.profesores}">
-                <span th:text="${profesor.nomCompleto}"></span>
-                <span>,</span>
-              </span>
-            </td>
-            <td>
-              <label th:if="${!esProfesor}">
-                <a class="boton-secundario"
-                  th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
-                <a class="boton-secundario" th:href="@{/panel-admin/asignaturas/editar/}+${asignatura.id}">Editar</a>
-              </label>
-              <label th:if="${esProfesor}">
-                <label th:if="${asignatura.id != usuario.asignatura.id}">
-                  <a class="boton-secundario"
-                    th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}">Eliminar</a>
-                  <a class="boton-secundario"
-                    th:href="@{/panel-admin/asignaturas/editar/}+${asignatura.id}">Editar</a>
-                </label>
-              </label>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <a class="boton-secundario" th:href="@{/panel-admin/asignaturas/crear}">Crear asignatura</a>
+  <main class="informacionADM">
+    <section class="informacionADM_contenidoPrincipal">
+      <h1 class="informacionADM_contenidoPrincipal--titulo">Administrar Asignaturas</h1>
+
+      <section class="informacionADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/asignaturas/crear}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Crear_Morado.png}" alt=""></i>Asignaturas</a>
+        <a th:href="@{/panel-admin}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+      </section>
+    </section>
+
+    <section class="informacionADM_contenidoSecundario">
+
+      <div th:each="asignatura : ${asignaturas}" class="informacionADM_contenidoSecundario--datos">
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_Hastag_Morado.png}" alt=""></i>
+          <p th:text="${asignatura.id}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_Asignatura_Morado.png}" alt=""></i>
+          <p th:text="${asignatura.nombre}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos" th:each="profesor : ${asignatura.profesores}">
+          <i><img th:src="@{/build/img/Iconos/Icono_Profesor_Morado.png}" alt=""></i>
+          <p th:text="${profesor.nomCompleto}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_botones">
+          <a class="boton-administrador" th:href="@{/panel-admin/asignaturas/editar/}+${asignatura.id}"><i><img
+                th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
+          <a class="boton-administrador" th:href="@{/panel-admin/asignaturas/eliminar/}+${asignatura.id}"><i><img
+                th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i></a>
+        </div>
+      </div>
     </section>
   </main>
 </body>

@@ -13130,9 +13130,8 @@ i {
   margin: 1.5rem;
 }
 .informacionADM_contenidoPrincipal {
-  border: 2px solid red;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
@@ -13140,16 +13139,82 @@ i {
 .informacionADM_contenidoPrincipal--titulo {
   color: #643e7b;
   font-weight: 600;
+  font-size: 40px;
+}
+.informacionADM_contenidoPrincipal--btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+.informacionADM_contenidoPrincipal--btns a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  justify-content: center;
+  width: 18rem;
+}
+.informacionADM_contenidoPrincipal--btns a i img {
+  width: 3rem;
 }
 .informacionADM_contenidoSecundario {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 2rem;
 }
 .informacionADM_contenidoSecundario--datos {
   background-color: #f5efff;
   border-radius: 6px;
-  padding: 1.5rem;
+  padding: 1.5rem 0rem;
+}
+.informacionADM_contenidoSecundario--datos hr {
+  color: #643e7b;
+  margin: 0rem 1.5rem;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_datos {
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_datos i img {
+  width: 4rem;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_datos p {
+  font-size: 28px;
+  color: #643e7b;
+  font-weight: 600;
+  margin: 0;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_botones {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: end;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_botones a i img {
+  width: 4rem;
+}
+@media screen and (min-width: 768px) {
+  .informacionADM_contenidoPrincipal {
+    flex-direction: row;
+  }
+  .informacionADM_contenidoPrincipal--titulo {
+    font-size: 50px;
+  }
+  .informacionADM_contenidoSecundario {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1280px) {
+  .informacionADM_contenidoSecundario {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -5,28 +5,115 @@
     margin: 1.5rem;
 
     &_contenidoPrincipal {
-        border: 2px solid red;
         display: flex;
-        flex-direction: row;
-        align-items: center; 
+        flex-direction: column;
+        align-items: center;
         justify-content: space-between;
         margin-bottom: 2rem;
-        
+
         &--titulo {
             color: c.$primero;
             font-weight: 600;
+            font-size: 40px;
+        }
+
+        &--btns {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+
+            a {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 18px;
+                justify-content: center;
+                width: 18rem;
+
+                i {
+                    img {
+                        width: 3rem;
+                    }
+                }
+            }
         }
     }
 
     &_contenidoSecundario {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 2rem;
 
         &--datos {
             background-color: c.$claro;
             border-radius: 6px;
-            padding: 1.5rem;
+            padding: 1.5rem 0rem;
+
+            hr {
+                color: c.$primero;
+                margin: 0rem 1.5rem;
+            }
+
+            .informacionADM_datos {
+                padding: 0.5rem 1.5rem;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 2rem;
+
+                i {
+                    img {
+                        width: 4rem;
+                    }
+                }
+
+                p {
+                    font-size: 28px;
+                    color: c.$primero;
+                    font-weight: 600;
+                    margin: 0;
+                }
+            }
+
+            .informacionADM_botones {
+                padding: 1rem 1.5rem;
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+                align-items: center;
+                justify-content: end;
+
+                a {
+                    i {
+                        img {
+                            width: 4rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include m.tablet() {
+
+        &_contenidoPrincipal {
+            flex-direction: row;
+
+            &--titulo {
+                font-size: 50px;
+            }
+        }
+
+        &_contenidoSecundario {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @include m.desktop() {
+        &_contenidoSecundario {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 }
