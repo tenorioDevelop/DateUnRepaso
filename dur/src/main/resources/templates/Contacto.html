@@ -2,37 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" th:href="@{/build/css/styles.css}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-	<title>Inicio - DateUnRepaso</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/build/css/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Inicio - DateUnRepaso</title>
 </head>
 
 <body>
-	<span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
-	<span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
-	<div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+    <span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
+    <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
+    <div th:insert="fragmentos/header :: headerFragment"></div>
+    <div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
 
-	<main class="inicio">
-		<section class="inicio_contenido">
-			<h2 class="inicio_contenido--fecha" th:text="${fechaActual}"></h2>
+    <main class="inicio">
+        <section class="inicio_contenido">
+            <h2 class="inicio_contenido--fecha" th:text="${fechaActual}"></h2>
 
-			<div class="inicio_contenido--principal">
-				<form th:action="@{/contacto/mandarcorreo}" method="post" th:object="${emailDTO}"
-					th:with="emailDTO=${new EmailDTO()}">
-					<input type="email" name="destinatario" th:field="*{destinatario}" id="destinatario" required>
-					<input type="text" name="asunto" th:field="*{asunto}" id="asunto" required>
-					<textarea name="mensaje" th:field="*{mensaje}" id="mensaje" required></textarea>
-					<input type="submit" id="submit">
-				</form>
-			</div>
+            <div class="inicio_contenido--principal">
+                <form th:action="@{/contacto/mandarcorreo}" method="post" th:object="${emailDTO}">
+                    <input type="email" name="destinatario" th:field="*{destinatario}" id="destinatario" required>
+                    <input type="text" name="asunto" th:field="*{asunto}" id="asunto" required>
+                    <textarea name="mensaje" th:field="*{mensaje}" id="mensaje" required></textarea>
+                    <input type="submit" id="submit">
+                </form>
+            </div>
 
-		</section>
-	</main>
+        </section>
+    </main>
 
-	<script th:src="@{/js/calendarioMini.js}"></script>
-	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+    <script th:src="@{/js/calendarioMini.js}"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
 </body>
 
 </html>

@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +41,13 @@ public class ContactoControlador {
 
         model.addAttribute("usuario", usuario);
         model.addAttribute("tipoUsuario", rol.name().toLowerCase());
+        model.addAttribute("emailDTO", new EmailDTO());
         return "Contacto";
     }
 
     @PostMapping("/mandarcorreo")
-    public void postMethodName(@RequestBody EmailDTO email) {
-        iEmailService.enviarCorreo(email);
+    public String postMethodName(@ModelAttribute EmailDTO emailDTO) {
+        iEmailService.enviarCorreo(emailDTO);
+        return "redirect:/contacto"; // Redirect to avoid form resubmission
     }
 }

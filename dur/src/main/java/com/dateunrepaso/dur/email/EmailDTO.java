@@ -6,6 +6,15 @@ public class EmailDTO {
     private String asunto;
     private String mensaje;
 
+    public EmailDTO() {
+    }
+
+    public EmailDTO(String destinatario, String asunto, String mensaje) {
+        this.destinatario = destinatario;
+        this.asunto = asunto;
+        this.mensaje = mensaje;
+    }
+
     public String getDestinatario() {
         return destinatario;
     }
