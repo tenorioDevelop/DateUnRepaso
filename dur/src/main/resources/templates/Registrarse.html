@@ -2,17 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/build/css/styles.css}">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<title>Registrarse</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/build/css/styles.css}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<title>Registrarse</title>
 </head>
 
-<body style="background-color: #643e7b;">
-	
-	<div class="alert alert-warning alert-dismissible fade show"
-		role="alert" th:if="${Error != null}">
+<body>
+	<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 		<label th:text="${Error}"></label>
 	</div>
 	<section class="registro">
@@ -22,71 +19,65 @@
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
 
-			<form class="registro_contenido--formRegistro" method="post"
-				th:action="@{/registro}">
-				<input class="formRegistro_datos form-control" type="text"
-					name="nombreReg" placeholder="Nombre y apellidos" required>
+			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
+				<input class="formRegistro_datos form-control" type="text" name="nomCompleto" placeholder="Nombre y apellidos" required>
 				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formRegistro_datos form-control" type="text"
-					name="dniReg" placeholder="DNI" required>
+			
+				<input class="formRegistro_datos form-control" type="text" name="nomUsuario" placeholder="Nombre de usuario" required>
 				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formRegistro_datos form-control" type="date"
-					name="fechaNacReg" id="fechaNacReg" placeholder="Fecha de nacimiento" required>
+			
+				<input class="formRegistro_datos form-control" type="text" name="dni" placeholder="DNI" required>
 				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formRegistro_datos form-control" type="text"
-					name="correoReg" placeholder="Correo electrónico" required>
+			
+				<input class="formRegistro_datos form-control" type="date" name="fechaNac" id="fechaNacReg" placeholder="Fecha de nacimiento" required>
 				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formRegistro_datos form-control" type="password"
-					name="contrasenaReg" placeholder="Contraseña" required>
+			
+				<input class="formRegistro_datos form-control" type="text" name="correo" placeholder="Correo electrónico" required>
 				<div class="invalid-feedback">Campo requerido</div>
-				<input class="formRegistro_datos form-control" type="password"
-					name="contrasenaRepReg" placeholder="Repetir contraseña" required>
+			
+				<input class="formRegistro_datos form-control" type="password" name="contrasena" placeholder="Contraseña" required>
 				<div class="invalid-feedback">Campo requerido</div>
-				<select class="formRegistro_datos form-control"
-					name="asignaturaProf" id="asignaturaProf" required>
+			
+				<input class="formRegistro_datos form-control" type="password" name="contrasenaRep" placeholder="Repetir contraseña" required>
+				<div class="invalid-feedback">Campo requerido</div>
+			
+				<select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required>
 					<option value="-1">Seleccione una asignatura</option>
-					<option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}"><span
-							th:text="${asig.nombre}"></span></option>
+					<option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}" th:text="${asig.nombre}"></option>
 				</select>
-				<select class="formRegistro_datos form-control"
-					name="asignaturaProf" id="asignaturaAlumno" required hidden>
+				<select class="formRegistro_datos form-control" name="asignaturaAlumno" id="asignaturaAlumno" required hidden>
 					<option value="-1">No puedes seleccionar una asignatura</option>
 				</select>
 				<div class="invalid-feedback">Campo requerido</div>
+			
 				<div class="formRegistro_perfiles">
-
-					<input type="radio" id="radioProf"
-						class="formRegistro_perfiles--input" name="perfilSel"
-						value="esProfesor" checked="checked"> <label
-						for="radioProf" class="formRegistro_perfiles--label"><i
-						class="formRegistro_perfiles--icono" aria-hidden="true"><img
-							class="formRegistro_perfiles--iconoImagen"
-							th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt=""></i></label>
-
-					<input type="radio" id="radioAlumno"
-						class="formRegistro_perfiles--input" name="perfilSel"
-						value="esAlumno"> <label for="radioAlumno"
-						class="formRegistro_perfiles--label"><i
-						class="formRegistro_perfiles--icono" aria-hidden="true"><img
-							class="formRegistro_perfiles--iconoImagen"
-							th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt=""></i></label>
+					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfil" value="esProfesor" checked="checked">
+					<label for="radioProf" class="formRegistro_perfiles--label">
+						<i class="formRegistro_perfiles--icono" aria-hidden="true">
+							<img class="formRegistro_perfiles--iconoImagen" th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt="">
+						</i>
+					</label>
+			
+					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfil" value="esAlumno">
+					<label for="radioAlumno" class="formRegistro_perfiles--label">
+						<i class="formRegistro_perfiles--icono" aria-hidden="true">
+							<img class="formRegistro_perfiles--iconoImagen" th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt="">
+						</i>
+					</label>
 				</div>
-
-				<input class="formRegistro_recuerdameDatos form-check-input"
-					id="recuerdame" type="checkbox" name="recordarRegistro"> <label
-					class="formRegistro_recuerdameLabel form-check-label"
-					for="recuerdame">Recuerdame</label><br> <input
-					class="boton-secundario formRegistro_boton" type="submit"
-					name="botonReg" value="Registro">
+			
+				<input class="formRegistro_recuerdameDatos form-check-input" id="recuerdame" type="checkbox" name="recordarRegistro">
+				<label class="formRegistro_recuerdameLabel form-check-label" for="recuerdame">Recuerdame</label><br>
+			
+				<input class="boton-secundario formRegistro_boton" type="submit" name="botonReg" value="Registro">
 			</form>
+			
 		</div>
 		<figure class="registro_imagen">
-			<img class="registro_imagen--svg"
-				th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Registro">
+			<img class="registro_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Registro">
 		</figure>
 	</section>
 	<script src="../static/js/validacion.js"></script>
-	<script type="text/javascript" th:src="@{/js/registro.js}"></script>
 </body>
 
 </html>

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dateunrepaso.dur.enums.Roles;
+
 @Controller
 public class GestionUsuarioControlador {
 
@@ -71,7 +73,8 @@ public class GestionUsuarioControlador {
 
             if (correcto) {
                 alumnoImp.actualizarAlumno(id, nombre, alumno.getNomUsuario(), dni, correo, contrasena, fechaNac);
-                alumno = new Alumno(id, dni, nombre, alumno.getNomUsuario(), correo, contrasena, fechaNac);
+                alumno = new Alumno(id, dni, nombre, alumno.getNomUsuario(), correo, contrasena, fechaNac,
+                        Roles.ALUMNO);
                 sesion.setAttribute("usuarioLogeado", alumno);
             }
 
@@ -96,8 +99,8 @@ public class GestionUsuarioControlador {
             if (correcto) {
                 profesorImp.actualizarProfesor(id, nombre, profesor.getNomUsuario(), correo, contrasena, fechaNac, dni,
                         profesor.getAsignatura());
-                profesor = new Profesor(id, dni, nombre, profesor.getNomUsuario(), contrasena, fechaNac, dni,
-                        profesor.getAsignatura());
+                profesor = new Profesor(id, dni, nombre, profesor.getNomUsuario(), correo, contrasena, fechaNac,
+                        Roles.PROFESOR, profesor.getAsignatura());
                 sesion.setAttribute("usuarioLogeado", profesor);
 
             }

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const idUsuario = document.getElementById("idUsuario").innerText;
   const rolUsuario = document.getElementById("rolUsuario").innerText;
 
@@ -8,26 +8,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlAlumno = 'http://localhost:8080/api/reservas-alumno/' + idUsuario;
     const urlProfesor = 'http://localhost:8080/api/reservas-profesor/' + idUsuario;
 
+    let url;
+    if (rolUsuario === "ALUMNO") {
+      url = urlAlumno;
+    } else if (rolUsuario === "PROFESOR") {
+      url = urlProfesor;
+    }
 
-    const conexion = new XMLHttpRequest();
-    conexion.onreadystatechange = function () {
-      if (conexion.readyState == 4) {
-        if (conexion.status == 200) {
-          const json = conexion.responseText;
-          eventosCalendario = JSON.parse(json);
+    if (url) {
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error en la respuesta de la red');
+          }
+          return response.json();
+        })
+        .then(data => {
+          eventosCalendario = data;
           console.log(eventosCalendario);
           renderCalendar();
-        }
-      }
-    };
-    if (rolUsuario == "ROL_ALUMNO") {
-      conexion.open('GET', urlAlumno, true); // true para solicitud asíncrona
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos:', error);
+        });
     }
-    if (rolUsuario == "ROL_PROFESOR") {
-      conexion.open('GET', urlProfesor, true); // true para solicitud asíncrona
-    }
-    conexion.send();
   }
+
   function renderCalendar() {
     const calendarEl = document.getElementById('calendar');
 
@@ -37,5 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
   }
+
   llamadaApi();
-  });
+});

@@ -4,23 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
-import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
 
 @Service
@@ -89,7 +81,7 @@ public class ReservaAlumnoImp {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+  
 	public void deleteById(Long id) {
 		reservaAlumRepo.deleteById(id);
 	}
@@ -107,7 +99,6 @@ public class ReservaAlumnoImp {
 	}
 
 	public List<ReservaAlumno> findAllByAlumnoAndFechaReserva(Alumno alumno, LocalDate fechaReserva) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'findAllByAlumnoAndFechaReserva'");
+		return reservaAlumRepo.findAllByAlumnoAndFechaReserva(alumno, fechaReserva);
 	}
 }

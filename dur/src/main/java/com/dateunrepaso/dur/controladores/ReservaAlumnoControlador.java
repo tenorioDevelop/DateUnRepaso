@@ -3,6 +3,8 @@ package com.dateunrepaso.dur.controladores;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -14,15 +16,21 @@ import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
+import com.dateunrepaso.dur.entidades.Usuario;
+import com.dateunrepaso.dur.enums.Roles;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
+import com.dateunrepaso.dur.servicios.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/reserva-alumno")
+@PreAuthorize("hasRole('ALUMNO')")
 public class ReservaAlumnoControlador {
 
     @Autowired
@@ -32,12 +40,22 @@ public class ReservaAlumnoControlador {
     ReservaProfesorImp reservaProfeImp;
 
     @Autowired
+    UsuarioService usuarioService;
+
+    @Autowired
     AlumnoImp alumnoImp; // Añadir el repositorio de Alumno
 
-    @GetMapping("/reserva-alumno")
-    public String getReservaAlumno(HttpSession sesion, Model model) {
-        crearModel(model, sesion);
-        Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
+    @GetMapping("")
+    public String getReservaAlumno(Model model) {
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+        Roles rol = usuario.getRol();
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("tipoUsuario", rol.name().toLowerCase());
+
+        Alumno alumno = alumnoImp.findById(usuario.getId()).get();
+
+
         List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
         reservaP.removeIf(p -> !p.getLstReservaAlumno().stream().allMatch(a -> a.getId() == alumno.getId()));
         model.addAttribute("listaReservasP", reservaP);
@@ -45,18 +63,20 @@ public class ReservaAlumnoControlador {
     }
 
     @Transactional
-    @PostMapping("/reserva-alumno")
-    public String postReservaAlumno(
-            HttpSession sesion,
+    @PostMapping("")
+    public String postReservaAlumno(Model model,
             RedirectAttributes atributos,
             @RequestParam(name = "idReserva") Long idReserva) {
 
         boolean esValido = true;
 
-        Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-        // Reatachar el alumno al contexto de persistencia
-        alumno = alumnoImp.findById(alumno.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Alumno no encontrado"));
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+        Roles rol = usuario.getRol();
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("tipoUsuario", rol.name().toLowerCase());
+
+        Alumno alumno = alumnoImp.findById(usuario.getId()).get();
 
         ReservaProfesor reservaP = reservaProfeImp.findById(idReserva).get();
 
@@ -98,18 +118,6 @@ public class ReservaAlumnoControlador {
             return "redirect:/clases";
         } else {
             return "redirect:/reserva-alumno";
-        }
-    }
-
-    public void crearModel(Model model, HttpSession sesion) {
-        if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
-            Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-            model.addAttribute("usuario", alumno);
-            model.addAttribute("tipoUsuario", "alumno");
-        } else {
-            Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-            model.addAttribute("usuario", profesor);
-            model.addAttribute("tipoUsuario", "profesor");
         }
     }
 }
