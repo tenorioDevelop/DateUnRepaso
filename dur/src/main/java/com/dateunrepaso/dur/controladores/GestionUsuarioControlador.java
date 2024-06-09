@@ -1,26 +1,36 @@
 package com.dateunrepaso.dur.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
+import com.dateunrepaso.dur.entidades.Usuario;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
+import com.dateunrepaso.dur.servicios.UsuarioService;
 import com.dateunrepaso.dur.utilidades.UtilidadesString;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dateunrepaso.dur.enums.Roles;
 
 @Controller
+@PreAuthorize("hasAnyRole('PROFESOR','ALUMNO')")
+@RequestMapping("/gestion-usuario")
 public class GestionUsuarioControlador {
+
+    @Autowired
+    UsuarioService usuarioService;
 
     @Autowired
     AlumnoImp alumnoImp;
@@ -28,22 +38,17 @@ public class GestionUsuarioControlador {
     @Autowired
     ProfesorImp profesorImp;
 
-    @GetMapping("/gestion-usuario")
-    public String getGestionUsuario(HttpSession sesion, Model model) {
-        if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
-            Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-            model.addAttribute("usuario", alumno);
-            model.addAttribute("tipoUsuario", "alumno");
-        } else {
-            Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-            model.addAttribute("usuario", profesor);
-            model.addAttribute("tipoUsuario", "profesor");
-        }
+    @GetMapping("")
+    public String getGestionUsuario(Model model) {
+        model.addAttribute("paginaActiva", "clases");
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+        model.addAttribute("usuario", usuario);
 
         return "GestionUsuario";
     }
 
-    @PostMapping("/gestion-usuario/editar")
+    @PostMapping("/editar")
     public String postEditarGestionUsuario(
             @RequestParam(name = "id") Long id,
             @RequestParam(name = "nombre") String nombre,
@@ -51,9 +56,14 @@ public class GestionUsuarioControlador {
             @RequestParam(name = "fechaNac") String fechaNac,
             @RequestParam(name = "correo") String correo,
             RedirectAttributes atributos,
-            @RequestParam(name = "contrasena") String contrasena, HttpSession sesion, Model model) {
+            @RequestParam(name = "contrasena") String contrasena, Model model) {
 
-        if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
+        model.addAttribute("paginaActiva", "clases");
+        String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+        Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+        model.addAttribute("usuario", usuario);
+
+        if (usuario.getRol() == Roles.ALUMNO) {
             boolean correcto = false;
             Alumno alumno = alumnoImp.findById(id).get();
 
@@ -75,7 +85,6 @@ public class GestionUsuarioControlador {
                 alumnoImp.actualizarAlumno(id, nombre, alumno.getNomUsuario(), dni, correo, contrasena, fechaNac);
                 alumno = new Alumno(id, dni, nombre, alumno.getNomUsuario(), correo, contrasena, fechaNac,
                         Roles.ALUMNO);
-                sesion.setAttribute("usuarioLogeado", alumno);
             }
 
         } else {
@@ -101,7 +110,6 @@ public class GestionUsuarioControlador {
                         profesor.getAsignatura());
                 profesor = new Profesor(id, dni, nombre, profesor.getNomUsuario(), correo, contrasena, fechaNac,
                         Roles.PROFESOR, profesor.getAsignatura());
-                sesion.setAttribute("usuarioLogeado", profesor);
 
             }
 

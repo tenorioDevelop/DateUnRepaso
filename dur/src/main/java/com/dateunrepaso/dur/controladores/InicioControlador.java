@@ -82,7 +82,8 @@ public class InicioControlador {
 				model.addAttribute("numeroAlumnos", numeroAlumnos);
 			}
 			model.addAttribute("ultimaReserva", ultimaReserva);
-
+		} else {
+			return "redirect:/panel-admin";
 		}
 
 		return "Index";

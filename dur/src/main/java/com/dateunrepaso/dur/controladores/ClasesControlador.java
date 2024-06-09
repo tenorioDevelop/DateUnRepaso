@@ -3,6 +3,7 @@ package com.dateunrepaso.dur.controladores;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import com.dateunrepaso.dur.servicios.UsuarioService;
 
 
 @Controller
+@PreAuthorize("hasAnyRole('PROFESOR','ALUMNO')")
 @RequestMapping("/clases")
 public class ClasesControlador {
 
