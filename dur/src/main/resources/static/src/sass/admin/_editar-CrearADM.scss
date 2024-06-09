@@ -1,7 +1,7 @@
 @use '../custom' as c;
 @use '../base/mixins' as m;
 
-.editarADM {
+.editarADM, .crearADM {
     margin: 1.5rem;
 
     &_contenidoPrincipal {
@@ -52,7 +52,7 @@
                 margin-top: 1rem;
             }
 
-            .formEditarADM_datos {
+            .formEditarADM_datos, .formCrearADM_datos {
                 padding: 1rem;
                 margin: 1rem 0rem;
                 font-size: 22px;

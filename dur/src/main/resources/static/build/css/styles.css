@@ -13219,22 +13219,22 @@ i {
   }
 }
 
-.editarADM {
+.editarADM, .crearADM {
   margin: 1.5rem;
 }
-.editarADM_contenidoPrincipal {
+.editarADM_contenidoPrincipal, .crearADM_contenidoPrincipal {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
-.editarADM_contenidoPrincipal--titulo {
+.editarADM_contenidoPrincipal--titulo, .crearADM_contenidoPrincipal--titulo {
   color: #643e7b;
   font-weight: 600;
   font-size: 40px;
 }
-.editarADM_contenidoPrincipal--btns a {
+.editarADM_contenidoPrincipal--btns a, .crearADM_contenidoPrincipal--btns a {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -13243,36 +13243,36 @@ i {
   justify-content: center;
   width: 18rem;
 }
-.editarADM_contenidoPrincipal--btns a i img {
+.editarADM_contenidoPrincipal--btns a i img, .crearADM_contenidoPrincipal--btns a i img {
   width: 3rem;
 }
-.editarADM_contenidoSecundario--formulario {
+.editarADM_contenidoSecundario--formulario, .crearADM_contenidoSecundario--formulario {
   width: 100%;
   margin: 1.5rem auto;
   background-color: #f5efff;
   border-radius: 8px;
   padding: 1rem 2rem;
 }
-.editarADM_contenidoSecundario--formulario label {
+.editarADM_contenidoSecundario--formulario label, .crearADM_contenidoSecundario--formulario label {
   color: #643e7b;
   font-weight: 600;
   margin-top: 1rem;
 }
-.editarADM_contenidoSecundario--formulario .formEditarADM_datos {
+.editarADM_contenidoSecundario--formulario .formEditarADM_datos, .editarADM_contenidoSecundario--formulario .formCrearADM_datos, .crearADM_contenidoSecundario--formulario .formEditarADM_datos, .crearADM_contenidoSecundario--formulario .formCrearADM_datos {
   padding: 1rem;
   margin: 1rem 0rem;
   font-size: 22px;
   color: #643e7b;
 }
 @media screen and (min-width: 768px) {
-  .editarADM_contenidoPrincipal {
+  .editarADM_contenidoPrincipal, .crearADM_contenidoPrincipal {
     flex-direction: row;
     gap: 0rem;
   }
-  .editarADM_contenidoPrincipal--titulo {
+  .editarADM_contenidoPrincipal--titulo, .crearADM_contenidoPrincipal--titulo {
     font-size: 50px;
   }
-  .editarADM_contenidoSecundario--formulario {
+  .editarADM_contenidoSecundario--formulario, .crearADM_contenidoSecundario--formulario {
     width: 50%;
   }
 }

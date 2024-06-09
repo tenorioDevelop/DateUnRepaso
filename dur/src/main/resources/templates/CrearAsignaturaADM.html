@@ -9,19 +9,32 @@
 </head>
 
 <body>
-  <div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+  <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+  <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-        <label th:text="${Error}"></label>
-      </div>
-      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/asignaturas/crear}">
-        <input class="formRegistro_datos form-control" type="text" name="nombreAsig" placeholder="Nombre asignatura"
+  <main class="crearADM">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+      <label th:text="${Error}"></label>
+    </div>
+
+    <section class="crearADM_contenidoPrincipal">
+      <h1 class="crearADM_contenidoPrincipal--titulo">Crear Asignatura</h1>
+
+      <section class="crearADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/asignaturas}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+      </section>
+    </section>
+
+    <section class="crearADM_contenidoSecundario">
+      <form class="crearADM_contenidoSecundario--formulario" method="post" th:action="@{/panel-admin/asignaturas/crear}">
+        
+        <label for="nombreAsig">Nombre de asignatura: </label>
+        <input class="formCrearADM_datos form-control" type="text" name="nombreAsig" id="nombreAsig" placeholder="Nombre asignatura"
           required>
         <div class="invalid-feedback">Campo requerido</div>
-        <button class="boton-secundario">Crear</button>
+
+        <button class="boton-inicio">Guardar</button>
     </section>
   </main>
 </body>

@@ -12,30 +12,52 @@
   <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
   <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-        <label th:text="${Error}"></label>
-      </div>
-      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/alumnos/crear}">
-        <input class="formRegistro_datos form-control" type="text" name="nombreReg" placeholder="Nombre y apellidos"
+  <main class="crearADM">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+      <label th:text="${Error}"></label>
+    </div>
+
+    <section class="crearADM_contenidoPrincipal">
+      <h1 class="crearADM_contenidoPrincipal--titulo">Crear Alumno</h1>
+
+      <section class="crearADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/alumnos}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+      </section>
+    </section>
+
+    <section class="crearADM_contenidoSecundario">
+      <form class="crearADM_contenidoSecundario--formulario" method="post" th:action="@{/panel-admin/alumnos/crear}">
+        <label for="nombreC">Nombre Completo: </label>
+        <input class="formCrearADM_datos form-control" type="text" name="nombreReg" id="nombreC" placeholder="Nombre y apellidos"
           required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" type="text" name="dniReg" placeholder="DNI" required>
+
+        <label for="dni">DNI: </label>
+        <input class="formCrearADM_datos form-control" type="text" name="dniReg" id="dni" placeholder="DNI" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" type="date" name="fechaNacReg" id="fechaNacReg"
+
+        <label for="fechaNac">Fecha de nacimiento: </label>
+        <input class="formCrearADM_datos form-control" type="date" name="fechaNacReg" id="fechaNac"
           placeholder="Fecha de nacimiento" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" type="text" name="correoReg" placeholder="Correo electrónico"
+
+        <label for="correo">Correo: </label>
+        <input class="formCrearADM_datos form-control" type="text" name="correoReg" id="correo" placeholder="Correo electrónico"
           required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" type="password" name="contrasenaReg" placeholder="Contraseña"
+
+        <label for="contrasena">Contraseña: </label>
+        <input class="formCrearADM_datos form-control" type="password" name="contrasenaReg" id="contrasena" placeholder="Contraseña"
           required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" type="password" name="contrasenaRepReg"
+
+        <label for="contrasenaRepetida">Contraseña repetida: </label>
+        <input class="formCrearADM_datos form-control" type="password" name="contrasenaRepReg" id="contrasenaRepetida"
           placeholder="Repetir contraseña" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <button class="boton-secundario">Crear</button>
+
+        <button class="boton-inicio">Guardar</button>
     </section>
   </main>
 </body>
