@@ -9,38 +9,51 @@
 </head>
 
 <body>
-  <div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+  <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+  <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre usuario</th>
-            <th scope="col">Nombre completo</th>
-            <th scope="col">DNI</th>
-            <th scope="col">Fecha nacimineto</th>
-            <th scope="col">Acciones</th>
+  <main class="informacionADM">
+    <section class="informacionADM_contenidoPrincipal">
+      <h1 class="informacionADM_contenidoPrincipal--titulo">Administrar Alumnos</h1>
+  
+      <section class="informacionADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario"><i><img th:src="@{/build/img/Iconos/Icono_Crear_Morado.png}" alt=""></i>Alumnos</a>
+        <a th:href="@{/panel-admin}" class="boton-secundario"><i><img th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+      </section>
+    </section>
+    <section class="informacionADM_contenidoSecundario">
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="alumno : ${alumnos}">
-            <th scope="row" th:text="${alumno.id}"/>
-            <td th:text="${alumno.nomUsuario}" />
-            <td th:text="${alumno.nomCompleto}" />
-            <td th:text="${alumno.dni}" />
-            <td th:text="${alumno.fechaNac}" />
-            <td th:if="${usuario.correo != alumno.correo}">
-              <a class="boton-secundario" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}">Eliminar</a>
-              <a class="boton-secundario" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}">Editar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario">Crear alumnos</a>
+      <div th:each="alumno : ${alumnos}" class="informacionADM_contenidoSecundario--datos">
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_Hastag_Morado.png}" alt=""></i>
+          <p th:text="${alumno.id}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_NombreComp_Morado.png}" alt=""></i>
+          <p th:text="${alumno.nomUsuario}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_NombreComp_Morado.png}" alt=""></i>
+          <p th:text="${alumno.nomCompleto}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_DNI_Morado.png}" alt=""></i>
+          <p th:text="${alumno.dni}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_FechaNac_Morado.png}" alt=""></i>
+          <p th:text="${alumno.fechaNac}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_botones">
+          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}"><i><img th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
+          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}"><i><img th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i></a>
+        </div>
+      </div>
     </section>
   </main>
 </body>

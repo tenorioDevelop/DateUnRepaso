@@ -107,15 +107,7 @@
 		</section>
 
 
-		<section class="sidebar">
-			<div class="sidebar_boton">
-				<a th:href="@{/cerrarSesion}" class="btnCerrarSesion">Cerrar sesión</a>
-			</div>
-
-			<div class="sidebar_tiempo">
-				MOSTRAR LO DEL TIEMPO
-			</div>
-		</section>
+		<div class="sidebar" th:insert="fragmentos/sidebar :: sidebarFragment"></div>
 	</main>
 </body>
 

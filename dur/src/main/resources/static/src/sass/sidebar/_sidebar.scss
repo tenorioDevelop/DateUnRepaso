@@ -10,6 +10,7 @@
     margin: 1.5rem;
     text-align: center;
 
+
     @include m.tablet() {
         display: block;
         width: 30%;
@@ -17,10 +18,88 @@
         &_boton {
             height: auto;
             margin: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        &_tiempo {
+            margin: 1.5rem;
+            border-radius: 8px;
+            background-color: white;
+            padding-bottom: 3rem;
+    
+            #weather {
+    
+                .contenidoTiempo {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    padding: 1.5rem;
+    
+                    &_imagen {
+                        width: 40%;
+                    }
+    
+                    &_localidad {
+                        width: 60%;
+                        display: flex;
+                        flex-direction: column;
+                        text-align: start;
+                        font-weight: 600;
+                        color: black;
+    
+                        &--lugar {
+                            font-size: 25px;
+                            font-weight: 800;
+                        }
+    
+                        &--temperatura {
+                            font-size: 15px;
+                        }
+                    }
+                }
+    
+                .descripcion, .humedad, .velocidad {
+                    color: black;
+                    font-size: 15px;
+                    font-weight: 600;
+                    text-align: start;
+                    padding: 0.3rem 1.5rem;
+                }
+            }
         }
     }
 
     @include m.desktop() {
         width: 20%;
+
+        &_tiempo {
+    
+            #weather {
+    
+                .contenidoTiempo {
+    
+                    &_imagen {
+                        width: 50%;
+                    }
+    
+                    &_localidad {
+                        width: 50%;
+    
+                        &--lugar {
+                            font-size: 30px;
+                        }
+    
+                        &--temperatura {
+                            font-size: 20px;
+                        }
+                    }
+                }
+    
+                .descripcion, .humedad, .velocidad {
+                    font-size: 20px;
+                    padding: 0.3rem 1rem;
+                }
+            }
+        }
     }
 }

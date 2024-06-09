@@ -60,6 +60,28 @@ public class ReservaAlumnoImp {
 		return reservaAlumRepo.findAllByProfesorId(id);
 	}
 
+	public List<ReservaAlumno> findAll() {
+		return reservaAlumRepo.findAll();
+	}
+
+	public <S extends ReservaAlumno> S save(S entity) {
+		return reservaAlumRepo.save(entity);
+	}
+
+	public Optional<ReservaAlumno> findById(Long id) {
+		return Optional.empty();
+	}
+
+	public boolean existsById(Long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public long count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+  
 	public void deleteById(Long id) {
 		reservaAlumRepo.deleteById(id);
 	}
@@ -79,9 +101,4 @@ public class ReservaAlumnoImp {
 	public List<ReservaAlumno> findAllByAlumnoAndFechaReserva(Alumno alumno, LocalDate fechaReserva) {
 		return reservaAlumRepo.findAllByAlumnoAndFechaReserva(alumno, fechaReserva);
 	}
-
-	public <S extends ReservaAlumno> S save(S entity) {
-		return reservaAlumRepo.save(entity);
-	}
-
 }

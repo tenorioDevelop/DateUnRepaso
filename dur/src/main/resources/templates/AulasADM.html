@@ -9,34 +9,45 @@
 </head>
 
 <body>
-  <div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+  <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+  <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Cantidad maxima alumnos</th>
-            <th scope="col">Acciones</th>
+  <main class="informacionADM">
+    <section class="informacionADM_contenidoPrincipal">
+      <h1 class="informacionADM_contenidoPrincipal--titulo">Administrar Aulas</h1>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="aula : ${aulas}">
-            <th scope="row" th:text="${aula.id}" />
-            <td th:text="${aula.nombre}" />
-            <td th:text="${aula.cantidadMaxAlumnos}" />
-            <td>
-              <a class="boton-secundario" th:href="@{/panel-admin/aulas/eliminar/}+${aula.id}">Eliminar</a>
-              <a class="boton-secundario" th:href="@{/panel-admin/aulas/editar/}+${aula.id}">Editar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <a class="boton-secundario" th:href="@{/panel-admin/aulas/crear}">Crear aula</a>
+      <section class="informacionADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/aulas/crear}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Crear_Morado.png}" alt=""></i>Aulas</a>
+        <a th:href="@{/panel-admin}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+      </section>
+    </section>
+
+    <section class="informacionADM_contenidoSecundario">
+      <div th:each="aula : ${aulas}" class="informacionADM_contenidoSecundario--datos">
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_Hastag_Morado.png}" alt=""></i>
+          <p th:text="${aula.id}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_Aula_Morado.png}" alt=""></i>
+          <p th:text="${aula.nombre}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_datos">
+          <i><img th:src="@{/build/img/Iconos/Icono_CantidadAlum_Morado.png}" alt=""></i>
+          <p th:text="${aula.cantidadMaxAlumnos}"></p>
+        </div>
+        <hr>
+        <div class="informacionADM_botones">
+          <a class="boton-administrador" th:href="@{/panel-admin/aulas/editar/}+${aula.id}"><i><img
+                th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
+          <a class="boton-administrador" th:href="@{/panel-admin/aulas/eliminar/}+${aula.id}"><i><img
+                th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i></a>
+        </div>
+      </div>
     </section>
   </main>
 </body>

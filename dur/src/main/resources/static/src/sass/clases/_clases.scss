@@ -82,12 +82,10 @@
     @include m.tablet() {
         flex-direction: row;
         height: 100vh;
-        margin: 1.5rem;
 
 
         &_contenido {
-            width: 80%;
-            // margin: 1.5rem;
+            width: 70%;
 
 
             &--reservas {
@@ -95,7 +93,27 @@
                 gap: 1rem;
 
                 .reserva {
-                    width: 28rem;
+                    width: 20rem;
+
+                    div {
+
+                        i {
+                            img {
+                                width: 3rem;
+                            }
+                        }
+                    }
+
+                    &_fecha,
+                    &_horas,
+                    &_nombreP,
+                    &_asignatura {
+                        font-size: 18px;
+                    }
+
+                    &_botonBorrar {
+                        padding: 0.5rem 4rem;
+                    }
                 }
 
             }
@@ -105,11 +123,32 @@
     @include m.desktop() {
 
         &_contenido {
+            width: 80%;
 
             &--reservas {
 
                 .reserva {
                     width: 38rem;
+
+                    div {
+
+                        i {
+                            img {
+                                width: 4rem;
+                            }
+                        }
+                    }
+
+                    &_fecha,
+                    &_horas,
+                    &_nombreP,
+                    &_asignatura {
+                        font-size: 22px;
+                    }
+
+                    &_botonBorrar {
+                        padding: 0.5rem 8rem;
+                    }
                 }
 
             }

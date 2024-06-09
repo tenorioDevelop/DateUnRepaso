@@ -31,12 +31,19 @@
                         const description = data.weather[0].description;
                         const humidity = data.main.humidity;
                         const windSpeed = data.wind.speed;
+                        const iconWeather = data.weather[0].icon;
 
                         document.getElementById('weather').innerHTML = `
-                                <p>Temperatura: ${temperature}°C</p>
-                                <p>Descripción: ${description}</p>
-                                <p>Humedad: ${humidity}%</p>
-                                <p>Velocidad del viento: ${windSpeed} m/s</p>
+                                <div class='contenidoTiempo'>
+                                    <img class='contenidoTiempo_imagen' src='https://openweathermap.org/img/wn/${iconWeather}@2x.png'>
+                                    <div class='contenidoTiempo_localidad'>
+                                        <h2 class='contenidoTiempo_localidad--lugar'>Utrera</h2>    
+                                        <p class='contenidoTiempo_localidad--temperatura'>${temperature}°C</p>
+                                    </div>
+                                </div>
+                                <p class='descripcion'>Descripción: ${description}</p>
+                                <p class='humedad'>Humedad: ${humidity}%</p>
+                                <p class='velocidad'>Velocidad del viento: ${windSpeed} m/s</p>
                             `;
                     })
                     .catch(error => {

@@ -9,38 +9,64 @@
 </head>
 
 <body>
-  <div th:insert="fragmentos/header :: headerFragment"></div>
-  <div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+  <div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+  <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
-  <main class="inicio">
-    <section class="inicio_contenido">
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-        <label th:text="${Error}"></label>
-      </div>
-      <form class="registro_contenido--formRegistro" method="post" th:action="@{/panel-admin/alumnos/editar}">
-        <input class="formRegistro_datos form-control" th:value="${alumno.id}" type="hidden" name="id">
-        <input class="formRegistro_datos form-control" th:value="${alumno.nomCompleto}" type="text" name="nombreReg"
-          placeholder="Nombre y apellidos" required>
+  <main class="editarADM">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+      <label th:text="${Error}"></label>
+    </div>
+    <section class="editarADM_contenidoPrincipal">
+      <h1 class="editarADM_contenidoPrincipal--titulo">Editar Alumno</h1>
+
+      <section class="editarADM_contenidoPrincipal--btns">
+        <a th:href="@{/panel-admin/alumnos}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+      </section>
+    </section>
+
+    <section class="editarADM_contenidoSecundario">
+
+      <form class="editarADM_contenidoSecundario--formulario" method="post" th:action="@{/panel-admin/alumnos/editar}">
+
+        <input class="formEditarADM_datos form-control" th:value="${alumno.id}" type="hidden" name="id">
+
+        <label for="nombreC">Nombre Completo: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.nomCompleto}" type="text" name="nombreReg"
+          placeholder="Nombre y apellidos" id="nombreC" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" th:value="${alumno.nomUsuario}" type="text" name="nomUsuario"
-          placeholder="Nombre de usuario" required>
+
+        <label for="nombreUser">Nombre de usuario: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.nomUsuario}" type="text" name="nomUsuario"
+          placeholder="Nombre de usuario" id="nombreUser" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" th:value="${alumno.dni}" type="text" name="dniReg"
-          placeholder="DNI" required>
+
+        <label for="dni">DNI: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.dni}" type="text" name="dniReg"
+          placeholder="DNI" id="dni" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" th:value="${alumno.fechaNac}" type="date" name="fechaNacReg"
-          id="fechaNacReg" placeholder="Fecha de nacimiento" required>
+
+        <label for="fechaNac">Fecha de nacimiento: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.fechaNac}" type="date" name="fechaNacReg"
+          id="fechaNac" placeholder="Fecha de nacimiento" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" th:value="${alumno.correo}" type="text" name="correoReg"
-          placeholder="Correo electrónico" required>
+
+        <label for="correo">Correo: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.correo}" type="text" name="correoReg"
+          placeholder="Correo electrónico" id="correo" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" th:value="${alumno.contrasena}" type="password"
-          name="contrasenaReg" placeholder="Contraseña" required>
+
+        <label for="contrasena">Contraseña: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.contrasena}" type="password"
+          name="contrasenaReg" placeholder="Contraseña" id="contrasena" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <input class="formRegistro_datos form-control" th:value="${alumno.contrasena}" type="password"
-          name="contrasenaRepReg" placeholder="Repetir contraseña" required>
+
+        <label for="contrasenaRepetida">Contraseña repetida: </label>
+        <input class="formEditarADM_datos form-control" th:value="${alumno.contrasena}" type="password"
+          name="contrasenaRepReg" placeholder="Repetir contraseña" id="contrasenaRepetida" required>
         <div class="invalid-feedback">Campo requerido</div>
-        <button class="boton-secundario">Editar</button>
+
+        <button class="boton-inicio">Guardar</button>
     </section>
   </main>
 </body>

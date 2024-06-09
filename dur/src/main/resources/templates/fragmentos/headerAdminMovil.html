@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Fragment</title>
+</head>
+
+<body>
+    <header class="headerSecundario" th:fragment="headerMovilFragment">
+
+		<div class="headerSecundario_boton">
+			<a th:href="@{/cerrarSesion}" class="btnCerrarSesion">Cerrar sesión</a>
+		</div>
+	</header>
+</body>
+
+</html>

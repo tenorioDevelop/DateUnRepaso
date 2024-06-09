@@ -1,0 +1,79 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.panelAdmin {
+    display: flex;
+    flex-direction: row;
+
+    &_contenido {
+        width: 100%;
+        margin: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+
+        &--enlace {
+            background-color: c.$claro;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s;
+            padding: 4rem;
+
+            div {
+                i {
+                    img {
+                        width: 8rem;
+                    }
+                }
+            }
+
+        }
+
+        &--enlace:hover {
+            background-color: #e1d8ff;
+        }
+    }
+
+    @include m.tablet() {
+        height: 100vh;
+
+        &_contenido {
+            width: 70%;
+            grid-template-columns: repeat(2, 1fr);
+
+            &--enlace {
+                padding: 0rem;
+
+                div {
+                    i {
+                        img {
+                            width: 12rem;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    @include m.desktop() {
+
+        &_contenido {
+            width: 80%;
+
+            &--enlace {
+
+                div {
+                    i {
+                        img {
+                            width: 16rem;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

@@ -11872,6 +11872,7 @@ h1 {
   text-align: center;
   border-radius: 6px;
   font-size: 26px;
+  border: none;
 }
 
 .boton-secundario {
@@ -11896,6 +11897,7 @@ h1 {
   cursor: pointer;
   transition: 0.5s;
   font-weight: 600;
+  border: none;
 }
 
 .boton-inicio:hover {
@@ -12656,6 +12658,65 @@ i {
   }
 }
 
+.reservaA {
+  padding: 1.5rem;
+}
+.reservaA_titulo {
+  color: #643e7b;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.reservaA_contenido {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+.reservaA_contenido--formulario {
+  background-color: #f5efff;
+  border-radius: 6px;
+  padding: 1.5rem;
+  width: 100%;
+}
+.reservaA_contenido--formulario .formReservaAlum_titulo {
+  font-size: 28px;
+  color: #643e7b;
+  font-weight: 600;
+  text-align: center;
+}
+.reservaA_contenido--formulario .formReservaAlum_datos {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  gap: 1rem;
+  margin: 1.5rem 0rem;
+}
+.reservaA_contenido--formulario .formReservaAlum_datos i img {
+  width: 4rem;
+}
+.reservaA_contenido--formulario .formReservaAlum_datos p {
+  font-size: 22px;
+  color: #643e7b;
+  font-weight: 500;
+}
+.reservaA_contenido--formulario .formReservaAlum_btnReservar {
+  background-color: #643e7b;
+  color: white;
+  padding: 0.5rem 8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  transition: 0.5s;
+}
+.reservaA_contenido--formulario .formReservaAlum_btnReservar:hover {
+  background-color: #a594f9;
+  color: #643e7b;
+}
+@media screen and (min-width: 768px) {
+  .reservaA_contenido {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .sidebar {
   display: none;
   width: 20%;
@@ -12673,11 +12734,65 @@ i {
   .sidebar_boton {
     height: auto;
     margin: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .sidebar_tiempo {
+    margin: 1.5rem;
+    border-radius: 8px;
+    background-color: white;
+    padding-bottom: 3rem;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.5rem;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_imagen {
+    width: 40%;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_localidad {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    font-weight: 600;
+    color: black;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_localidad--lugar {
+    font-size: 25px;
+    font-weight: 800;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_localidad--temperatura {
+    font-size: 15px;
+  }
+  .sidebar_tiempo #weather .descripcion, .sidebar_tiempo #weather .humedad, .sidebar_tiempo #weather .velocidad {
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: start;
+    padding: 0.3rem 1.5rem;
   }
 }
 @media screen and (min-width: 1280px) {
   .sidebar {
     width: 20%;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_imagen {
+    width: 50%;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_localidad {
+    width: 50%;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_localidad--lugar {
+    font-size: 30px;
+  }
+  .sidebar_tiempo #weather .contenidoTiempo_localidad--temperatura {
+    font-size: 20px;
+  }
+  .sidebar_tiempo #weather .descripcion, .sidebar_tiempo #weather .humedad, .sidebar_tiempo #weather .velocidad {
+    font-size: 20px;
+    padding: 0.3rem 1rem;
   }
 }
 
@@ -12872,22 +12987,293 @@ i {
   .clases {
     flex-direction: row;
     height: 100vh;
-    margin: 1.5rem;
   }
   .clases_contenido {
-    width: 80%;
+    width: 70%;
   }
   .clases_contenido--reservas {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
   .clases_contenido--reservas .reserva {
-    width: 28rem;
+    width: 20rem;
+  }
+  .clases_contenido--reservas .reserva div i img {
+    width: 3rem;
+  }
+  .clases_contenido--reservas .reserva_fecha, .clases_contenido--reservas .reserva_horas, .clases_contenido--reservas .reserva_nombreP, .clases_contenido--reservas .reserva_asignatura {
+    font-size: 18px;
+  }
+  .clases_contenido--reservas .reserva_botonBorrar {
+    padding: 0.5rem 4rem;
   }
 }
 @media screen and (min-width: 1280px) {
+  .clases_contenido {
+    width: 80%;
+  }
   .clases_contenido--reservas .reserva {
     width: 38rem;
+  }
+  .clases_contenido--reservas .reserva div i img {
+    width: 4rem;
+  }
+  .clases_contenido--reservas .reserva_fecha, .clases_contenido--reservas .reserva_horas, .clases_contenido--reservas .reserva_nombreP, .clases_contenido--reservas .reserva_asignatura {
+    font-size: 22px;
+  }
+  .clases_contenido--reservas .reserva_botonBorrar {
+    padding: 0.5rem 8rem;
+  }
+}
+
+.eliminarClase {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+.eliminarClase_contenido {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.eliminarClase_contenido--formulario {
+  width: 60rem;
+  background-color: #643e7b;
+  border-radius: 8px;
+  padding: 4rem 2rem;
+}
+.eliminarClase_contenido--formulario .formEliminar_titulo {
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 4rem;
+}
+.eliminarClase_contenido--formulario .formEliminar_contenido {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+}
+.eliminarClase_contenido--formulario .formEliminar_contenido input {
+  width: 20rem;
+  background-color: #cdc1ff;
+  color: #643e7b;
+  font-weight: 800;
+  border: none;
+  padding: 0.25rem;
+  border-radius: 6px;
+}
+@media screen and (min-width: 768px) {
+  .eliminarClase_contenido {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .eliminarClase_contenido {
+    width: 80%;
+  }
+}
+
+.panelAdmin {
+  display: flex;
+  flex-direction: row;
+}
+.panelAdmin_contenido {
+  width: 100%;
+  margin: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+.panelAdmin_contenido--enlace {
+  background-color: #f5efff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  padding: 4rem;
+}
+.panelAdmin_contenido--enlace div i img {
+  width: 8rem;
+}
+.panelAdmin_contenido--enlace:hover {
+  background-color: #e1d8ff;
+}
+@media screen and (min-width: 768px) {
+  .panelAdmin {
+    height: 100vh;
+  }
+  .panelAdmin_contenido {
+    width: 70%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .panelAdmin_contenido--enlace {
+    padding: 0rem;
+  }
+  .panelAdmin_contenido--enlace div i img {
+    width: 12rem;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .panelAdmin_contenido {
+    width: 80%;
+  }
+  .panelAdmin_contenido--enlace div i img {
+    width: 16rem;
+  }
+}
+
+.informacionADM {
+  margin: 1.5rem;
+}
+.informacionADM_contenidoPrincipal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.informacionADM_contenidoPrincipal--titulo {
+  color: #643e7b;
+  font-weight: 600;
+  font-size: 40px;
+}
+.informacionADM_contenidoPrincipal--btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+.informacionADM_contenidoPrincipal--btns a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  justify-content: center;
+  width: 18rem;
+}
+.informacionADM_contenidoPrincipal--btns a i img {
+  width: 3rem;
+}
+.informacionADM_contenidoSecundario {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+.informacionADM_contenidoSecundario--datos {
+  background-color: #f5efff;
+  border-radius: 6px;
+  padding: 1.5rem 0rem;
+}
+.informacionADM_contenidoSecundario--datos hr {
+  color: #643e7b;
+  margin: 0rem 1.5rem;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_datos {
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_datos i img {
+  width: 4rem;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_datos p {
+  font-size: 28px;
+  color: #643e7b;
+  font-weight: 600;
+  margin: 0;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_botones {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: end;
+}
+.informacionADM_contenidoSecundario--datos .informacionADM_botones a i img {
+  width: 4rem;
+}
+@media screen and (min-width: 768px) {
+  .informacionADM_contenidoPrincipal {
+    flex-direction: row;
+  }
+  .informacionADM_contenidoPrincipal--titulo {
+    font-size: 50px;
+  }
+  .informacionADM_contenidoSecundario {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1280px) {
+  .informacionADM_contenidoSecundario {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.editarADM {
+  margin: 1.5rem;
+}
+.editarADM_contenidoPrincipal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.editarADM_contenidoPrincipal--titulo {
+  color: #643e7b;
+  font-weight: 600;
+  font-size: 40px;
+}
+.editarADM_contenidoPrincipal--btns a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  justify-content: center;
+  width: 18rem;
+}
+.editarADM_contenidoPrincipal--btns a i img {
+  width: 3rem;
+}
+.editarADM_contenidoSecundario--formulario {
+  width: 100%;
+  margin: 1.5rem auto;
+  background-color: #f5efff;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+}
+.editarADM_contenidoSecundario--formulario label {
+  color: #643e7b;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.editarADM_contenidoSecundario--formulario .formEditarADM_datos {
+  padding: 1rem;
+  margin: 1rem 0rem;
+  font-size: 22px;
+  color: #643e7b;
+}
+@media screen and (min-width: 768px) {
+  .editarADM_contenidoPrincipal {
+    flex-direction: row;
+    gap: 0rem;
+  }
+  .editarADM_contenidoPrincipal--titulo {
+    font-size: 50px;
+  }
+  .editarADM_contenidoSecundario--formulario {
+    width: 50%;
   }
 }
 
