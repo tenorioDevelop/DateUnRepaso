@@ -17,6 +17,7 @@ import com.dateunrepaso.dur.enums.Roles;
 import com.dateunrepaso.dur.servicios.UsuarioService;
 
 @Controller
+@PreAuthorize("hasAnyRole('PROFESOR','ALUMNO')")
 @RequestMapping("/calendario")
 public class CalendarioControlador {
 

@@ -18,14 +18,18 @@ public class UsuarioService {
     @Autowired
     private ProfesorImp profesorImp;
 
+    @Autowired
+    private AdminImp adminImp;
+
     public List<Usuario> findAllUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.addAll(alumnoImp.findAll());
         usuarios.addAll(profesorImp.findAll());
+        usuarios.addAll(adminImp.findAll());
         return usuarios;
     }
 
-    public Optional<Usuario> findByUsername(String nomUsuario){
+    public Optional<Usuario> findByUsername(String nomUsuario) {
         List<Usuario> usuarios = findAllUsuarios();
         return usuarios.stream().filter(u -> u.getNomUsuario().equals(nomUsuario)).findFirst();
     }

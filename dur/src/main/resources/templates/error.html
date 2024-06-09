@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/build/css/styles.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Error - DateUnRepaso</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h1>Ocurrió un error</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>Razón:</strong> <span th:text="${error}">Error</span>
+                </div>
+                <div class="mb-3">
+                    <strong>Fecha y hora:</strong> <span th:text="${timestamp}">Fecha y hora</span>
+                </div>
+                <div class="mb-3">
+                    <strong>Código de estado:</strong> <span th:text="${status}">Estado</span>
+                </div>
+                <div class="mb-3" th:if="${exception != null}">
+                    <strong>Excepción:</strong> <span th:text="${exception}">Excepción</span>
+                </div>
+                <div class="mb-3" th:if="${message != null}">
+                    <strong>Mensaje:</strong> <span th:text="${message}">Mensaje</span>
+                </div>
+                <div class="mb-3" th:if="${errors != null}">
+                    <strong>Errores:</strong>
+                    <ul class="list-unstyled">
+                        <li th:each="err : ${errors}" th:text="${err}">Error</li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <strong>Ruta:</strong> <span th:text="${path}">Ruta</span>
+                </div>
+                <a th:href="@{/app}" class="boton">Volver al inicio</a>
+                <div class="mb-3" th:if="${trace != null}">
+                    <strong>Traza:</strong>
+                    <pre class="bg-light p-3" th:text="${trace}">Traza</pre>
+
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

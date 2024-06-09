@@ -22,6 +22,7 @@ import com.dateunrepaso.dur.servicios.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@PreAuthorize("hasAnyRole('PROFESOR','ALUMNO')")
 @RequestMapping("/contacto")
 public class ContactoControlador {
 

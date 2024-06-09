@@ -4,9 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,24 +23,22 @@ import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
+import com.dateunrepaso.dur.entidades.Usuario;
+import com.dateunrepaso.dur.enums.Roles;
 import com.dateunrepaso.dur.servicios.AlumnoImp;
 import com.dateunrepaso.dur.servicios.AsignaturaImp;
 import com.dateunrepaso.dur.servicios.AulaImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
+import com.dateunrepaso.dur.servicios.UsuarioService;
 import com.dateunrepaso.dur.utilidades.UtilidadesControladores;
 import com.dateunrepaso.dur.utilidades.UtilidadesString;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.dateunrepaso.dur.enums.Roles;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
+@PreAuthorize("hasRole('ADMINISTRADOR')")
 @RequestMapping("/panel-admin")
 public class AdminControlador {
 
@@ -56,24 +60,23 @@ public class AdminControlador {
 	@Autowired
 	ProfesorImp profesorImp;
 
-	@GetMapping({ "/", "" })
-	public String getPanelAdm(Model model, HttpSession sesion) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
+	@Autowired
+	UsuarioService usuarioService;
 
-		crearModel(model, sesion);
+	@GetMapping({ "/", "" })
+	public String getPanelAdm(Model model) {
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		return "PanelADM";
 	}
 
 	@GetMapping("/alumnos")
-	public String getAlumnosAdm(Model model, HttpSession sesion) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-
-		crearModel(model, sesion);
+	public String getAlumnosAdm(Model model) {
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		List<Alumno> alumnos = alumnoImp.findAll();
 		model.addAttribute("alumnos", alumnos);
@@ -82,12 +85,10 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/alumnos/crear")
-	public String getCrearAlumnosAdm(Model model, HttpSession sesion) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-
-		crearModel(model, sesion);
+	public String getCrearAlumnosAdm(Model model) {
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		return "CrearAlumnoADM";
 	}
@@ -101,8 +102,9 @@ public class AdminControlador {
 		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
 			return "redirect:/";
 		}
-
-		crearModel(model, sesion);
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		boolean correcto = false;
 
@@ -127,7 +129,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-					contrasena, fechaNac, Roles.ALUMNO);
+					encriptarContrasenia(contrasena), fechaNac, Roles.ALUMNO);
 			alumnoImp.save(alumno);
 		}
 		return "redirect:/panel-admin/alumnos/crear";
@@ -140,9 +142,12 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/alumnos/editar/{id}")
-	public String getEditarAsignatura(@PathVariable Long id, Model model, HttpSession sesion,
+	public String getEditarAsignatura(@PathVariable Long id, Model model,
 			RedirectAttributes atributos) {
-		crearModel(model, sesion);
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		Optional<Alumno> alumno = alumnoImp.findById(id);
 
@@ -162,9 +167,13 @@ public class AdminControlador {
 			@RequestParam(name = "nomUsuario") String nomUsuario,
 			@RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "id") Long id, Model model, HttpSession sesion,
+			@RequestParam(name = "id") Long id, Model model,
 			RedirectAttributes atributos) {
-		crearModel(model, sesion);
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
+
 		boolean correcto = false;
 
 		Alumno alumnoOriginal = alumnoImp.findById(id).get();
@@ -192,7 +201,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			alumnoImp.actualizarAlumno(id, nombre, nomUsuario, dni, correo,
-					contrasena, fechaNac);
+			encriptarContrasenia(contrasena), fechaNac);
 		} else {
 			return "redirect:/panel-admin/alumnos/editar/" + id;
 		}
@@ -200,12 +209,10 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/profesores")
-	public String getProfesoresAdm(Model model, HttpSession sesion) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-
-		crearModel(model, sesion);
+	public String getProfesoresAdm(Model model) {
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		List<Profesor> profesores = profesorImp.findAll();
 		model.addAttribute("profesores", profesores);
@@ -214,11 +221,11 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/profesores/crear")
-	public String getCrearProfesoresAdm(Model model, HttpSession sesion) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-		crearModel(model, sesion);
+	public String getCrearProfesoresAdm(Model model) {
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		model.addAttribute("listaAsignaturas", asigImp.findAll());
 
@@ -256,7 +263,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-					contrasena, fechaNac,Roles.PROFESOR, asigImp.findById(idAsig).get());
+			encriptarContrasenia(contrasena), fechaNac, Roles.PROFESOR, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
 		}
 		return "redirect:/panel-admin/profesores/crear";
@@ -274,11 +281,12 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/profesores/editar/{id}")
-	public String getEditarProfesorAdm(@PathVariable Long id, Model model, HttpSession sesion) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
-		crearModel(model, sesion);
+	public String getEditarProfesorAdm(@PathVariable Long id, Model model) {
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
+
 		model.addAttribute("profesor", profesorImp.findById(id).get());
 		model.addAttribute("asignaturas", asigImp.findAll());
 
@@ -293,9 +301,13 @@ public class AdminControlador {
 			@RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
 			@RequestParam(name = "asignaturaProf") Long asignaturaProf,
-			@RequestParam(name = "id") Long id, Model model, HttpSession sesion,
+			@RequestParam(name = "id") Long id, Model model,
 			RedirectAttributes atributos) {
-		crearModel(model, sesion);
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
+
 		boolean correcto = false;
 
 		Profesor profesorOriginal = profesorImp.findById(id).get();
@@ -323,7 +335,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			profesorImp.actualizarProfesor(id, nombre, nomUsuario, correo,
-					contrasena, fechaNac, dni, asigImp.findById(asignaturaProf).get());
+			encriptarContrasenia(contrasena), fechaNac, dni, asigImp.findById(asignaturaProf).get());
 		} else {
 			return "redirect:/panel-admin/profesores/editar/" + id;
 		}
@@ -331,8 +343,11 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/aulas")
-	public String getAulas(Model model, HttpSession sesion) {
-		crearModel(model, sesion);
+	public String getAulas(Model model) {
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		model.addAttribute("aulas", aulaImp.findAll());
 
@@ -340,8 +355,12 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/aulas/crear")
-	public String getCrearAula(Model model, HttpSession sesion) {
-		crearModel(model, sesion);
+	public String getCrearAula(Model model) {
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
+
 		return "CrearAulaADM";
 	}
 
@@ -372,8 +391,12 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/aulas/editar/{id}")
-	public String getEditarAula(@PathVariable Long id, Model model, HttpSession sesion) {
-		crearModel(model, sesion);
+	public String getEditarAula(@PathVariable Long id, Model model) {
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
+
 		model.addAttribute("aula", aulaImp.findById(id).get());
 		return "EditarAulaADM";
 	}
@@ -382,7 +405,7 @@ public class AdminControlador {
 	public String postEditarAula(@RequestParam(name = "id") Long id,
 			@RequestParam(name = "nombre") String nombre,
 			@RequestParam(name = "cantidadMaxAlumnos") int cantidadMaxAlumnos,
-			Model model, HttpSession sesion, RedirectAttributes atributos) {
+			Model model, RedirectAttributes atributos) {
 
 		Aula aulaOriginal = aulaImp.findById(id).get();
 
@@ -397,27 +420,32 @@ public class AdminControlador {
 	}
 
 	@GetMapping("/asignaturas")
-	public String getAsignaturas(Model model, HttpSession sesion) {
-		crearModel(model, sesion);
+	public String getAsignaturas(Model model) {
+
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 
 		List<Asignatura> asignaturas = asigImp.findAll();
 
 		model.addAttribute("asignaturas", asignaturas);
 
-		model.addAttribute("esProfesor", sesion.getAttribute("usuarioLogeado").getClass() == Profesor.class);
+		model.addAttribute("esProfesor", usuario.getRol() == Roles.PROFESOR);
 
 		return "AsignaturasADM";
 	}
 
 	@GetMapping("/asignaturas/crear")
-	public String getCrearAsignatura(Model model, HttpSession sesion) {
-		crearModel(model, sesion);
+	public String getCrearAsignatura(Model model) {
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 		return "CrearAsignaturaADM";
 	}
 
 	@PostMapping("/asignaturas/crear")
 	public String postCrearAsignatura(@RequestParam(name = "nombreAsig") String nombre, RedirectAttributes atributos,
-			Model model, HttpSession sesion) {
+			Model model) {
 
 		if (asigImp.findByNombre(nombre).isEmpty()) {
 			Asignatura asig = new Asignatura(null, nombre, null);
@@ -447,21 +475,11 @@ public class AdminControlador {
 		return "redirect:/panel-admin/asignaturas";
 	}
 
-	public void crearModel(Model model, HttpSession sesion) {
-		if (sesion.getAttribute("usuarioLogeado").getClass() == Alumno.class) {
-			Alumno alumno = (Alumno) sesion.getAttribute("usuarioLogeado");
-			model.addAttribute("usuario", alumno);
-			model.addAttribute("tipoUsuario", "alumno");
-		} else {
-			Profesor profesor = (Profesor) sesion.getAttribute("usuarioLogeado");
-			model.addAttribute("usuario", profesor);
-			model.addAttribute("tipoUsuario", "profesor");
-		}
-	}
-
 	@GetMapping("/asignaturas/editar/{id}")
-	public String getEditarAsignautura(@PathVariable Long id, Model model, HttpSession sesion) {
-		crearModel(model, sesion);
+	public String getEditarAsignautura(@PathVariable Long id, Model model) {
+		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		model.addAttribute("usuario", usuario);
 		model.addAttribute("asignatura", asigImp.findById(id).get());
 		return "EditarAsignaturaADM";
 	}
@@ -469,7 +487,7 @@ public class AdminControlador {
 	@PostMapping("/asignaturas/editar")
 	public String postEditarAsignautura(@RequestParam(name = "id") Long id,
 			@RequestParam(name = "nombre") String nombre,
-			Model model, HttpSession sesion, RedirectAttributes atributos) {
+			Model model, RedirectAttributes atributos) {
 
 		Asignatura asigOriginal = asigImp.findById(id).get();
 
@@ -481,6 +499,10 @@ public class AdminControlador {
 		}
 
 		return "redirect:/panel-admin/asignaturas";
+	}
+
+	private String encriptarContrasenia(String contra) {
+		return new BCryptPasswordEncoder().encode(contra);
 	}
 
 }
