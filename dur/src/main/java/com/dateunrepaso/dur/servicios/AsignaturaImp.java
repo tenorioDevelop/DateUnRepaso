@@ -21,6 +21,11 @@ public class AsignaturaImp {
         asignaturaRepo.updateAsignatura(id, nombre);
     }
 
+    @Transactional
+    public void delete(Asignatura asignatura) {
+        asignaturaRepo.deleteById(asignatura.getId());
+    }
+
     public Optional<Asignatura> findByNombre(String nombre) {
         return asignaturaRepo.findByNombre(nombre);
     }

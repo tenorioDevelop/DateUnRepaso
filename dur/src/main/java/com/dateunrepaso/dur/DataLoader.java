@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Asignatura;
 import com.dateunrepaso.dur.entidades.Aula;
-import com.dateunrepaso.dur.entidades.Mensaje;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
@@ -19,7 +18,6 @@ import com.dateunrepaso.dur.enums.Roles;
 import com.dateunrepaso.dur.repositorios.AlumnoRepo;
 import com.dateunrepaso.dur.repositorios.AsignaturaRepo;
 import com.dateunrepaso.dur.repositorios.AulaRepo;
-import com.dateunrepaso.dur.repositorios.MensajeRepo;
 import com.dateunrepaso.dur.repositorios.ProfesorRepo;
 import com.dateunrepaso.dur.repositorios.ReservaAlumnoRepo;
 import com.dateunrepaso.dur.repositorios.ReservaProfesorRepo;
@@ -29,11 +27,11 @@ public class DataLoader {
 
 	@Bean
 	CommandLineRunner initDatabase(AlumnoRepo alumnoRepository, AsignaturaRepo asignaturaRepository,
-			AulaRepo aulaRepository, ProfesorRepo profesorRepository, MensajeRepo mensajeRepository,
+			AulaRepo aulaRepository, ProfesorRepo profesorRepository,
 			ReservaAlumnoRepo reservaAlumnoRepository, ReservaProfesorRepo reservaProfesorRepository) {
 		return args -> {
 
-			//Crear Aulas
+			// Crear Aulas
 			Aula aula1 = new Aula(null, "Aula 101", 30, null);
 			Aula aula2 = new Aula(null, "Aula 102", 25, null);
 			Aula aula3 = new Aula(null, "Aula 103", 30, null);
@@ -48,7 +46,7 @@ public class DataLoader {
 			aulaRepository.save(aula5);
 			aulaRepository.save(aula6);
 
-			//Crear Asignaturas
+			// Crear Asignaturas
 			Asignatura asignatura1 = new Asignatura(null, "Matemáticas", null);
 			Asignatura asignatura2 = new Asignatura(null, "Historia", null);
 			Asignatura asignatura3 = new Asignatura(null, "Lengua", null);
