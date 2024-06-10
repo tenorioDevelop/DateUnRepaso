@@ -20,26 +20,20 @@
 			</p>
 
 			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
-				<input class="formRegistro_datos form-control" type="text" name="nomCompleto" placeholder="Nombre y apellidos" required>
-				<div class="invalid-feedback">Campo requerido</div>
+
+				<input class="formRegistro_datos form-control" type="text" name="nomCompleto" placeholder="Nombre y apellidos" minlength="5" required>
 			
-				<input class="formRegistro_datos form-control" type="text" name="nomUsuario" placeholder="Nombre de usuario" required>
-				<div class="invalid-feedback">Campo requerido</div>
+				<input class="formRegistro_datos form-control" type="text" name="nomUsuario" placeholder="Nombre de usuario" minlength="5" maxlength="20" required>
 			
-				<input class="formRegistro_datos form-control" type="text" name="dni" placeholder="DNI" required>
-				<div class="invalid-feedback">Campo requerido</div>
+				<input class="formRegistro_datos form-control" type="text" name="dni" placeholder="DNI" pattern="[0-9]{8}[A-Za-z]{1}" required>
 			
-				<input class="formRegistro_datos form-control" type="date" name="fechaNac" id="fechaNacReg" placeholder="Fecha de nacimiento" required>
-				<div class="invalid-feedback">Campo requerido</div>
+				<input class="formRegistro_datos form-control" type="date" name="fechaNac" id="fechaNacReg" placeholder="Fecha de nacimiento" min="1961-01-01" max="2007-12-31" required>
 			
-				<input class="formRegistro_datos form-control" type="text" name="correo" placeholder="Correo electrónico" required>
-				<div class="invalid-feedback">Campo requerido</div>
+				<input class="formRegistro_datos form-control" type="text" name="correo" placeholder="Correo electrónico" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
 			
-				<input class="formRegistro_datos form-control" type="password" name="contrasena" placeholder="Contraseña" required>
-				<div class="invalid-feedback">Campo requerido</div>
+				<input class="formRegistro_datos form-control" type="password" name="contrasena" placeholder="Contraseña" minlength="8" maxlength="16" required>
 			
-				<input class="formRegistro_datos form-control" type="password" name="contrasenaRep" placeholder="Repetir contraseña" required>
-				<div class="invalid-feedback">Campo requerido</div>
+				<input class="formRegistro_datos form-control" type="password" name="contrasenaRep" placeholder="Repetir contraseña" minlength="8" maxlength="16" required>
 			
 				<select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required>
 					<option value="-1">Seleccione una asignatura</option>
@@ -48,7 +42,6 @@
 				<select class="formRegistro_datos form-control" name="asignaturaAlumno" id="asignaturaAlumno" required hidden>
 					<option value="-1">No puedes seleccionar una asignatura</option>
 				</select>
-				<div class="invalid-feedback">Campo requerido</div>
 			
 				<div class="formRegistro_perfiles">
 					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfil" value="esProfesor" checked="checked">
@@ -66,10 +59,7 @@
 					</label>
 				</div>
 			
-				<input class="formRegistro_recuerdameDatos form-check-input" id="recuerdame" type="checkbox" name="recordarRegistro">
-				<label class="formRegistro_recuerdameLabel form-check-label" for="recuerdame">Recuerdame</label><br>
-			
-				<input class="boton-secundario formRegistro_boton" type="submit" name="botonReg" value="Registro">
+				<input class="boton-secundario formRegistro_boton mt-3" type="submit" name="botonReg" value="Registro">
 			</form>
 			
 		</div>
@@ -77,7 +67,8 @@
 			<img class="registro_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Registro">
 		</figure>
 	</section>
-	<script src="../static/js/validacion.js"></script>
+
+	<!-- <script th:src="@{/js/validacion.js}"></script> -->
 </body>
 
 </html>

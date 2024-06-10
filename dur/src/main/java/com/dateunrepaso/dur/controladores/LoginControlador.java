@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 
 import com.dateunrepaso.dur.entidades.Alumno;
@@ -71,7 +71,7 @@ public class LoginControlador {
 			@RequestParam(name = "contrasenaRep") String contrasenaRep,
 			@RequestParam(name = "perfil") String perfil,
 			@RequestParam(name = "asignaturaProf") Long idAsig,
-			HttpServletRequest request) {
+			HttpServletRequest request, RedirectAttributes atributos) {
 
 		Usuario usuario = null;
 
@@ -99,6 +99,11 @@ public class LoginControlador {
 		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 				SecurityContextHolder.getContext());
 
-		return "redirect:/app";
+		if (contrasena.equals(contrasenaRep)) {
+			return "redirect:/app";
+		} else {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+			return "Registrarse";
+		}
 	}
 }

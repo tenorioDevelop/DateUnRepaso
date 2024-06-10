@@ -12,7 +12,7 @@
 	<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 		<label th:text="${Error}"></label>
 	</div>
-	
+
 	<section class="login">
 		<div class="login_contenido">
 			<h1 class="login_contenido--titulo">Iniciar sesión</h1>
@@ -23,20 +23,27 @@
 				<div class="alert">Usuario o contraseña invalidos</div>
 			</div>
 			<div th:if="${param.logout}">
-				<div class="alert">Ha cerrado sesion exitosamenete</div>
+				<div class="alert">Ha cerrado sesion exitosamente</div>
 			</div>
-			<form class="login_contenido--formLogin needs-validation" method="post" th:action="@{/login}">
+			<form class="login_contenido--formLogin needs-validation" novalidate method="post" th:action="@{/login}">
 				<input class="formLogin_datos form-control" type="text" id="username" name="username"
 					placeholder="Nombre usuario" required>
+				<p class="invalid-feedback">Nombre de usuario obligatorio</p>
+
 				<input class="formLogin_datos form-control" type="password" id="password" name="password"
-					placeholder="Contraseña" required>
-				<input class="boton-secundario formLogin_boton" type="submit" name="botonLogin" id="login-submit" value="Iniciar sesión" />
+					placeholder="Contraseña" minlength="5" maxlength="16" required>
+				<p class="invalid-feedback">La contraseña es obligatoria</p>
+
+				<input class="boton-secundario formLogin_boton" type="submit" name="botonLogin" id="login-submit"
+					value="Iniciar sesión" />
 			</form>
 		</div>
 		<figure class="login_imagen">
 			<img class="login_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Login">
 		</figure>
 	</section>
+
+	<script th:src="@{/js/validacion.js}"></script>
 </body>
 
 </html>

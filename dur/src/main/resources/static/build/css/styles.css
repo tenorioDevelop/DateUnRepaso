@@ -11928,6 +11928,10 @@ i {
   border: 1px solid #643e7b;
 }
 
+.invalid-feedback {
+  color: #f5efff;
+}
+
 .contenido {
   height: 100vh;
   background: url(../../../build/img/Landing/Background.svg);
@@ -12041,7 +12045,7 @@ i {
 .login_contenido--formLogin .formLogin_datos {
   padding: 0.8rem;
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: black;
   font-size: 14px;
   border-radius: 8px;
