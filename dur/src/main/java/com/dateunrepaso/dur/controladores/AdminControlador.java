@@ -32,15 +32,15 @@ import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
-import com.dateunrepaso.dur.utilidades.UtilidadesControladores;
 import com.dateunrepaso.dur.utilidades.UtilidadesString;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @PreAuthorize("hasRole('ADMINISTRADOR')")
 @RequestMapping("/panel-admin")
 public class AdminControlador {
+
+	@Autowired
+	AsignaturaImp asignaturaImp;
 
 	@Autowired
 	AsignaturaImp asigImp;
@@ -97,11 +97,7 @@ public class AdminControlador {
 	public String postsCrearAlumnosAdm(@RequestParam(name = "nombreReg") String nombre,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
-			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			HttpSession sesion, Model model, RedirectAttributes atributos) {
-		if (UtilidadesControladores.usuarioEstaRegistrado(sesion.getAttribute("usuarioLogeado"))) {
-			return "redirect:/";
-		}
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, Model model, RedirectAttributes atributos) {
 		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
 		model.addAttribute("usuario", usuario);
@@ -201,7 +197,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			alumnoImp.actualizarAlumno(id, nombre, nomUsuario, dni, correo,
-			encriptarContrasenia(contrasena), fechaNac);
+					encriptarContrasenia(contrasena), fechaNac);
 		} else {
 			return "redirect:/panel-admin/alumnos/editar/" + id;
 		}
@@ -237,8 +233,7 @@ public class AdminControlador {
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "asignaturaProf") Long idAsig,
-			HttpSession sesion, Model model, RedirectAttributes atributos) {
+			@RequestParam(name = "asignaturaProf") Long idAsig, Model model, RedirectAttributes atributos) {
 
 		boolean correcto = false;
 
@@ -263,7 +258,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
-			encriptarContrasenia(contrasena), fechaNac, Roles.PROFESOR, asigImp.findById(idAsig).get());
+					encriptarContrasenia(contrasena), fechaNac, Roles.PROFESOR, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
 		}
 		return "redirect:/panel-admin/profesores/crear";
@@ -335,7 +330,7 @@ public class AdminControlador {
 
 		if (correcto == true) {
 			profesorImp.actualizarProfesor(id, nombre, nomUsuario, correo,
-			encriptarContrasenia(contrasena), fechaNac, dni, asigImp.findById(asignaturaProf).get());
+					encriptarContrasenia(contrasena), fechaNac, dni, asigImp.findById(asignaturaProf).get());
 		} else {
 			return "redirect:/panel-admin/profesores/editar/" + id;
 		}
@@ -366,8 +361,7 @@ public class AdminControlador {
 
 	@PostMapping("/aulas/crear")
 	public String postCrearAula(@RequestParam(name = "nombreAula") String nombre,
-			@RequestParam(name = "cantMaxAlumn") Integer numAlumnos, RedirectAttributes atributos, Model model,
-			HttpSession sesion) {
+			@RequestParam(name = "cantMaxAlumn") Integer numAlumnos, RedirectAttributes atributos, Model model) {
 
 		if (aulaImp.findByNombre(nombre).isEmpty()) {
 			Aula aula = new Aula(null, nombre, numAlumnos, null);
@@ -470,8 +464,8 @@ public class AdminControlador {
 			}
 		}
 
-		// Borrar todos los profesores que tienen esa asigantura
-		profesorImp.deleteAllByAsignatura(asignatura);
+		asignaturaImp.delete(asignatura);
+
 		return "redirect:/panel-admin/asignaturas";
 	}
 

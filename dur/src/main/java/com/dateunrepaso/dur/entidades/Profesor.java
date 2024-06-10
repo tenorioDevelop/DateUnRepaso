@@ -21,7 +21,7 @@ public class Profesor extends Usuario implements Serializable {
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservaProfesor> reservas;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idAsignatura", nullable = false)
     private Asignatura asignatura;
 

@@ -69,6 +69,7 @@ public class ProfesorImp {
 		profesorRepo.updateProfesor(id, nomCompleto, nomUsuario, correo, contrasena, fechaNac, dni, asignatura);
 	}
 
+	@Transactional
 	public void deleteAllByAsignatura(Asignatura asignatura) {
 		profesorRepo.deleteAllByAsignatura(asignatura);
 	}

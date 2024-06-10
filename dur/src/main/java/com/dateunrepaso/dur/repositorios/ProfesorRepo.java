@@ -20,6 +20,7 @@ public interface ProfesorRepo extends JpaRepository<Profesor, Long> {
 
 	List<Profesor> findAllByAsignatura(Asignatura asignatura);
 
+	@Transactional
 	void deleteAllByAsignatura(Asignatura asignatura);
 
 	@Modifying
