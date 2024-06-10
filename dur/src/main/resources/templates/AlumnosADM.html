@@ -15,10 +15,12 @@
   <main class="informacionADM">
     <section class="informacionADM_contenidoPrincipal">
       <h1 class="informacionADM_contenidoPrincipal--titulo">Administrar Alumnos</h1>
-  
+
       <section class="informacionADM_contenidoPrincipal--btns">
-        <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario"><i><img th:src="@{/build/img/Iconos/Icono_Crear_Morado.png}" alt=""></i>Alumnos</a>
-        <a th:href="@{/panel-admin}" class="boton-secundario"><i><img th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
+        <a th:href="@{/panel-admin/alumnos/crear}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Crear_Morado.png}" alt=""></i>Alumnos</a>
+        <a th:href="@{/panel-admin}" class="boton-secundario"><i><img
+              th:src="@{/build/img/Iconos/Icono_Volver_morado.png}" alt=""></i>Volver</a>
       </section>
     </section>
     <section class="informacionADM_contenidoSecundario">
@@ -50,8 +52,18 @@
         </div>
         <hr>
         <div class="informacionADM_botones">
-          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}"><i><img th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
-          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/eliminar/}+${alumno.id}"><i><img th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i></a>
+          <a class="boton-administrador" th:href="@{/panel-admin/alumnos/editar/}+${alumno.id}"><i><img
+                th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
+          <form th:action="@{/panel-admin/confirmar-eliminar}" method="post">
+            <input class="boton-administrador" type="hidden" name="ruta"
+              th:value="@{/panel-admin/alumnos/eliminar/}+${alumno.id}" id="">
+            <input type="hidden" name="r" value="" id="">
+            <input type="hidden" name="mensaje"
+              th:value="'¿Desea eliminar el alumno: ' + ${alumno.nomCompleto} + ', y con el, todas sus reservas?'">
+            <button class="btn" type="submit" name="" id=""><i><img
+                  th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i>
+            </button>
+          </form>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 package com.dateunrepaso.dur.controladores;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
 import com.dateunrepaso.dur.utilidades.UtilidadesString;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @PreAuthorize("hasRole('ADMINISTRADOR')")
@@ -493,6 +495,26 @@ public class AdminControlador {
 		}
 
 		return "redirect:/panel-admin/asignaturas";
+	}
+
+	@PostMapping("/confirmar-eliminar")
+	public String postMethodName(@RequestParam String ruta, @RequestParam(required = false) String mensaje,
+			@RequestParam String r,
+			Model model) {
+		if (r.equals("s")) {
+			return "redirect:".concat(ruta);
+		} else if (r.equals("n")) {
+			return "redirect:/panel-admin";
+		} else {
+			String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
+			Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+			model.addAttribute("usuario", usuario);
+
+			model.addAttribute("ruta", ruta);
+			model.addAttribute("mensaje", mensaje);
+
+			return "ConfirmarEliminarADM";
+		}
 	}
 
 	private String encriptarContrasenia(String contra) {

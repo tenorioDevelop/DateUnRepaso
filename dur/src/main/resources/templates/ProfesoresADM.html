@@ -58,8 +58,18 @@
         </div>
         <hr>
         <div class="informacionADM_botones">
-          <a class="boton-administrador" th:href="@{/panel-admin/profesores/editar/}+${profesor.id}"><i><img th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
-          <a class="boton-administrador" th:href="@{/panel-admin/profesores/eliminar/}+${profesor.id}"><i><img th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i></a>
+          <a class="boton-administrador" th:href="@{/panel-admin/profesores/editar/}+${profesor.id}"><i><img
+                th:src="@{/build/img/Iconos/Icono_Editar_Morado.png}" alt=""></i></a>
+          <form th:action="@{/panel-admin/confirmar-eliminar}" method="post">
+            <input class="boton-administrador" type="hidden" name="ruta"
+              th:value="@{/panel-admin/profesores/eliminar/}+${profesor.id}" id="">
+            <input type="hidden" name="r" value="" id="">
+            <input type="hidden" name="mensaje"
+              th:value="'¿Desea eliminar el profesor: ' + ${profesor.nomCompleto} + ', y con el, todas sus reservas relacionadas?'">
+            <button class="btn" type="submit" name="" id=""><i><img
+                  th:src="@{/build/img/Iconos/Icono_Eliminar_Morado.png}" alt=""></i>
+            </button>
+          </form>
         </div>
       </div>
     </section>
