@@ -97,7 +97,7 @@ public class AdminControlador {
 	public String postsCrearAlumnosAdm(@RequestParam(name = "nombreReg") String nombre,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
-			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, Model model, RedirectAttributes atributos) {
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, @RequestParam(name = "nombreUsuario") String nombreUser, Model model, RedirectAttributes atributos) {
 		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
 		model.addAttribute("usuario", usuario);
@@ -124,7 +124,7 @@ public class AdminControlador {
 		// Fin validaciones
 
 		if (correcto == true) {
-			Alumno alumno = new Alumno(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+			Alumno alumno = new Alumno(null, dni, nombre, nombreUser, correo,
 					encriptarContrasenia(contrasena), fechaNac, Roles.ALUMNO);
 			alumnoImp.save(alumno);
 		}
@@ -233,7 +233,7 @@ public class AdminControlador {
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "asignaturaProf") Long idAsig, Model model, RedirectAttributes atributos) {
+			@RequestParam(name = "asignaturaProf") Long idAsig,@RequestParam(name = "nombreUsuario") String nombreUser, Model model, RedirectAttributes atributos) {
 
 		boolean correcto = false;
 
@@ -257,7 +257,7 @@ public class AdminControlador {
 		// Fin validaciones
 
 		if (correcto == true) {
-			Profesor profesor = new Profesor(null, dni, nombre, UtilidadesString.crearNombreUsuario(nombre), correo,
+			Profesor profesor = new Profesor(null, dni, nombre, nombreUser, correo,
 					encriptarContrasenia(contrasena), fechaNac, Roles.PROFESOR, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
 		}

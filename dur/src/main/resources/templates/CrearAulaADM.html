@@ -27,16 +27,18 @@
     </section>
 
     <section class="crearADM_contenidoSecundario">
-      <form class="crearADM_contenidoSecundario--formulario" method="post" th:action="@{/panel-admin/aulas/crear}">
-        
+      <form class="crearADM_contenidoSecundario--formulario needs-validation" novalidate method="post"
+        th:action="@{/panel-admin/aulas/crear}">
+
         <label for="nombreA">Nombre del aula: </label>
-        <input class="formCrearADM_datos form-control" type="text" name="nombreAula" id="nombreA" placeholder="Nombre" required>
-        <div class="invalid-feedback">Campo requerido</div>
+        <input class="formCrearADM_datos form-control" type="text" name="nombreAula" id="nombreA" placeholder="Nombre"
+          minlength="5" required>
+        <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="cantidadMax">Cantidad máxima de alumnos: </label>
         <input class="formCrearADM_datos form-control" type="number" name="cantMaxAlumn" id="cantidadMax"
-          placeholder="Cantidad maxima de alumnos" required>
-        <div class="invalid-feedback">Campo requerido</div>
+          placeholder="Cantidad maxima de alumnos" min="1" max="30" required>
+        <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <button class="boton-inicio">Guardar</button>
     </section>
@@ -45,5 +47,6 @@
 
 <script th:src="@{/js/calendarioInicio.js}"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+<script th:src="@{/js/validacion.js}"></script>
 
 </html>

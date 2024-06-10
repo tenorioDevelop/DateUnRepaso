@@ -27,7 +27,7 @@
 			</div>
 			<form class="login_contenido--formLogin needs-validation" novalidate method="post" th:action="@{/login}">
 				<input class="formLogin_datos form-control" type="text" id="username" name="username"
-					placeholder="Nombre usuario" required>
+					placeholder="Nombre usuario" minlength="5" required>
 				<p class="invalid-feedback">Nombre de usuario obligatorio</p>
 
 				<input class="formLogin_datos form-control" type="password" id="password" name="password"
