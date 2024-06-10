@@ -90,10 +90,9 @@
 
             &--reservas {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
+                gap: 1.5rem;  
 
                 .reserva {
-                    width: 20rem;
 
                     div {
 
@@ -128,7 +127,6 @@
             &--reservas {
 
                 .reserva {
-                    width: 38rem;
 
                     div {
 
