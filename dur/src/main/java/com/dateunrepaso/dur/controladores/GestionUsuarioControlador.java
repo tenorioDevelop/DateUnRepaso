@@ -40,7 +40,6 @@ public class GestionUsuarioControlador {
 
     @GetMapping("")
     public String getGestionUsuario(Model model) {
-        model.addAttribute("paginaActiva", "clases");
         String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
         Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
         model.addAttribute("usuario", usuario);
