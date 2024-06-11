@@ -9,9 +9,6 @@
 </head>
 
 <body>
-	<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-		<label th:text="${Error}"></label>
-	</div>
 	<section class="registro">
 		<div class="registro_contenido">
 			<h1 class="registro_contenido--titulo">Registro</h1>
@@ -19,49 +16,67 @@
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
 
+			<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+				<label th:text="${Error}"></label>
+			</div>
 			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
 
-				<input class="formRegistro_datos form-control" type="text" name="nomCompleto" placeholder="Nombre y apellidos" minlength="5" required>
-			
-				<input class="formRegistro_datos form-control" type="text" name="nomUsuario" placeholder="Nombre de usuario" minlength="5" maxlength="20" required>
-			
-				<input class="formRegistro_datos form-control" type="text" name="dni" placeholder="DNI" pattern="[0-9]{8}[A-Za-z]{1}" required>
-			
-				<input class="formRegistro_datos form-control" type="date" name="fechaNac" id="fechaNacReg" placeholder="Fecha de nacimiento" min="1961-01-01" max="2007-12-31" required>
-			
-				<input class="formRegistro_datos form-control" type="text" name="correo" placeholder="Correo electrónico" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
-			
-				<input class="formRegistro_datos form-control" type="password" name="contrasena" placeholder="Contraseña" minlength="8" maxlength="16" required>
-			
-				<input class="formRegistro_datos form-control" type="password" name="contrasenaRep" placeholder="Repetir contraseña" minlength="8" maxlength="16" required>
-			
+				<input class="formRegistro_datos form-control" type="text" name="nomCompleto"
+					placeholder="Nombre y apellidos" minlength="5" required>
+
+				<input class="formRegistro_datos form-control" type="text" name="nomUsuario"
+					placeholder="Nombre de usuario" minlength="5" maxlength="20" required>
+
+				<input class="formRegistro_datos form-control" type="text" name="dni" placeholder="DNI"
+					pattern="[0-9]{8}[A-Za-z]{1}" required>
+
+				<input class="formRegistro_datos form-control" type="date" name="fechaNac" id="fechaNacReg"
+					placeholder="Fecha de nacimiento" min="1961-01-01" max="2007-12-31" required>
+
+				<input class="formRegistro_datos form-control" type="text" name="correo"
+					placeholder="Correo electrónico"
+					pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+					required>
+
+				<input class="formRegistro_datos form-control" type="password" name="contrasena"
+					placeholder="Contraseña" minlength="8" maxlength="16" required>
+
+				<input class="formRegistro_datos form-control" type="password" name="contrasenaRep"
+					placeholder="Repetir contraseña" minlength="8" maxlength="16" required>
+
 				<select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required>
 					<option value="-1">Seleccione una asignatura</option>
-					<option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}" th:text="${asig.nombre}"></option>
+					<option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}" th:text="${asig.nombre}">
+					</option>
 				</select>
-				<select class="formRegistro_datos form-control" name="asignaturaAlumno" id="asignaturaAlumno" required hidden>
+				<select class="formRegistro_datos form-control" name="asignaturaAlumno" id="asignaturaAlumno" required
+					hidden>
 					<option value="-1">No puedes seleccionar una asignatura</option>
 				</select>
-			
+
 				<div class="formRegistro_perfiles">
-					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfil" value="esProfesor" checked="checked">
+					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfil"
+						value="esProfesor" checked="checked">
 					<label for="radioProf" class="formRegistro_perfiles--label">
 						<i class="formRegistro_perfiles--icono" aria-hidden="true">
-							<img class="formRegistro_perfiles--iconoImagen" th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt="">
+							<img class="formRegistro_perfiles--iconoImagen"
+								th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt="">
 						</i>
 					</label>
-			
-					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfil" value="esAlumno">
+
+					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfil"
+						value="esAlumno">
 					<label for="radioAlumno" class="formRegistro_perfiles--label">
 						<i class="formRegistro_perfiles--icono" aria-hidden="true">
-							<img class="formRegistro_perfiles--iconoImagen" th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt="">
+							<img class="formRegistro_perfiles--iconoImagen"
+								th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt="">
 						</i>
 					</label>
 				</div>
-			
+
 				<input class="boton-secundario formRegistro_boton mt-3" type="submit" name="botonReg" value="Registro">
 			</form>
-			
+
 		</div>
 		<figure class="registro_imagen">
 			<img class="registro_imagen--svg" th:src="@{build/img/Login/Imagen_persona.svg}" alt="SVG de Registro">

@@ -1,5 +1,7 @@
 package com.dateunrepaso.dur.controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,7 @@ import com.dateunrepaso.dur.servicios.AlumnoImp;
 import com.dateunrepaso.dur.servicios.AsignaturaImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
+import com.dateunrepaso.dur.utilidades.UtilidadesString;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -73,37 +76,56 @@ public class LoginControlador {
 			@RequestParam(name = "asignaturaProf") Long idAsig,
 			HttpServletRequest request, RedirectAttributes atributos) {
 
-		Usuario usuario = null;
+		boolean correcto = false;
 
-		if (perfil.equals("esProfesor")) {
-			Profesor profesor = new Profesor(null, dni, nomCompleto, nomUsuario, correo,
-					new BCryptPasswordEncoder().encode(contrasena), fechaNac,
-					Roles.PROFESOR, asignaturaImp.findById(idAsig).get());
-			profesorImp.save(profesor);
-			usuario = profesor;
+		List<Usuario> usuarios = usuarioService.findAllUsuarios();
+
+		// Validacion basica
+		if (!contrasena.equals(contrasenaRep)) {
+			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
+		} else if (usuarios.stream().anyMatch(u -> u.getNomUsuario().equals(nomUsuario))) {
+			atributos.addFlashAttribute("Error", "El nombre de usuario indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getCorreo().equals(correo))) {
+			atributos.addFlashAttribute("Error", "El correo indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getDni().equals(dni))) {
+			atributos.addFlashAttribute("Error", "El dni indicado ya existe");
+		} else if (perfil.equals("esProfesor") && !UtilidadesString.esMayorEdad(fechaNac, 18)) {
+			atributos.addFlashAttribute("Error", "Tienes que ser mayor de 18 años");
+		} else if (perfil.equals("esAlumno") && !UtilidadesString.esMayorEdad(fechaNac, 8)) {
+			atributos.addFlashAttribute("Error", "Tienes que ser mayor de 8 años");
 		} else {
-			Alumno alumno = new Alumno(null, dni, nomCompleto, nomUsuario, correo,
-					new BCryptPasswordEncoder().encode(contrasena), fechaNac,
-					Roles.ALUMNO);
-			alumnoImp.save(alumno);
-			usuario = alumno;
+			correcto = true;
 		}
 
-		// Autenticar al usuario
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-				usuario.getNomUsuario(), contrasena);
-		Authentication authentication = authenticationManager.authenticate(authenticationToken);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		if (correcto) {
+			Usuario usuario = null;
 
-		// Crear sesión
-		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
+			if (perfil.equals("esProfesor")) {
+				Profesor profesor = new Profesor(null, dni, nomCompleto, nomUsuario, correo,
+						new BCryptPasswordEncoder().encode(contrasena), fechaNac,
+						Roles.PROFESOR, asignaturaImp.findById(idAsig).get());
+				profesorImp.save(profesor);
+				usuario = profesor;
+			} else {
+				Alumno alumno = new Alumno(null, dni, nomCompleto, nomUsuario, correo,
+						new BCryptPasswordEncoder().encode(contrasena), fechaNac,
+						Roles.ALUMNO);
+				alumnoImp.save(alumno);
+				usuario = alumno;
+			}
 
-		if (contrasena.equals(contrasenaRep)) {
+			// Autenticar al usuario
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+					usuario.getNomUsuario(), contrasena);
+			Authentication authentication = authenticationManager.authenticate(authenticationToken);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+
+			// Crear sesión
+			request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+					SecurityContextHolder.getContext());
 			return "redirect:/app";
 		} else {
-			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-			return "Registrarse";
+			return "redirect:/registro";
 		}
 	}
 }

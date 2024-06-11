@@ -27,7 +27,6 @@ public class UtilidadesString {
             return age >= Edad;
             
         } catch (DateTimeParseException e) {
-            System.err.println("Fecha de nacimiento no válida: " + fecha);
             return false;
         }
 	}

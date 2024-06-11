@@ -97,28 +97,29 @@ public class AdminControlador {
 
 	@PostMapping("/alumnos/crear")
 	public String postsCrearAlumnosAdm(@RequestParam(name = "nombreReg") String nombre,
+			@RequestParam(name = "nomUsuario") String nomUsuario,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
-			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, @RequestParam(name = "nombreUsuario") String nombreUser, Model model, RedirectAttributes atributos) {
+			@RequestParam(name = "contrasenaRepReg") String contrasenaRep, Model model, RedirectAttributes atributos) {
 		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
 		model.addAttribute("usuario", usuario);
 
+		List<Usuario> usuarios = usuarioService.findAllUsuarios();
 		boolean correcto = false;
 
 		// Validaciones
 
 		if (!contrasena.equals(contrasenaRep)) {
 			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-
-		} else if (!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty()) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-
-		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-
+		} else if (usuarios.stream().anyMatch(u -> u.getNomUsuario().equals(nomUsuario))) {
+			atributos.addFlashAttribute("Error", "El nombre de usuario indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getCorreo().equals(correo))) {
+			atributos.addFlashAttribute("Error", "El correo indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getDni().equals(dni))) {
+			atributos.addFlashAttribute("Error", "El dni indicado ya existe");
 		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
-			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+			atributos.addFlashAttribute("Error", "El alumno tiene que ser mayor de 8 años");
 		} else {
 			correcto = true;
 		}
@@ -126,7 +127,7 @@ public class AdminControlador {
 		// Fin validaciones
 
 		if (correcto == true) {
-			Alumno alumno = new Alumno(null, dni, nombre, nombreUser, correo,
+			Alumno alumno = new Alumno(null, dni, nombre, nomUsuario, correo,
 					encriptarContrasenia(contrasena), fechaNac, Roles.ALUMNO);
 			alumnoImp.save(alumno);
 		}
@@ -170,32 +171,30 @@ public class AdminControlador {
 
 		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		Alumno alumnoOriginal = alumnoImp.findById(id).get();
+		List<Usuario> usuarios = usuarioService.findAllUsuarios();
 		model.addAttribute("usuario", usuario);
 
 		boolean correcto = false;
 
-		Alumno alumnoOriginal = alumnoImp.findById(id).get();
-
 		// Validaciones
 
+		// Validacion basica
 		if (!contrasena.equals(contrasenaRep)) {
 			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-
-		} else if ((!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty())
+		} else if (usuarios.stream().anyMatch(u -> u.getNomUsuario().equals(nomUsuario))
+				&& !nomUsuario.equals(alumnoOriginal.getNomUsuario())) {
+			atributos.addFlashAttribute("Error", "El nombre de usuario indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getCorreo().equals(correo))
 				&& !correo.equals(alumnoOriginal.getCorreo())) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-
-		} else if ((profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null)
-				&& !dni.equals(alumnoOriginal.getDni())) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-
+			atributos.addFlashAttribute("Error", "El correo indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getDni().equals(dni)) && !dni.equals(alumnoOriginal.getDni())) {
+			atributos.addFlashAttribute("Error", "El dni indicado ya existe");
 		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
-			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+			atributos.addFlashAttribute("Error", "El alumno tiene que ser mayor de 8 años");
 		} else {
 			correcto = true;
 		}
-
-		// Fin validaciones
 
 		if (correcto == true) {
 			alumnoImp.actualizarAlumno(id, nombre, nomUsuario, dni, correo,
@@ -232,26 +231,28 @@ public class AdminControlador {
 
 	@PostMapping("/profesores/crear")
 	public String postsCrearProfesoresAdm(@RequestParam(name = "nombreReg") String nombre,
+			@RequestParam(name = "nomUsuario") String nomUsuario,
 			@RequestParam(name = "dniReg") String dni, @RequestParam(name = "fechaNacReg") String fechaNac,
 			@RequestParam(name = "correoReg") String correo, @RequestParam(name = "contrasenaReg") String contrasena,
 			@RequestParam(name = "contrasenaRepReg") String contrasenaRep,
-			@RequestParam(name = "asignaturaProf") Long idAsig,@RequestParam(name = "nombreUsuario") String nombreUser, Model model, RedirectAttributes atributos) {
+			@RequestParam(name = "asignaturaProf") Long idAsig,
+			Model model, RedirectAttributes atributos) {
 
+		List<Usuario> usuarios = usuarioService.findAllUsuarios();
 		boolean correcto = false;
 
 		// Validaciones
 
 		if (!contrasena.equals(contrasenaRep)) {
 			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-
-		} else if (!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty()) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-
-		} else if (profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-
+		} else if (usuarios.stream().anyMatch(u -> u.getNomUsuario().equals(nomUsuario))) {
+			atributos.addFlashAttribute("Error", "El nombre de usuario indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getCorreo().equals(correo))) {
+			atributos.addFlashAttribute("Error", "El correo indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getDni().equals(dni))) {
+			atributos.addFlashAttribute("Error", "El dni indicado ya existe");
 		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18)) {
-			atributos.addFlashAttribute("Error", "No puedes ser menor de edad");
+			atributos.addFlashAttribute("Error", "El profesor tiene que ser mayor de 18 años");
 		} else {
 			correcto = true;
 		}
@@ -259,7 +260,7 @@ public class AdminControlador {
 		// Fin validaciones
 
 		if (correcto == true) {
-			Profesor profesor = new Profesor(null, dni, nombre, nombreUser, correo,
+			Profesor profesor = new Profesor(null, dni, nombre, nomUsuario, correo,
 					encriptarContrasenia(contrasena), fechaNac, Roles.PROFESOR, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
 		}
@@ -303,6 +304,7 @@ public class AdminControlador {
 
 		String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
 		Usuario usuario = usuarioService.findByUsername(nombreUsuario).get();
+		List<Usuario> usuarios = usuarioService.findAllUsuarios();
 		model.addAttribute("usuario", usuario);
 
 		boolean correcto = false;
@@ -313,17 +315,16 @@ public class AdminControlador {
 
 		if (!contrasena.equals(contrasenaRep)) {
 			atributos.addFlashAttribute("Error", "Las contraseñas tienen que coincidir");
-
-		} else if ((!profesorImp.findByCorreo(correo).isEmpty() || !alumnoImp.findByCorreo(correo).isEmpty())
+		} else if (usuarios.stream().anyMatch(u -> u.getNomUsuario().equals(nomUsuario))
+				&& !nomUsuario.equals(profesorOriginal.getNomUsuario())) {
+			atributos.addFlashAttribute("Error", "El nombre de usuario indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getCorreo().equals(correo))
 				&& !correo.equals(profesorOriginal.getCorreo())) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese correo electrónico");
-
-		} else if ((profesorImp.findByDni(dni) != null || alumnoImp.findByDni(dni) != null)
-				&& !dni.equals(profesorOriginal.getDni())) {
-			atributos.addFlashAttribute("Error", "Ya existe un usuario con ese DNI");
-
-		} else if (!UtilidadesString.esMayorEdad(fechaNac, 8)) {
-			atributos.addFlashAttribute("Error", "El alumno no puede ser menor de 8 años");
+			atributos.addFlashAttribute("Error", "El correo indicado ya existe");
+		} else if (usuarios.stream().anyMatch(u -> u.getDni().equals(dni)) && !dni.equals(profesorOriginal.getDni())) {
+			atributos.addFlashAttribute("Error", "El dni indicado ya existe");
+		} else if (!UtilidadesString.esMayorEdad(fechaNac, 18)) {
+			atributos.addFlashAttribute("Error", "El profesor tiene que ser mayor de 18 años");
 		} else {
 			correcto = true;
 		}
