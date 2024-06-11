@@ -13200,6 +13200,9 @@ i {
 .informacionADM_contenidoSecundario--datos .informacionADM_botones a i img {
   width: 4rem;
 }
+.informacionADM_contenidoSecundario--datos .informacionADM_botones form button i img {
+  width: 4rem;
+}
 @media screen and (min-width: 768px) {
   .informacionADM_contenidoPrincipal {
     flex-direction: row;
