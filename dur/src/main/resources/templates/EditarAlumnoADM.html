@@ -53,7 +53,7 @@
 
         <label for="correo">Correo: </label>
         <input class="formEditarADM_datos form-control" th:value="${alumno.correo}" type="text" name="correoReg"
-          placeholder="Correo electrónico" id="correo" required>
+          placeholder="Correo electrónico" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" id="correo" required>
         <div class="invalid-feedback">Campo requerido</div>
 
         <label for="contrasena">Contraseña: </label>

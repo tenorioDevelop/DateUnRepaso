@@ -1,6 +1,7 @@
 package com.dateunrepaso.dur.controladores;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Aula;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
 import com.dateunrepaso.dur.entidades.Usuario;
-import com.dateunrepaso.dur.enums.Roles;
 import com.dateunrepaso.dur.repositorios.AulaRepo;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/reserva-profesor")
@@ -72,6 +69,8 @@ public class ReservaProfesorControlador {
         model.addAttribute("usuario", usuario);
         Profesor profesor = profesorImp.findById(usuario.getId()).get();
 
+        int horaActual = LocalTime.now().getHour();
+
         boolean correcto = true;
 
         // Reatachar el profesor al contexto de persistencia
@@ -81,36 +80,48 @@ public class ReservaProfesorControlador {
 
         List<ReservaProfesor> reservas = reservaProfImp.findAll();
 
+        // Comprobaciones basicas
+
         if (fecha.isBefore(LocalDate.now())) {
             atributos.addFlashAttribute("Error", "No puedes reservar en una fecha anterior a la fecha actual");
             correcto = false;
         } else if (horaI == horaF) {
-            atributos.addFlashAttribute("Error", "No puedes reservar con la misma hora en los dos tramos de horario");
+            atributos.addFlashAttribute("Error", "La reserva inicio y final no pueden ser la misma");
             correcto = false;
         } else if (horaI > horaF) {
             atributos.addFlashAttribute("Error", "La hora final no puede ser antes que la hora inicio");
             correcto = false;
+        } else if ((fecha.isEqual(LocalDate.now())) && (horaI < horaActual)) {
+            atributos.addFlashAttribute("Error", "La hora inicio ya ha pasado");
+            correcto = false;
         }
 
         for (ReservaProfesor reserva : reservas) {
+            boolean mismaFecha = reserva.getFechaReserva().equals(fecha);
+            boolean mismoProfesor = reserva.getProfesor().equals(profesor);
+            boolean mismaAula = reserva.getAula().equals(aula);
 
-            if (reserva.getProfesor().equals(profesor) && reserva.getFechaReserva().equals(fecha)
-                    && reserva.getHoraInicio() == horaI && reserva.getHoraFin() == horaF) {
+            // Conflicto exacto para el mismo profesor
+            if (mismoProfesor && mismaFecha && reserva.getHoraInicio() <= horaI && reserva.getHoraFin() >= horaF) {
                 atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
                 correcto = false;
+                break;
             }
 
-            if (reserva.getAula().equals(aula) && reserva.getFechaReserva().equals(fecha)
-                    && (horaI >= reserva.getHoraInicio() && horaF <= reserva.getHoraFin())) {
+            // Conflicto exacto para el mismo aula
+            if (mismaAula && mismaFecha && reserva.getHoraInicio() <= horaI && reserva.getHoraFin() >= horaF) {
                 atributos.addFlashAttribute("Error", "Ya existe una reserva en ese horario");
                 correcto = false;
+                break;
             }
 
-            if (((horaI > reserva.getHoraInicio() && horaI < reserva.getHoraFin())
-                    || (horaF > reserva.getHoraInicio() && horaF < reserva.getHoraFin()))
-                    && reserva.getAula().getId().equals(aula.getId()) && reserva.getFechaReserva().equals(fecha)) {
-                atributos.addFlashAttribute("Error", "No puedes elegir una hora que ya esta ocupada por otra reserva");
+            // Solapamiento parcial para el mismo aula
+            if (mismaAula && mismaFecha && ((horaI >= reserva.getHoraInicio() && horaI < reserva.getHoraFin())
+                    || (horaF > reserva.getHoraInicio() && horaF <= reserva.getHoraFin())
+                    || (horaI < reserva.getHoraInicio() && horaF > reserva.getHoraFin()))) {
+                atributos.addFlashAttribute("Error", "No puedes elegir una hora que ya está ocupada por otra reserva");
                 correcto = false;
+                break;
             }
         }
 

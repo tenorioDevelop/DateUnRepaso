@@ -49,12 +49,12 @@
 
         <label for="correo">Correo: </label>
         <input class="formCrearADM_datos form-control" type="text" name="correoReg" id="correo"
-          placeholder="Correo electrónico" required>
+          placeholder="Correo electrónico" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="contrasena">Contraseña: </label>
         <input class="formCrearADM_datos form-control" type="password" name="contrasenaReg" id="contrasena"
-          placeholder="Contraseña" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
+          placeholder="Contraseña"  required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="contrasenaRepetida">Contraseña repetida: </label>
