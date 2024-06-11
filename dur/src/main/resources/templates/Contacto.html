@@ -11,27 +11,63 @@
 <body>
     <span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
     <span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
+
     <div th:insert="fragmentos/header :: headerFragment"></div>
     <div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
 
-    <main class="inicio">
-        <section class="inicio_contenido">
-            <h2 class="inicio_contenido--fecha" th:text="${fechaActual}"></h2>
+    <main class="contacto">
+        <div class="contacto_principal">
+            <h1 class="contacto_principal--titulo">Contacto</h1>
+            <form class="contacto_principal--formulario needs-validation" novalidate th:action="@{/contacto/mandarcorreo}" method="post"
+                th:object="${emailDTO}">
+                <label for="destinatario">Seleccionar profesor: </label>
+                <select class="formContacto_input form-control" id="destinatario" th:field="*{destinatario}"
+                    name="destinatario" required>
+                    <option value="">Selecciona un profesor</option>
+                    <option th:value="${profesor.id}" th:each="profesor: ${profesores}" th:text="${profesor.correo}">
+                    </option>
+                </select>
+                <p class="invalid-feedback" style="color: #643e7b;">Campo requerido</p>
 
-            <div class="inicio_contenido--principal">
-                <form th:action="@{/contacto/mandarcorreo}" method="post" th:object="${emailDTO}">
-                    <input type="email" name="destinatario" th:field="*{destinatario}" id="destinatario" required>
-                    <input type="text" name="asunto" th:field="*{asunto}" id="asunto" required>
-                    <textarea name="mensaje" th:field="*{mensaje}" id="mensaje" required></textarea>
-                    <input type="submit" id="submit">
-                </form>
-            </div>
+                <label for="asunto">Asunto: </label>
+                <input class="formContacto_input form-control" type="text" name="asunto" th:field="*{asunto}"
+                    id="asunto" placeholder="Asunto" required>
+                <p class="invalid-feedback" style="color: #643e7b;">Campo requerido</p>
 
-        </section>
+                <label for="mensaje">Mensaje: </label>
+                <textarea class="formContacto_input form-control" name="mensaje" th:field="*{mensaje}" id="mensaje"
+                    placeholder="Mensaje" required></textarea>
+                <p class="invalid-feedback" style="color: #643e7b;">Campo requerido</p>
+
+                <input class="boton-inicio mb-2" type="submit" id="submit">
+            </form>
+
+            <section class="contacto_principal--preguntas">
+                <div class="pregContacto_pregunta">
+                    <h2>¿Como reservar siendo profesor?</h2>
+                    <p>Desde la pantalla de inicio tienes que ir al botón de reservar. Una vez ahí, tienes que
+                        reservar
+                        un aula, fecha, hora inicio y hora final.</p>
+                </div>
+                <div class="pregContacto_pregunta">
+                    <h2>¿Como eliminar una reserva?</h2>
+                    <p>Tendria que ir al enlace de clases, que se encuentra en el header de la aplicación. Una vez
+                        ahí, si tienes una reserva hecha, te saldrá un botón de borrar por cada clase; tendrás que
+                        pulsarlo y te llevara a una página de confirmación.</p>
+                </div>
+                <div class="pregContacto_pregunta">
+                    <h2>¿Como reservar siendo alumno?</h2>
+                    <p>Desde la pantalla de inicio tienes que ir al botón de reservar. Una vez ahí, tienes que
+                        seleccionar la reserva que quieras reservar del profesor.</p>
+                </div>
+            </section>
+        </div>
+        <div class="sidebar" th:insert="fragmentos/sidebar :: sidebarFragment"></div>
     </main>
 
     <script th:src="@{/js/calendarioMini.js}"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+    <script th:src="@{/js/validacion.js}"></script>
 </body>
 
 </html>

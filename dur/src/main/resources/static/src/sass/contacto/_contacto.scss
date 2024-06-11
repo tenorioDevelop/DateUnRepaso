@@ -1,0 +1,84 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.contacto {
+    display: flex;
+    flex-direction: row;
+
+    &_principal {
+        width: 100%;
+        margin: 1.5rem;
+
+        &--titulo {
+            color: c.$primero;
+            font-weight: 600;
+        }
+
+        &--formulario {
+            background-color: c.$claro;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            width: 100%;
+            margin: 1rem auto;
+
+            label {
+                color: c.$primero;
+                margin-top: 1rem;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+            }
+
+            .formContacto_input {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+                font-size: 18px;
+                color: c.$primero;
+            }
+        }
+
+        &--preguntas {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            margin-top: 4rem;
+            gap: 2rem;
+
+            .pregContacto_pregunta {
+                background-color: c.$claro;
+                color: c.$primero;
+                border-radius: 6px;
+                padding: 1rem 2rem;
+                height: 25rem;
+
+                h2 {
+                    font-weight: 600;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+
+    @include m.tablet() {
+        &_principal {
+            width: 70%;
+
+            &--preguntas {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    }
+
+    @include m.desktop() {
+        &_principal {
+            width: 80%;
+
+            &--formulario {
+                width: 60%;
+            }
+
+            &--preguntas {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    }
+
+}

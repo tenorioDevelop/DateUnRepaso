@@ -1,5 +1,7 @@
 package com.dateunrepaso.dur.controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +19,7 @@ import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.Usuario;
 import com.dateunrepaso.dur.enums.Roles;
+import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +35,9 @@ public class ContactoControlador {
     @Autowired
     IEmailService iEmailService;
 
+    @Autowired
+    ProfesorImp profesorImp;
+
     @GetMapping("")
     public String getContacto(Model model) {
         model.addAttribute("paginaActiva", "contacto");
@@ -43,6 +49,10 @@ public class ContactoControlador {
         model.addAttribute("usuario", usuario);
         model.addAttribute("tipoUsuario", rol.name().toLowerCase());
         model.addAttribute("emailDTO", new EmailDTO());
+
+        List<Profesor> profesores = profesorImp.findAll();
+        model.addAttribute("profesores", profesores);
+
         return "Contacto";
     }
 
