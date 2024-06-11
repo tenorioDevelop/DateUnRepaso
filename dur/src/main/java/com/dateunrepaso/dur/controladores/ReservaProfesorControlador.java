@@ -102,7 +102,7 @@ public class ReservaProfesorControlador {
             boolean mismaAula = reserva.getAula().equals(aula);
 
             // Conflicto exacto para el mismo profesor
-            if (mismoProfesor && mismaFecha && reserva.getHoraInicio() == horaI && reserva.getHoraFin() == horaF) {
+            if (mismoProfesor && mismaFecha && reserva.getHoraInicio() <= horaI && reserva.getHoraFin() >= horaF) {
                 atributos.addFlashAttribute("Error", "Ya tienes una reserva en ese horario");
                 correcto = false;
                 break;
