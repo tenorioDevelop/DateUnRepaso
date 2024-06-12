@@ -28,8 +28,8 @@
 				<div class="formGestionUsuario_primeraParte">
 
 					<figure class="formGestionUsuario_primeraParte--imagenPerfil">
-						<img th:src="@{build/img/Iconos/Icono_GestionPerfil.png}" alt="Icono perfil usuario"
-							class="img-fluid">
+						<img th:src="'https://ui-avatars.com/api/?name='+${usuario.nomCompleto}+'&rounded=true&background=643e7b&color=ffffff'"
+							alt="Icono perfil usuario" class="img-fluid">
 					</figure>
 
 					<div class="formGestionUsuario_primeraParte--contenidoFormGestion">
@@ -39,7 +39,8 @@
 							<div class="contenidoFormGestion_datos">
 								<i><img th:src="@{build/img/Iconos/Icono_DNI_GestionPerfil.png}"
 										alt="Icono DNI usuario"></i>
-								<input type="text" name="dni" id="dni" class="form-control" th:value="${usuario.dni}">
+								<input type="text" name="dni" id="dni" class="form-control" th:value="${usuario.dni}"
+									required>
 							</div>
 						</div>
 
@@ -50,7 +51,7 @@
 								<i><img th:src="@{build/img/Iconos/Icono_FechaNac_GestionPerfil.png}"
 										alt="Icono fecha de nacimiento" class="img-fluid"></i>
 								<input type="date" name="fechaNac" id="fechaNacimiento" th:value="${usuario.fechaNac}"
-									class="form-control">
+									class="form-control" required>
 							</div>
 						</div>
 
@@ -59,8 +60,7 @@
 							<div class="contenidoFormGestion_datos">
 								<i><img th:src="@{build/img/Iconos/Icono_Contraseña_GestionPerfil.png}"
 										alt="Icono contraseña usuario"></i>
-								<input type="password" name="contrasena" id="contrasena"
-									th:value="${usuario.contrasena}" class="form-control">
+								<input type="password" name="contrasena" id="contrasena" class="form-control" required>
 							</div>
 						</div>
 
@@ -72,15 +72,13 @@
 
 					<div class="formGestionUsuario_segundaParte--contenidoFormGestion">
 
-						<label for="correoElect" class="contenidoFormGestion_label form-label">Correo
+						<label for="correo" class="contenidoFormGestion_label form-label">Correo
 							electrónico</label>
 
 						<div class="contenidoFormGestion_datos">
 							<i><img th:src="@{build/img/Iconos/Icono_Correo_GestionPerfil.png}"
 									alt="Icono correo electronico usuario"></i>
-							<input type="text" id="correoElect" th:value="${usuario.correo}" class="form-control"
-								disabled>
-							<input type="hidden" name="correo" th:value="${usuario.correo}">
+							<input type="text" id="correo" name="correo" th:value="${usuario.correo}" class="form-control">
 						</div>
 
 					</div>
@@ -94,7 +92,7 @@
 							<i><img th:src="@{build/img/Iconos/Icono_EditarNombre_GestionPerfil.png}"
 									alt="Icono nombre usuario"></i>
 							<input type="text" name="nombre" id="nombreComp" th:value="${usuario.nomCompleto}"
-								class="form-control">
+								class="form-control" required>
 
 						</div>
 
