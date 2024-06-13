@@ -46,7 +46,8 @@ public class ApiControlador {
     @GetMapping("/reservas-alumno/{idAlumno}")
     public List<HashMap> getReservasAlumnoAPI(@PathVariable Long idAlumno) {
         List<HashMap> resultado = new ArrayList<>();
-        List<ReservaAlumno> original = new ArrayList<>(reservaAlumnoImp.getReservasAlumno(alumnoImp.findById(idAlumno).get()));
+        List<ReservaAlumno> original = new ArrayList<>(
+                reservaAlumnoImp.getReservasAlumno(alumnoImp.findById(idAlumno).get()));
 
         for (ReservaAlumno reserva : original) {
             HashMap map = new HashMap<>();
@@ -61,19 +62,43 @@ public class ApiControlador {
 
     @SuppressWarnings("unchecked")
     @GetMapping("/reservas-profesor/{idProfesor}")
-    public List<HashMap> getReservasProfesorAPI(@PathVariable Long idProfesor) {
+    public List<HashMap> getReservasProfesorAPI(@PathVariable Long idProfesor,
+            @RequestParam(required = false) String todos) {
         List<HashMap> resultado = new ArrayList<>();
-        List<ReservaProfesor> original = new ArrayList<>(reservaProfesorImp.findAllByProfesor(profesorImp.findById(idProfesor).get()));
+
+        List<ReservaProfesor> original;
+
+        if (todos != null) {
+            if (todos.equals("s")) {
+                original = reservaProfesorImp.findAll();
+            } else {
+                original = new ArrayList<>(
+                        reservaProfesorImp.findAllByProfesor(profesorImp.findById(idProfesor).get()));
+            }
+        } else {
+            original = new ArrayList<>(
+                    reservaProfesorImp.findAllByProfesor(profesorImp.findById(idProfesor).get()));
+        }
 
         for (ReservaProfesor reserva : original) {
             HashMap map = new HashMap<>();
-            map.put("title", formatearNombreReservaProfesor(reserva.getAula()));
+            if (todos != null) {
+                if (todos.equals("s") && reserva.getProfesor().getId() != idProfesor) {
+                    map.put("title", formatearNombreReservaProfesor(reserva.getAula()) + " del profesor " + reserva.getProfesor().getNomCompleto());
+                } else {
+                    map.put("title", formatearNombreReservaProfesor(reserva.getAula()));
+                }
+            } else {
+                map.put("title", formatearNombreReservaProfesor(reserva.getAula()));
+            }
             map.put("start", reserva.getFechaReserva().toString() + "T" + reserva.getHoraInicio() + ":00");
             map.put("end", reserva.getFechaReserva().toString() + "T" + reserva.getHoraFin() + ":00");
             resultado.add(map);
+
         }
 
         return resultado;
+
     }
 
     public String formatearNombreReservaAlumno(Profesor profesor, Aula aula) {
@@ -82,7 +107,7 @@ public class ApiControlador {
     }
 
     public String formatearNombreReservaProfesor(Aula aula) {
-        return "Clases en el "+ aula.getNombre();
+        return "Clases en el " + aula.getNombre();
     }
 
 }
