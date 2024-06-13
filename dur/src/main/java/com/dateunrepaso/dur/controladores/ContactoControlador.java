@@ -19,6 +19,7 @@ import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.Usuario;
 import com.dateunrepaso.dur.enums.Roles;
+import com.dateunrepaso.dur.servicios.AlumnoImp;
 import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
 
@@ -36,6 +37,9 @@ public class ContactoControlador {
     IEmailService iEmailService;
 
     @Autowired
+    AlumnoImp alumnoImp;
+
+    @Autowired
     ProfesorImp profesorImp;
 
     @GetMapping("")
@@ -47,11 +51,13 @@ public class ContactoControlador {
         Roles rol = usuario.getRol();
 
         model.addAttribute("usuario", usuario);
-        model.addAttribute("tipoUsuario", rol.name().toLowerCase());
         model.addAttribute("emailDTO", new EmailDTO());
 
-        List<Profesor> profesores = profesorImp.findAll();
-        model.addAttribute("profesores", profesores);
+        if (rol == Roles.PROFESOR) {
+            model.addAttribute("destinatarios", alumnoImp.findAll());
+        } else {
+            model.addAttribute("destinatarios", profesorImp.findAll());
+        }
 
         return "Contacto";
     }

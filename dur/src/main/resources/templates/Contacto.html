@@ -21,11 +21,11 @@
             <h1 class="contacto_principal--titulo">Contacto</h1>
             <form class="contacto_principal--formulario needs-validation" novalidate th:action="@{/contacto/mandarcorreo}" method="post"
                 th:object="${emailDTO}">
-                <label for="destinatario">Seleccionar profesor: </label>
+                <label for="destinatario">Seleccionar destinatario: </label>
                 <select class="formContacto_input form-control" id="destinatario" th:field="*{destinatario}"
                     name="destinatario" required>
-                    <option value="">Selecciona un profesor</option>
-                    <option th:value="${profesor.id}" th:each="profesor: ${profesores}" th:text="${profesor.correo}">
+                    <option value="">Selecciona</option>
+                    <option th:value="${destinatario.correo}" th:each="destinatario: ${destinatarios}" th:text="${destinatario.correo}">
                     </option>
                 </select>
                 <p class="invalid-feedback" style="color: #643e7b;">Campo requerido</p>
