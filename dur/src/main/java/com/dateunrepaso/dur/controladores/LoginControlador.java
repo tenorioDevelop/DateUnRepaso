@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.security.core.Authentication;
 
+import com.dateunrepaso.dur.email.EmailDTO;
+import com.dateunrepaso.dur.email.EmailServiceImp;
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.Usuario;
@@ -44,6 +46,9 @@ public class LoginControlador {
 
 	@Autowired
 	AlumnoImp alumnoImp;
+
+	@Autowired
+	EmailServiceImp emailServiceImp;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -123,6 +128,13 @@ public class LoginControlador {
 			// Crear sesión
 			request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 					SecurityContextHolder.getContext());
+
+			// Mandar correo
+
+			EmailDTO emailDTO = new EmailDTO(correo, "Gracias por registrarte en DateUnRepaso 🎉🎉", "<h2>Te has registrado en DateUnRepaso correctamente</h2><br>Usuario: "+ nomUsuario + "<br>Contraseña: " + contrasena);
+
+			emailServiceImp.enviarCorreo(emailDTO);
+
 			return "redirect:/app";
 		} else {
 			return "redirect:/registro";

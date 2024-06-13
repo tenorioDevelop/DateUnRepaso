@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Asignatura;
@@ -16,6 +17,7 @@ import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
 
 @SpringBootApplication(scanBasePackages = "com.dateunrepaso")
+@EnableScheduling
 public class DurApplication {
 
 	public static void main(String[] args) {

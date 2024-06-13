@@ -28,18 +28,21 @@
     </section>
 
     <section class="crearADM_contenidoSecundario">
-      <form class="crearADM_contenidoSecundario--formulario needs-validation" novalidate method="post" th:action="@{/panel-admin/alumnos/crear}">
+      <form class="crearADM_contenidoSecundario--formulario needs-validation" novalidate method="post"
+        th:action="@{/panel-admin/alumnos/crear}">
         <label for="nombreC">Nombre Completo: </label>
-        <input class="formCrearADM_datos form-control" type="text" name="nombreReg" id="nombreC" minlength="5" placeholder="Nombre y apellidos"
-          required>
+        <input class="formCrearADM_datos form-control" type="text" name="nombreReg" id="nombreC" minlength="5"
+          placeholder="Nombre y apellidos" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="nombreUser">Nombre de usuario: </label>
-        <input class="formCrearADM_datos form-control" type="text" name="nomUsuario" id="nombreUser" minlength="5" maxlength="20" placeholder="Nombre de usuario" required>
+        <input class="formCrearADM_datos form-control" type="text" name="nomUsuario" id="nombreUser" minlength="5"
+          maxlength="20" placeholder="Nombre de usuario" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="dni">DNI: </label>
-        <input class="formCrearADM_datos form-control" type="text" name="dniReg" id="dni" pattern="[0-9]{8}[A-Za-z]{1}" placeholder="DNI" required>
+        <input class="formCrearADM_datos form-control" type="text" name="dniReg" id="dni" pattern="[0-9]{8}[A-Za-z]{1}"
+          placeholder="DNI" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="fechaNac">Fecha de nacimiento: </label>
@@ -48,18 +51,18 @@
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="correo">Correo: </label>
-        <input class="formCrearADM_datos form-control" type="text" name="correoReg" id="correo" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" placeholder="Correo electrónico"
-          required>
+        <input class="formCrearADM_datos form-control" type="email" name="correoReg" id="correo"
+          placeholder="Correo electrónico" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="contrasena">Contraseña: </label>
-        <input class="formCrearADM_datos form-control" type="password" name="contrasenaReg" id="contrasena" minlength="8" maxlength="16" placeholder="Contraseña"
-          required>
+        <input class="formCrearADM_datos form-control" type="password" name="contrasenaReg" id="contrasena"
+          minlength="8" placeholder="Contraseña" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <label for="contrasenaRepetida">Contraseña repetida: </label>
-        <input class="formCrearADM_datos form-control" type="password" name="contrasenaRepReg" minlength="8" maxlength="16" id="contrasenaRepetida"
-          placeholder="Repetir contraseña" required>
+        <input class="formCrearADM_datos form-control" type="password" name="contrasenaRepReg" minlength="8"
+          id="contrasenaRepetida" placeholder="Repetir contraseña" required>
         <div class="invalid-feedback" style="color: #643e7b;">Campo requerido</div>
 
         <button class="boton-inicio">Guardar</button>
@@ -70,4 +73,5 @@
 <script th:src="@{/js/calendarioInicio.js}"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
 <script th:src="@{/js/validacion.js}"></script>
+
 </html>
