@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dateunrepaso.dur.email.EmailDTO;
+import com.dateunrepaso.dur.email.EmailServiceImp;
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaAlumno;
@@ -32,6 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/reserva-alumno")
 @PreAuthorize("hasRole('ALUMNO')")
 public class ReservaAlumnoControlador {
+
+    @Autowired
+    EmailServiceImp emailServiceImp;
 
     @Autowired
     ReservaAlumnoImp reservaAlumnoImp;
@@ -115,6 +120,10 @@ public class ReservaAlumnoControlador {
 
         if (esValido) {
             reservaAlumnoImp.save(reservaA);
+
+            //Enviar correo reserva
+            EmailDTO emailDTO = new EmailDTO(alumno.getCorreo(), "Reserva realizada correctamente", "Reserva realizada correctamente el dia " + reservaP.getFechaReserva() + " con el profesor: " + reservaP.getProfesor().getNomCompleto());
+            emailServiceImp.enviarCorreo(emailDTO);
             return "redirect:/clases";
         } else {
             return "redirect:/reserva-alumno";

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dateunrepaso.dur.email.EmailDTO;
+import com.dateunrepaso.dur.email.EmailServiceImp;
 import com.dateunrepaso.dur.entidades.Alumno;
 import com.dateunrepaso.dur.entidades.Profesor;
 import com.dateunrepaso.dur.entidades.ReservaProfesor;
@@ -24,7 +26,6 @@ import com.dateunrepaso.dur.servicios.ProfesorImp;
 import com.dateunrepaso.dur.servicios.ReservaAlumnoImp;
 import com.dateunrepaso.dur.servicios.ReservaProfesorImp;
 import com.dateunrepaso.dur.servicios.UsuarioService;
-
 
 @Controller
 @PreAuthorize("hasAnyRole('PROFESOR','ALUMNO')")
@@ -45,6 +46,9 @@ public class ClasesControlador {
 
 	@Autowired
 	ReservaAlumnoImp reservaAlumnoImp;
+
+	@Autowired
+	EmailServiceImp emailServiceImp;
 
 	@GetMapping("")
 	public String getClases(Model model, RedirectAttributes atributos) {
@@ -88,9 +92,15 @@ public class ClasesControlador {
 		if (boton.equals("SÍ")) {
 			if (usuario.getRol() == Roles.ALUMNO) {
 				reservaAlumnoImp.deleteById(id);
-
 			} else {
 				ReservaProfesor reservaProf = reservaProfesorImp.findById(id).get();
+				reservaProf.getLstReservaAlumno().forEach(reserva -> {
+					EmailDTO emailDTO = new EmailDTO(reserva.getAlumno().getCorreo(), "Clase cancelada",
+							"Se ha cancelado su clase con el profesor: " + reserva.getProfesor().getNomCompleto()
+									+ ", del dia: " + reserva.getFechaReserva() + " en el aula: "
+									+ reserva.getAula().getNombre());
+					emailServiceImp.enviarCorreo(emailDTO);
+				});
 				reservaAlumnoImp.deleteAllByAulaAndFechaReservaAndProfesor(reservaProf.getAula(),
 						reservaProf.getFechaReserva(), reservaProf.getProfesor());
 				reservaProfesorImp.deleteById(id);
