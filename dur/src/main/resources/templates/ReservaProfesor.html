@@ -29,14 +29,13 @@
 	</header>
 
 	<main class="resProfesor">
-		<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-			<label th:text="${Error}"></label>
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-
 		<h1 class="resProfesor_titulo">Reserva</h1>
 		<section class="resProfesor_contenido">
 			<div class="resProfesor_contenido--form">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+					<label th:text="${Error}"></label>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
 				<form th:action="@{/reserva-profesor}" method="post" class="formReservaP">
 					<div class="formReservaP_input">
 						<i><img th:src="@{build/img/Iconos/Icono_Aula_ReservaP.png}"></i>

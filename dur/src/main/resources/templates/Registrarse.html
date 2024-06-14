@@ -17,13 +17,12 @@
 			<p class="registro_contenido--logearse">
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
-
-			<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-				<label th:text="${Error}"></label>
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
+			
 			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
-
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+					<label th:text="${Error}"></label>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
 				<input class="formRegistro_datos form-control" type="text" name="nomCompleto"
 					placeholder="Nombre y apellidos" minlength="5" required>
 
