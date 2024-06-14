@@ -1,0 +1,42 @@
+@use '../custom' as c;
+@use '../base/mixins' as m;
+
+.error {
+    border-radius: 12px;
+
+    &_header {
+        background-color: c.$primero;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+
+        &--boton {
+            background-color: c.$segundo;
+            padding: 0.8rem;
+            width: 18rem;
+            border-radius: 8px;
+            color: c.$primero;
+            text-align: center;
+            font-weight: 600;
+            transition: 0.5s;
+        }
+
+        &--boton:hover {
+            background-color: white;
+        }
+    }
+
+    &_body {
+        background-color: c.$claro;
+        color: c.$primero;
+    }
+
+    @include m.tablet() {
+        &_header {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}

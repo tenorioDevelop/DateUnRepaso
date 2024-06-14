@@ -13350,4 +13350,39 @@ i {
   }
 }
 
+.error {
+  border-radius: 12px;
+}
+.error_header {
+  background-color: #643e7b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.error_header--boton {
+  background-color: #a594f9;
+  padding: 0.8rem;
+  width: 18rem;
+  border-radius: 8px;
+  color: #643e7b;
+  text-align: center;
+  font-weight: 600;
+  transition: 0.5s;
+}
+.error_header--boton:hover {
+  background-color: white;
+}
+.error_body {
+  background-color: #f5efff;
+  color: #643e7b;
+}
+@media screen and (min-width: 768px) {
+  .error_header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
 /*# sourceMappingURL=styles.css.map */
