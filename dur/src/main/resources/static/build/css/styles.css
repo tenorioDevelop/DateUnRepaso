@@ -11927,6 +11927,9 @@ i {
   font-weight: 600;
   border: 1px solid #643e7b;
 }
+.alert button {
+  color: #643e7b;
+}
 
 .invalid-feedback {
   color: #f5efff;
