@@ -12945,6 +12945,20 @@ i {
   color: #643e7b;
   margin-bottom: 1.5rem;
 }
+.clases_contenido--vacio {
+  margin: 1.5rem;
+  height: 10rem;
+  border-radius: 8px;
+  background-color: #f5efff;
+  color: #643e7b;
+  font-weight: 600;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.clases_contenido--vacio h2 {
+  font-size: 28px;
+}
 .clases_contenido--reservas {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

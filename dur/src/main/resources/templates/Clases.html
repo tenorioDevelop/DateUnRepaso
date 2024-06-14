@@ -17,8 +17,12 @@
 	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
 
 	<main class="clases">
+
 		<section class="clases_contenido">
 			<h1 class="clases_contenido--titulo">Mis clases</h1>
+			<div class="clases_contenido--vacio" th:if="${Reservas.isEmpty()}">
+				<h2>No tienes ninguna clase el día de hoy</h2>
+			</div>
 			<div class="clases_contenido--reservas">
 				<div th:each="reserva : ${Reservas}" class="reserva">
 					<h2 th:text="${reserva.aula.nombre}" class="reserva_titulo"></h2>
@@ -39,8 +43,8 @@
 						<p class="reserva_horas"><span th:text="${reserva.horaInicio} + ':00'"></span> - <span
 								th:text="${reserva.horaFin} + ':00'"></span></p>
 					</div>
-					<a th:href="@{/clases/preguntarBorrar/{id}(id=${reserva.id})}"
-						class="reserva_botonBorrar">Cancelar reserva</a>
+					<a th:href="@{/clases/preguntarBorrar/{id}(id=${reserva.id})}" class="reserva_botonBorrar">Cancelar
+						reserva</a>
 				</div>
 			</div>
 		</section>

@@ -71,6 +71,8 @@ public class ClasesControlador {
 			atributos.addAttribute("Error", "No hay reservas disponibles para realizar");
 		}
 
+		
+
 		return "Clases";
 
 	}

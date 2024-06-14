@@ -17,6 +17,22 @@
             margin-bottom: 1.5rem;
         }
 
+        &--vacio {
+            margin: 1.5rem;
+            height: 10rem;
+            border-radius: 8px;
+            background-color: c.$claro;
+            color: c.$primero;
+            font-weight: 600;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            
+            h2 {
+                font-size: 28px;
+            }
+        }
+
         &--reservas {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
