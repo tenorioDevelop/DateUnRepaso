@@ -13,8 +13,8 @@
 	<span id="idUsuario" th:text="${usuario.id}" style="display: none;"></span>
 	<span id="rolUsuario" th:text="${usuario.rol}" style="display: none;"></span>
 
-	<div th:insert="fragmentos/header :: headerFragment"></div>
-	<div th:insert="fragmentos/headerMovil :: headerMovilFragment"></div>
+	<div th:insert="fragmentos/headerAdmin :: headerFragment"></div>
+	<div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
 	<main class="eliminarClase">
 		<section class="eliminarClase_contenido">

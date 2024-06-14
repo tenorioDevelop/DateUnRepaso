@@ -15,10 +15,6 @@
   <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
   <main class="editarADM">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-      <label th:text="${Error}"></label>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
     <section class="editarADM_contenidoPrincipal">
       <h1 class="editarADM_contenidoPrincipal--titulo">Editar Alumno</h1>
 
@@ -31,6 +27,11 @@
     <section class="editarADM_contenidoSecundario">
 
       <form class="editarADM_contenidoSecundario--formulario" method="post" th:action="@{/panel-admin/alumnos/editar}">
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+          <label th:text="${Error}"></label>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
         <input class="formEditarADM_datos form-control" th:value="${alumno.id}" type="hidden" name="id">
 

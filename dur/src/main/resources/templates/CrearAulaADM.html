@@ -15,10 +15,6 @@
   <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
   <main class="crearADM">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-      <label th:text="${Error}"></label>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
 
     <section class="crearADM_contenidoPrincipal">
       <h1 class="crearADM_contenidoPrincipal--titulo">Crear Aula</h1>
@@ -32,6 +28,11 @@
     <section class="crearADM_contenidoSecundario">
       <form class="crearADM_contenidoSecundario--formulario needs-validation" novalidate method="post"
         th:action="@{/panel-admin/aulas/crear}">
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+          <label th:text="${Error}"></label>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
         <label for="nombreA">Nombre del aula: </label>
         <input class="formCrearADM_datos form-control" type="text" name="nombreAula" id="nombreA" placeholder="Nombre"

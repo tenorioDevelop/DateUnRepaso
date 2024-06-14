@@ -15,10 +15,6 @@
   <div th:insert="fragmentos/headerAdminMovil :: headerMovilFragment"></div>
 
   <main class="editarADM">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
-      <label th:text="${Error}"></label>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
     <section class="editarADM_contenidoPrincipal">
       <h1 class="editarADM_contenidoPrincipal--titulo">Editar Profesor</h1>
 
@@ -30,6 +26,12 @@
     <section cclass="editarADM_contenidoSecundario">
       <form class="editarADM_contenidoSecundario--formulario" method="post"
         th:action="@{/panel-admin/profesores/editar}">
+        
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
+          <label th:text="${Error}"></label>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <input class="formEditarADM_datos form-control" th:value="${profesor.id}" type="hidden" name="id">
 
         <label for="nombreC">Nombre Completo: </label>
@@ -58,13 +60,13 @@
         <div class="invalid-feedback">Campo requerido</div>
 
         <label for="contrasena">Contraseña: </label>
-        <input class="formEditarADM_datos form-control" type="password"
-          name="contrasenaReg" placeholder="Contraseña" id="contrasena" required>
+        <input class="formEditarADM_datos form-control" type="password" name="contrasenaReg" placeholder="Contraseña"
+          id="contrasena" required>
         <div class="invalid-feedback">Campo requerido</div>
 
         <label for="contrasenaRepetida">Contraseña repetida: </label>
-        <input class="formEditarADM_datos form-control" type="password"
-          name="contrasenaRepReg" placeholder="Repetir contraseña" id="contrasenaRepetida" required>
+        <input class="formEditarADM_datos form-control" type="password" name="contrasenaRepReg"
+          placeholder="Repetir contraseña" id="contrasenaRepetida" required>
         <div class="invalid-feedback">Campo requerido</div>
 
         <label for="asignatura">Asignatura: </label>
