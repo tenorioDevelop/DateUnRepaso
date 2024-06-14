@@ -131,7 +131,7 @@ public class AdminControlador {
 					encriptarContrasenia(contrasena), fechaNac, Roles.ALUMNO);
 			alumnoImp.save(alumno);
 		}
-		return "redirect:/panel-admin/alumnos/crear";
+		return "redirect:/panel-admin/alumnos";
 	}
 
 	@GetMapping("/alumnos/eliminar/{id}")
@@ -264,7 +264,7 @@ public class AdminControlador {
 					encriptarContrasenia(contrasena), fechaNac, Roles.PROFESOR, asigImp.findById(idAsig).get());
 			profesorImp.save(profesor);
 		}
-		return "redirect:/panel-admin/profesores/crear";
+		return "redirect:/panel-admin/profesores";
 	}
 
 	@Transactional
@@ -373,7 +373,7 @@ public class AdminControlador {
 			atributos.addFlashAttribute("Error", "Ya existe un aula con este nombre");
 		}
 
-		return "redirect:/panel-admin/aulas/crear";
+		return "redirect:/panel-admin/aulas";
 	}
 
 	@GetMapping("/aulas/eliminar/{id}")
@@ -451,7 +451,7 @@ public class AdminControlador {
 			atributos.addFlashAttribute("Error", "Ya existe una asignatura con este nombre");
 		}
 
-		return "redirect:/panel-admin/asignaturas/crear";
+		return "redirect:/panel-admin/asignaturas";
 	}
 
 	@Transactional
