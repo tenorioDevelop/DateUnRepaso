@@ -91,7 +91,7 @@ public class ReservaProfesorControlador {
             atributos.addFlashAttribute("Error", "No puedes reservar en una fecha anterior a la fecha actual");
             correcto = false;
         } else if (horaI == horaF) {
-            atributos.addFlashAttribute("Error", "La reserva inicio y final no pueden ser la misma");
+            atributos.addFlashAttribute("Error", "La hora inicio y final no pueden ser la misma");
             correcto = false;
         } else if (horaI > horaF) {
             atributos.addFlashAttribute("Error", "La hora final no puede ser antes que la hora inicio");

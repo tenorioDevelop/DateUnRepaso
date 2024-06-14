@@ -60,7 +60,6 @@ public class ReservaAlumnoControlador {
 
         Alumno alumno = alumnoImp.findById(usuario.getId()).get();
 
-
         List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
         reservaP.removeIf(p -> !p.getLstReservaAlumno().stream().allMatch(a -> a.getId() == alumno.getId()));
         model.addAttribute("listaReservasP", reservaP);
@@ -107,11 +106,15 @@ public class ReservaAlumnoControlador {
                                 && reservaP.getHoraFin() <= reserva.getHoraFin())) {
                     atributos.addFlashAttribute("Error", "Ya tienes una reserva en esas horas");
                     esValido = false;
-                } else if (((reservaP.getHoraInicio() > reserva.getHoraInicio()
+                }
+                if (((reservaP.getHoraInicio() >= reserva.getHoraInicio()
                         && reservaP.getHoraInicio() < reserva.getHoraFin())
                         || (reservaP.getHoraFin() > reserva.getHoraInicio()
-                                && reservaP.getHoraFin() < reserva.getHoraFin()))
-                        && reservaP.getFechaReserva().equals(reserva.getFechaReserva())) {
+                                && reservaP.getHoraFin() <= reserva.getHoraFin())
+                        || (reservaP.getHoraInicio() < reserva.getHoraInicio()
+                                && reservaP.getHoraFin() > reserva.getHoraFin()))
+                        && reservaP.getFechaReserva().equals(reservaA.getFechaReserva())) {
+                            
                     atributos.addFlashAttribute("Error", "Ya tienes una reserva entre esas horas");
                     esValido = false;
                 }
@@ -121,8 +124,10 @@ public class ReservaAlumnoControlador {
         if (esValido) {
             reservaAlumnoImp.save(reservaA);
 
-            //Enviar correo reserva
-            EmailDTO emailDTO = new EmailDTO(alumno.getCorreo(), "Reserva realizada correctamente", "Reserva realizada correctamente el dia " + reservaP.getFechaReserva() + " con el profesor: " + reservaP.getProfesor().getNomCompleto());
+            // Enviar correo reserva
+            EmailDTO emailDTO = new EmailDTO(alumno.getCorreo(), "Reserva realizada correctamente",
+                    "Reserva realizada correctamente el dia " + reservaP.getFechaReserva() + " con el profesor: "
+                            + reservaP.getProfesor().getNomCompleto());
             emailServiceImp.enviarCorreo(emailDTO);
             return "redirect:/clases";
         } else {
