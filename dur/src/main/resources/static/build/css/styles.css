@@ -12644,6 +12644,7 @@ i {
   font-weight: 600;
   border: none;
   transition: 0.5s;
+  align-self: flex-start;
 }
 .resProfesor_contenido--form .formReservaP_boton:hover {
   background-color: #cdc1ff;
@@ -12657,11 +12658,11 @@ i {
   width: 95%;
 }
 @media screen and (min-width: 768px) {
-  .resProfesor_contenido--form .formReservaP {
+  .resProfesor_contenido {
     flex-direction: row;
   }
   .resProfesor_contenido--form .formReservaP_input {
-    width: 20%;
+    width: 100%;
   }
 }
 

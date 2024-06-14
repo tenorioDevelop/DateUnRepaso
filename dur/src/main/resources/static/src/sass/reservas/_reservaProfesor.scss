@@ -66,6 +66,7 @@
                     font-weight: 600;
                     border: none;
                     transition: 0.5s;
+                    align-self: flex-start;
                 }
 
                 &_boton:hover {
@@ -87,12 +88,13 @@
 
     @include m.tablet() {
         &_contenido {
+            flex-direction: row;
+
             &--form {
                 .formReservaP {
-                    flex-direction: row;
 
                     &_input {
-                        width: calc(100%/5);
+                        width: 100%;
                     }
                 }
             }
