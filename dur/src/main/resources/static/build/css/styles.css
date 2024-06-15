@@ -13014,8 +13014,8 @@ i {
     width: 70%;
   }
   .clases_contenido--reservas {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
   .clases_contenido--reservas .reserva div i img {
     width: 3rem;
@@ -13030,9 +13030,6 @@ i {
 @media screen and (min-width: 1280px) {
   .clases_contenido {
     width: 80%;
-  }
-  .clases_contenido--reservas {
-    grid-template-columns: repeat(2, 1fr);
   }
   .clases_contenido--reservas .reserva div i img {
     width: 4rem;
