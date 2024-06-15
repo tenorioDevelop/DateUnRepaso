@@ -141,6 +141,7 @@
             width: 80%;
 
             &--reservas {
+                grid-template-columns: repeat(2, 1fr);
 
                 .reserva {
 
