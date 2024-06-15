@@ -12659,6 +12659,14 @@ i {
 }
 @media screen and (min-width: 768px) {
   .resProfesor_contenido {
+    flex-direction: column;
+  }
+  .resProfesor_contenido--form .formReservaP_input {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .resProfesor_contenido {
     flex-direction: row;
   }
   .resProfesor_contenido--form .formReservaP_input {

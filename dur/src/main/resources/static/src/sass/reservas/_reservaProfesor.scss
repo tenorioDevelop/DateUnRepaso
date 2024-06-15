@@ -88,6 +88,21 @@
 
     @include m.tablet() {
         &_contenido {
+            flex-direction: column;
+
+            &--form {
+                .formReservaP {
+
+                    &_input {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    @include m.desktop() {
+        &_contenido {
             flex-direction: row;
 
             &--form {
