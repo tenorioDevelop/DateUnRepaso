@@ -73,12 +73,10 @@ public class ReservaAlumnoImp {
 	}
 
 	public boolean existsById(Long id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public long count() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
   

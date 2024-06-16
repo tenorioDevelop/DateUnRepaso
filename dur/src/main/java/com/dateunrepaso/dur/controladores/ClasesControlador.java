@@ -50,6 +50,7 @@ public class ClasesControlador {
 	@Autowired
 	EmailServiceImp emailServiceImp;
 
+	@Transactional
 	@GetMapping("")
 	public String getClases(Model model, RedirectAttributes atributos) {
 		model.addAttribute("paginaActiva", "clases");
