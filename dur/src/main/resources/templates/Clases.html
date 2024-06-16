@@ -27,19 +27,23 @@
 				<div th:each="reserva : ${Reservas}" class="reserva">
 					<h2 th:text="${reserva.aula.nombre}" class="reserva_titulo"></h2>
 					<div th:if="${tipoUsuario == 'alumno'}">
-						<i><img th:src="@{build/img/Iconos/Icono_Profesor_Clases.png}" alt=""></i>
+						<i><img th:src="@{build/img/Iconos/Icono_Profesor_Clases.png}" alt="Profesor"></i>
 						<p th:text="${reserva.profesor.nomCompleto}" class="reserva_nombreP"></p>
 					</div>
 					<div>
-						<i><img th:src="@{build/img/Iconos/Icono_Asignatura_Clases.png}" alt=""></i>
+						<i><img th:src="@{build/img/Iconos/Icono_Asignatura_Clases.png}" alt="Asignatura"></i>
 						<p th:text="${reserva.profesor.asignatura.nombre}" class="reserva_asignatura"></p>
 					</div>
+					<div th:if="${usuario.rol.toString() == 'PROFESOR'}">
+						<i><img th:src="@{build/img/Iconos/personas.png}" alt="Personas apuntadas a la clase"></i>
+						<p th:text="${reserva.lstReservaAlumno.size()}" class="reserva_asignatura"></p>
+					</div>
 					<div>
-						<i><img th:src="@{build/img/Iconos/Icono_Calendario_ReservaP.png}" alt=""></i>
+						<i><img th:src="@{build/img/Iconos/Icono_Calendario_ReservaP.png}" alt="Fecha"></i>
 						<p th:text="${reserva.fechaReserva}" class="reserva_fecha"></p>
 					</div>
 					<div>
-						<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}" alt=""></i>
+						<i><img th:src="@{build/img/Iconos/Icono_Hora_ReservaP.png}" alt="Horario"></i>
 						<p class="reserva_horas"><span th:text="${reserva.horaInicio} + ':00'"></span> - <span
 								th:text="${reserva.horaFin} + ':00'"></span></p>
 					</div>
