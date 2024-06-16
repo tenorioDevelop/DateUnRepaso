@@ -61,7 +61,7 @@ public class ReservaAlumnoControlador {
 
         Alumno alumno = alumnoImp.findById(usuario.getId()).get();
 
-        List<ReservaProfesor> reservaP = reservaProfeImp.findAll();
+        List<ReservaProfesor> reservaP = reservaProfeImp.getReservasDeProfesorActuales();
         reservaP.removeIf(p -> !p.getLstReservaAlumno().stream().allMatch(a -> a.getId() == alumno.getId()));
         model.addAttribute("listaReservasP", reservaP);
         return "ReservaAlumno";
