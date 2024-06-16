@@ -108,7 +108,7 @@ public class ReservaAlumnoControlador {
                                 && reservaP.getHoraFin() <= reserva.getHoraFin())
                         || (reservaP.getHoraInicio() < reserva.getHoraInicio()
                                 && reservaP.getHoraFin() > reserva.getHoraFin()))
-                        && reservaP.getFechaReserva().equals(reservaA.getFechaReserva())) {
+                        && reservaP.getFechaReserva().equals(reserva.getFechaReserva())) {
                             
                     atributos.addFlashAttribute("Error", "Ya tienes una reserva entre esas horas");
                     esValido = false;
