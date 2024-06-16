@@ -17,7 +17,9 @@
 
 	<main class="reservaA">
 		<h1 class="reservaA_titulo">Reserva</h1>
-
+		<div class="clases_contenido--vacio" th:if="${listaReservasP.isEmpty()}">
+			<h2>No hay reservas disponibles</h2>
+		</div>
 		<section class="reservaA_contenido">
 
 			<form th:action="@{/reserva-alumno}" method="post" th:each="reserva: ${listaReservasP}"
