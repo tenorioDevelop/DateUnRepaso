@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let eventosCalendario = [];
 
   function llamadaApi() {
-    const urlAlumno = 'http://localhost:8080/api/reservas-alumno/' + idUsuario;
-    const urlProfesor = 'http://localhost:8080/api/reservas-profesor/' + idUsuario;
+    const urlAlumno = 'https://dateunrepaso.up.railway.app/api/reservas-alumno/' + idUsuario;
+    const urlProfesor = 'https://dateunrepaso.up.railway.app/api/reservas-profesor/' + idUsuario;
 
     let url;
     if (rolUsuario === "ALUMNO") {
