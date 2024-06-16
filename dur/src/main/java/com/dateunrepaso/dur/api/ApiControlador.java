@@ -85,6 +85,7 @@ public class ApiControlador {
             if (todos != null) {
                 if (todos.equals("s") && reserva.getProfesor().getId() != idProfesor) {
                     map.put("title", formatearNombreReservaProfesor(reserva.getAula()) + " del profesor " + reserva.getProfesor().getNomCompleto());
+                    map.put("className", "claseExterna");
                 } else {
                     map.put("title", formatearNombreReservaProfesor(reserva.getAula()));
                 }
