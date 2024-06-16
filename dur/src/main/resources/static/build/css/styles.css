@@ -12796,6 +12796,14 @@ i {
 }
 @media screen and (min-width: 768px) {
   .resProfesor_contenido {
+    flex-direction: column;
+  }
+  .resProfesor_contenido--form .formReservaP_input {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .resProfesor_contenido {
     flex-direction: row;
   }
   .resProfesor_contenido--form .formReservaP_input {
@@ -13151,8 +13159,8 @@ i {
     width: 70%;
   }
   .clases_contenido--reservas {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
   .clases_contenido--reservas .reserva div i img {
     width: 3rem;
