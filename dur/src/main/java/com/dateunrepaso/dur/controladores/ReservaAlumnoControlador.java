@@ -50,6 +50,7 @@ public class ReservaAlumnoControlador {
     @Autowired
     AlumnoImp alumnoImp; // Añadir el repositorio de Alumno
 
+    @Transactional
     @GetMapping("")
     public String getReservaAlumno(Model model) {
         String nombreUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
