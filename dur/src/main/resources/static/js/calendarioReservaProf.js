@@ -57,7 +57,29 @@ document.addEventListener('DOMContentLoaded', function () {
           buttonText: 'Día'
         }
       },
+      events: eventosCalendario,
+      eventClick: function (info) {
+        info.jsEvent.preventDefault(); // prevenir el comportamiento predeterminado
+        document.getElementById('modalTitle').innerText = info.event.title;
+        document.getElementById('modalBody').innerText =
+          `Inicio: ${info.event.start.toLocaleString()}\nFin: ${info.event.end ? info.event.end.toLocaleString() : 'N/A'}`;
+        document.getElementById('eventModal').style.display = 'block';
+      }
     });
+
+     // Código para cerrar el modal
+  const modal = document.getElementById('eventModal');
+  const span = document.getElementsByClassName('close')[0];
+
+  span.onclick = function () {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
     calendar.render();
   }
 

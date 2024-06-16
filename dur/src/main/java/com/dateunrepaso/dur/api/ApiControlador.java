@@ -82,13 +82,10 @@ public class ApiControlador {
 
         for (ReservaProfesor reserva : original) {
             HashMap map = new HashMap<>();
-            if (todos != null) {
-                if (todos.equals("s") && reserva.getProfesor().getId() != idProfesor) {
-                    map.put("title", formatearNombreReservaProfesor(reserva.getAula()) + " del profesor " + reserva.getProfesor().getNomCompleto());
-                    map.put("className", "claseExterna");
-                } else {
-                    map.put("title", formatearNombreReservaProfesor(reserva.getAula()));
-                }
+            if (todos != null && todos.equals("s") && reserva.getProfesor().getId() != idProfesor) {
+                map.put("title", formatearNombreReservaProfesor(reserva.getAula()) + " del profesor "
+                        + reserva.getProfesor().getNomCompleto());
+                map.put("className", "claseExterna");
             } else {
                 map.put("title", formatearNombreReservaProfesor(reserva.getAula()));
             }
