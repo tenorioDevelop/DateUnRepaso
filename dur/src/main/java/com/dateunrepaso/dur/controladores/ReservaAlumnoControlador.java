@@ -101,12 +101,7 @@ public class ReservaAlumnoControlador {
         if (!reservaAlumnoImp.findAll().isEmpty()) {
             List<ReservaAlumno> reservasAlumnos = reservaAlumnoImp.findAll();
             for (ReservaAlumno reserva : reservasAlumnos) {
-                if (reservaP.getFechaReserva().equals(reserva.getFechaReserva())
-                        && (reservaP.getHoraInicio() >= reserva.getHoraInicio()
-                                && reservaP.getHoraFin() <= reserva.getHoraFin())) {
-                    atributos.addFlashAttribute("Error", "Ya tienes una reserva en esas horas");
-                    esValido = false;
-                }
+
                 if (((reservaP.getHoraInicio() >= reserva.getHoraInicio()
                         && reservaP.getHoraInicio() < reserva.getHoraFin())
                         || (reservaP.getHoraFin() > reserva.getHoraInicio()
