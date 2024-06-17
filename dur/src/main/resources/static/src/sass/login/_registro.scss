@@ -56,23 +56,24 @@
                 }
 
                 &--label {
-                    height: 60px;
                     width: 48%;
                     background-color: white;
                     border-radius: 10px;
                     position: relative;
                     transition: 0.5s;
 
+                    padding: 0.5rem;
 
-                    .formRegistro_perfiles--icono {
-                        position: absolute;
-                        top: 70%;
-                        left: 50%;
-                        transform: translate(-50%, -80%);
-                    }
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
 
                     .formRegistro_perfiles--iconoImagen {
                         width: 4rem;
+                    }
+                    .formRegistro_perfiles--texto {
+                        font-size: 14px;
+                        font-weight: bold;
                     }
                 }
 

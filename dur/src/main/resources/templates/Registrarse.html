@@ -18,7 +18,7 @@
 			<p class="registro_contenido--logearse">
 				¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión aquí.</a>
 			</p>
-			
+
 			<form class="registro_contenido--formRegistro" method="post" th:action="@{/registro}">
 				<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${Error != null}">
 					<label th:text="${Error}"></label>
@@ -33,12 +33,12 @@
 				<input class="formRegistro_datos form-control" type="text" name="dni" placeholder="DNI"
 					pattern="[0-9]{8}[A-Za-z]{1}" required>
 
-				<input class="formRegistro_datos form-control" type="date" name="fechaNac" id="fechaNacReg"
-					placeholder="Fecha de nacimiento" required>
+				<input class="formRegistro_datos form-control" type="text" onfocus="(this.type='date')"
+					onblur="(this.type='text')" name="fechaNac" id="fechaNacReg" placeholder="Fecha de nacimiento"
+					required>
 
 				<input class="formRegistro_datos form-control" type="email" name="correo"
-					placeholder="Correo electrónico"
-					required>
+					placeholder="Correo electrónico" required>
 
 				<input class="formRegistro_datos form-control" type="password" name="contrasena"
 					placeholder="Contraseña" minlength="8" required>
@@ -57,23 +57,26 @@
 				</select>
 
 				<div class="formRegistro_perfiles">
-					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfil"
-						value="esProfesor" checked="checked">
-					<label for="radioProf" class="formRegistro_perfiles--label">
-						<i class="formRegistro_perfiles--icono" aria-hidden="true">
-							<img class="formRegistro_perfiles--iconoImagen"
-								th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt="">
-						</i>
-					</label>
-
 					<input type="radio" id="radioAlumno" class="formRegistro_perfiles--input" name="perfil"
-						value="esAlumno">
+						value="esAlumno" checked="checked">
 					<label for="radioAlumno" class="formRegistro_perfiles--label">
 						<i class="formRegistro_perfiles--icono" aria-hidden="true">
 							<img class="formRegistro_perfiles--iconoImagen"
 								th:src="@{build/img/Iconos/Icono_Alumno_Registro.png}" alt="">
 						</i>
+						<span class="formRegistro_perfiles--texto">Alumno</span>
 					</label>
+
+					<input type="radio" id="radioProf" class="formRegistro_perfiles--input" name="perfil"
+						value="esProfesor">
+					<label for="radioProf" class="formRegistro_perfiles--label">
+						<i class="formRegistro_perfiles--icono" aria-hidden="true">
+							<img class="formRegistro_perfiles--iconoImagen"
+								th:src="@{build/img/Iconos/Icono_Profesor_Registro.png}" alt="">
+						</i>
+						<span class="formRegistro_perfiles--texto">Profesor</span>
+					</label>
+
 				</div>
 
 				<input class="boton-secundario formRegistro_boton mt-3" type="submit" name="botonReg" value="Registro">

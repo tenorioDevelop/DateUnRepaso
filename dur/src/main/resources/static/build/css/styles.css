@@ -12038,10 +12038,6 @@ h1 {
   padding: 0.5rem 3rem;
 }
 
-i {
-  font-size: 28px;
-}
-
 .alert {
   background-color: #f5efff;
   color: #643e7b;
@@ -12261,21 +12257,22 @@ i {
   display: none;
 }
 .registro_contenido--formRegistro .formRegistro_perfiles--label {
-  height: 60px;
   width: 48%;
   background-color: white;
   border-radius: 10px;
   position: relative;
   transition: 0.5s;
-}
-.registro_contenido--formRegistro .formRegistro_perfiles--label .formRegistro_perfiles--icono {
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -80%);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .registro_contenido--formRegistro .formRegistro_perfiles--label .formRegistro_perfiles--iconoImagen {
   width: 4rem;
+}
+.registro_contenido--formRegistro .formRegistro_perfiles--label .formRegistro_perfiles--texto {
+  font-size: 14px;
+  font-weight: bold;
 }
 .registro_contenido--formRegistro .formRegistro_perfiles--input:checked + .formRegistro_perfiles--label {
   background-color: #cdc1ff;
