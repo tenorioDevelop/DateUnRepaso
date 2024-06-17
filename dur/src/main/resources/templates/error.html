@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/build/css/styles.css}">
-	<link rel="icon" th:href="@{build/img/Logo/Icono_DU_blanco.png}" sizes="any">
+    <link rel="icon" th:href="@{build/img/Logo/Icono_DU_blanco.png}" sizes="any">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Error - DateUnRepaso</title>
 </head>
@@ -33,19 +33,8 @@
                 <div class="error_body--informacion mb-3" th:if="${message != null}">
                     <strong>Mensaje:</strong> <span th:text="${message}">Mensaje</span>
                 </div>
-                <div class="error_body--informacion mb-3" th:if="${errors != null}">
-                    <strong>Errores:</strong>
-                    <ul class="list-unstyled">
-                        <li th:each="err : ${errors}" th:text="${err}">Error</li>
-                    </ul>
-                </div>
-                <div class="error_body--informacion mb-3">
-                    <strong>Ruta:</strong> <span th:text="${path}">Ruta</span>
-                </div>
-                <div class="error_body--informacion mb-3" th:if="${trace != null}">
-                    <strong>Traza:</strong>
-                    <pre class="bg-light p-3" th:text="${trace}">Traza</pre>
-
+                <div class="error_body--informacion mb-3" th:if="${message != null}">
+                    <span>Contacte con el administrador: </span><strong>dateunrepasotfg@gmail.com</strong>
                 </div>
             </div>
         </div>
