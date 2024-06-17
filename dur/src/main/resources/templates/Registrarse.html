@@ -46,13 +46,12 @@
 				<input class="formRegistro_datos form-control" type="password" name="contrasenaRep"
 					placeholder="Repetir contraseña" minlength="8" required>
 
-				<select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required>
+				<select class="formRegistro_datos form-control" name="asignaturaProf" id="asignaturaProf" required hidden>
 					<option value="-1">Seleccione una asignatura</option>
 					<option th:each="asig : ${listaAsignaturas}" th:value="${asig.id}" th:text="${asig.nombre}">
 					</option>
 				</select>
-				<select class="formRegistro_datos form-control" name="asignaturaAlumno" id="asignaturaAlumno" required
-					hidden>
+				<select class="formRegistro_datos form-control" name="asignaturaAlumno" id="asignaturaAlumno" required>
 					<option value="-1">No puedes seleccionar una asignatura</option>
 				</select>
 
