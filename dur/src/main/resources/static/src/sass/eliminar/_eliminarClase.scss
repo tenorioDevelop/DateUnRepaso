@@ -8,17 +8,12 @@
 
     &_contenido {
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-
 
         &--formulario {
-            width: 60rem;
             background-color: c.$primero;
             border-radius: 8px;
             padding: 4rem 2rem;
+            margin:20rem 5rem;
 
             .formEliminar_titulo {
                 font-size: 20px;
@@ -54,6 +49,15 @@
         &_contenido {
             width: 70%;
 
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            &--formulario {
+                width: 60rem;
+                margin: inherit;
+            }
 
         }
     }
